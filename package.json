@@ -1,0 +1,31 @@
+{
+  "name": "codya",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "standard && node index.js -r module-alias/register -r dotenv/config",
+    "test": "standard --fix && nodemon"
+  },
+  "engines": {
+    "node": ">=12.x"
+  },
+  "dependencies": {
+    "discord.js": "^12.1.1",
+    "dotenv": "^8.2.0",
+    "gorilink": "^1.1.0",
+    "module-alias": "^2.2.2",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.7",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.2",
+    "standard": "^14.3.3"
+  },
+  "_moduleAliases": {
+    "@structures": "src/structures",
+    "@config": "./config.js",
+    "@utils": "src/utils"
+  },
+  "license": "ISC"
+}
