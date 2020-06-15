@@ -1,18 +1,18 @@
-const { Client } = require('discord.js')
+const { Client, Collection } = require('discord.js')
+const { Constants } = require('./utils/')
 const config = require('../config.js')
 const Loaders = require('./loaders')
-const { Constants } = require('./utils/')
-const { CommandCollection, Database: database } = require('./structures')
+const Mongo = require('./database/Mongo')
 
 module.exports = class Codya extends Client {
   constructor (options = {}) {
     super(options)
 
     this.devs = ['400385060311793674', '616410427794128909', '332581129704177664', '662537363779616785']
-    this.commands = new CommandCollection()
+    this.commands = new Collection()
     this.config = config
     this.botEmojis = Constants.emojis
-    this.database = database
+    this.database = new Mongo(process.env.DATABASE)
   }
 
   async initLoaders () {

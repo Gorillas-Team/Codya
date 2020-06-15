@@ -1,12 +1,11 @@
 const xp = new Set()
-const { Database: database } = require('../../structures')
 
 module.exports = {
   name: 'message',
   async run (message) {
     if (message.author.bot || message.channel.type === 'dm') return
 
-    const authorData = await database.find({ type: 'users', id: message.author.id })
+    const authorData = await this.database.find({ type: 'users', id: message.author.id })
     message.author.data = authorData
     authorData.xp += Math.floor(Math.random() * 5) + 5
 
