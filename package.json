@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "standard && node index.js -r module-alias/register -r dotenv/config",
-    "test": "standard --fix && nodemon"
+    "test": "nodemon",
+    "lint": "standard --fix"
   },
   "engines": {
     "node": ">=12.x"
