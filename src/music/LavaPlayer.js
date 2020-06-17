@@ -6,6 +6,8 @@ module.exports = class LavaPlayer extends GorilinkPlayer {
 
     this.node = node
     this.manager = manager
+
+    this.dj = options.dj
   }
 
   addToQueue (track, user) {
