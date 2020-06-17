@@ -1,5 +1,5 @@
 module.exports = {
-  prefix: ['cc!', 'canarycodya', 'cc.', 'cc!', '<@!589865426159403008>'],
+  prefix: ['c!', 'codya', 'c.', 'c!', '<@!676150780314779653>'],
   nodes: [{
     tag: 'Primary',
     host: process.env.LAVALINK_HOST,
