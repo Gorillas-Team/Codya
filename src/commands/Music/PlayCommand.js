@@ -39,13 +39,10 @@ module.exports = class extends Command {
 
       case 'PLAYLIST_LOADED': {
         for (const track of tracks) {
-          track.info.requester = author
-          track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`
-
           if (tracks.length >= 250) return channel.send('Não posso adicionar mais que 250 músicas.')
           if (guild.music.queue.length >= 250) return channel.send('A fila está cheia.')
 
-          guild.music.queue.add(track)
+          guild.music.addToQueue(track, author)
         }
 
         channel.send(this.client.botEmojis.musicNotes + ' | Foram adicionadas `' + tracks.length + '` músicas da playlist `' + playlistInfo.name + '`. Requisitado por: `' + author.tag + '`.')
@@ -58,12 +55,9 @@ module.exports = class extends Command {
 
       case 'SEARCH_RESULT':
       case 'TRACK_LOADED': {
-        tracks[0].info.requester = author
-        tracks[0].info.thumbnail = `https://img.youtube.com/vi/${tracks[0].info.identifier}/hqdefault.jpg`
-
         if (guild.music.queue.length >= 250) return channel.send('A fila está cheia.')
 
-        guild.music.queue.add(tracks[0])
+        guild.music.addToQueue(tracks[0], author)
 
         if (guild.music.queue.length === 1) {
           if (!guild.music.playing) return guild.music.play()
