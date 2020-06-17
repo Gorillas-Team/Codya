@@ -1,8 +1,11 @@
-const { GorilinkPlayer } = require("gorilink");
+const { GorilinkPlayer } = require('gorilink')
 
 module.exports = class LavaPlayer extends GorilinkPlayer {
   constructor (node, options, manager) {
     super(node, options, manager)
+
+    this.node = node
+    this.manager = manager
   }
 
   addToQueue (track, user) {
