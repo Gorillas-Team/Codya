@@ -1,4 +1,5 @@
 /* eslint-disable no-eval */
+/* eslint-disable no-unused-vars */
 
 const { Command } = require('../../structures')
 const fetch = require('node-fetch')

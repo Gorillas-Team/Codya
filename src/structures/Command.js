@@ -80,7 +80,7 @@ module.exports = class Command {
     return embed
   }
 
-  run () {};
+  run () {}
 
   resolvePrefix (prefix) {
     return prefix !== 'codya' ? /<@!?\d+>/.test(prefix) ? '@Codya ' : prefix : prefix + ' '

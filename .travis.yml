@@ -8,6 +8,7 @@ install:
 
 script: 
   - yarn lint
+  - yarn lint:fix
 
 deploy:
   provider: heroku

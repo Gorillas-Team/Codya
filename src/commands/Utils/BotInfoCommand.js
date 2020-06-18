@@ -12,7 +12,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run ({ channel, member, lavalink }) {
+  async run ({ channel, lavalink }) {
     const lavalinkStats = lavalink.idealNodes[0].stats
 
     const embed = this.embed()

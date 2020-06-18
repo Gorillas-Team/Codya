@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
   }
 
-  run ({ channel, args, guild, member }) {
+  run ({ channel, guild, member }) {
     const memberCount = member.voice.channel.members.filter(x => !x.user.bot).size
     const required = Math.ceil(memberCount / 2)
 

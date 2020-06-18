@@ -15,7 +15,7 @@ module.exports = class FileUtils {
           const required = require(fullPath)
           callback(null, required)
         } catch (err) { callback(err, file) }
-      };
+      }
     }
   }
 }

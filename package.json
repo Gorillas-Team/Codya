@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "standard && node index.js -r module-alias/register -r dotenv/config",
-    "test": "nodemon",
-    "lint": "standard --fix"
+    "start": "yarn lint && node index.js -r module-alias/register -r dotenv/config",
+    "test": "yarn lint && nodemon",
+    "lint": "eslint src/ index.js",
+    "lint:fix": "eslint --fix src/ index.js"
   },
   "engines": {
     "node": ">=12.x"
@@ -20,8 +21,8 @@
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "nodemon": "2.0.2",
-    "standard": "^14.3.3"
+    "eslint": "^7.2.0",
+    "nodemon": "2.0.2"
   },
   "_moduleAliases": {
     "@structures": "src/structures",
