@@ -19,7 +19,7 @@ module.exports = {
       xp.add(message.author.id)
     }
 
-    setTimeout(_ => xp.delete(message.author.id), 60000)
+    setTimeout(() => xp.delete(message.author.id), 60000)
 
     const prefix = getPrefix.call(this, message)
     if (!message.content.toLowerCase().startsWith(prefix)) return

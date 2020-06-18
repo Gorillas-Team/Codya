@@ -50,19 +50,19 @@ module.exports = class extends Command {
     const command = commands.find(c => c.name === opts || c.aliases.includes(opts))
 
     switch (!!command) {
-      case true: {
-        const embed = this.embed()
-          .addField('Nome:', `\`${command.name}\``)
-          .addField('Descrição:', `\`${command.description}\``)
-          .addField('Como usar:', `\`${command.getUsage(prefix)}\``)
-          .addField('Alternativas:', `\`${command.aliases.join(', ')}\``)
+    case true: {
+      const embed = this.embed()
+        .addField('Nome:', `\`${command.name}\``)
+        .addField('Descrição:', `\`${command.description}\``)
+        .addField('Como usar:', `\`${command.getUsage(prefix)}\``)
+        .addField('Alternativas:', `\`${command.aliases.join(', ')}\``)
 
-        channel.send(embed)
-        break
-      }
-      default: {
-        channel.send('❌ | Este comando não existe.')
-      }
+      channel.send(embed)
+      break
+    }
+    default: {
+      channel.send('❌ | Este comando não existe.')
+    }
     }
   }
 }
