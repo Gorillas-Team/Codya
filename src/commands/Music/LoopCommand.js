@@ -20,21 +20,21 @@ module.exports = class extends Command {
   async run ({ channel, guild, args }) {
     const track = guild.music.track
     switch (args[0]) {
-    case 'single': {
-      guild.music.loopSingle(!guild.music.loopedSingle)
-      channel.send(`${this.client.botEmojis.repeatOne} | Loop na música \`${track.info.title}\` foi \`${guild.music.loopedSingle ? 'ativado' : 'desativado'}\` com sucesso.`)
-        .then(msg => msg.delete({ timeout: 5000 }))
-      break
-    }
-    case 'all': {
-      guild.music.loopAll(!guild.music.loopedAll)
-      channel.send(`${this.client.botEmojis.repeatAll} | Loop na fila foi \`${guild.music.loopedAll ? 'ativado' : 'desativado'}\` com sucesso.`)
-        .then(msg => msg.delete({ timeout: 5000 }))
-      break
-    }
-    default: {
-      channel.send(this.client.botEmojis.error + ' | Você não informou o tipo de loop. `<single/all>`')
-    }
+      case 'single': {
+        guild.music.loopSingle(!guild.music.loopedSingle)
+        channel.send(`${this.client.botEmojis.repeatOne} | Loop na música \`${track.info.title}\` foi \`${guild.music.loopedSingle ? 'ativado' : 'desativado'}\` com sucesso.`)
+          .then(msg => msg.delete({ timeout: 5000 }))
+        break
+      }
+      case 'all': {
+        guild.music.loopAll(!guild.music.loopedAll)
+        channel.send(`${this.client.botEmojis.repeatAll} | Loop na fila foi \`${guild.music.loopedAll ? 'ativado' : 'desativado'}\` com sucesso.`)
+          .then(msg => msg.delete({ timeout: 5000 }))
+        break
+      }
+      default: {
+        channel.send(this.client.botEmojis.error + ' | Você não informou o tipo de loop. `<single/all>`')
+      }
     }
   }
 }
