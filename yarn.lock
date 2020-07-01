@@ -821,10 +821,10 @@ globals@^12.1.0:
   dependencies:
     type-fest "^0.8.1"
 
-gorilink@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/gorilink/-/gorilink-1.1.0.tgz#72f678807a112696867fe42719a6fe5f5ab501a5"
-  integrity sha512-UG4oLAvDuNBMUUBr6MwL7jjkjdQS84T8gcQY4St9udWwJMqWxVaVZaMmzyfRx836PW9hS3sJ/joz0eF10/zD5w==
+gorilink@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/gorilink/-/gorilink-1.1.4.tgz#6ae97755e5715227419b59581320014d661e4069"
+  integrity sha512-ZBha/2mVAY71FeVBmDxgZdcfVqAkJmwPCcmzwiefTZctc8/5VV+Xfw9u1G6f/UDXi7G7U5Exi9gBJan+MjxXoA==
   dependencies:
     "@discordjs/collection" "^0.1.5"
     node-fetch "^2.6.0"
