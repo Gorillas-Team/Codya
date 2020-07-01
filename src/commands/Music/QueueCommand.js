@@ -55,41 +55,41 @@ module.exports = class extends Command {
 
     collector.on('collect', async (r) => {
       switch (r.emoji.name) {
-      case emojis[0]: {
-        paginator.prevPage()
+        case emojis[0]: {
+          paginator.prevPage()
 
-        const isFirstPage = paginator.pages.actual === 1
-        const songs = paginator.get(isFirstPage)
+          const isFirstPage = paginator.pages.actual === 1
+          const songs = paginator.get(isFirstPage)
 
-        embed.setDescription(`**Tocando agora:** \`${queue[0].info.title}\`
+          embed.setDescription(`**Tocando agora:** \`${queue[0].info.title}\`
             
                     **Próximas músicas: [${queue.length - 1}]**
 
                     ${songs.map(mapSongs.bind(null, paginator)).join('\n')}`)
 
-        embed.setFooter('Página ' + paginator.pages.actual + ' de ' + paginator.pages.total)
+          embed.setFooter('Página ' + paginator.pages.actual + ' de ' + paginator.pages.total)
 
-        r.users.remove(author.id).catch(console.error)
-        msg.edit(embed)
-        break
-      }
-      case emojis[1]:
-        collector.stop()
-        break
+          r.users.remove(author.id).catch(console.error)
+          msg.edit(embed)
+          break
+        }
+        case emojis[1]:
+          collector.stop()
+          break
 
-      case emojis[2]: {
-        const songs = paginator.nextPage().get()
-        embed.setDescription(`**Tocando agora:** \`${queue[0].info.title}\`
+        case emojis[2]: {
+          const songs = paginator.nextPage().get()
+          embed.setDescription(`**Tocando agora:** \`${queue[0].info.title}\`
             
                     **Próximas músicas: [${queue.length - 1}]**
 
                     ${songs.map(mapSongs.bind(null, paginator)).join('\n')}`)
-        embed.setFooter('Página ' + paginator.pages.actual + ' de ' + paginator.pages.total)
+          embed.setFooter('Página ' + paginator.pages.actual + ' de ' + paginator.pages.total)
 
-        r.users.remove(author.id).catch(console.error)
-        msg.edit(embed)
-        break
-      }
+          r.users.remove(author.id).catch(console.error)
+          msg.edit(embed)
+          break
+        }
       }
     })
 

@@ -30,45 +30,45 @@ module.exports = class extends Command {
     const { tracks, loadType, playlistInfo } = await lavalink.fetchTracks(args.join(' '))
 
     switch (loadType) {
-    case 'NO_MATCHES': {
-      channel.send(this.client.botEmojis.error + ' | Não encontrei a música.')
-        .then(x => x.delete({ timeout: 5000 }))
-      break
-    }
+      case 'NO_MATCHES': {
+        channel.send(this.client.botEmojis.error + ' | Não encontrei a música.')
+          .then(x => x.delete({ timeout: 5000 }))
+        break
+      }
 
-    case 'PLAYLIST_LOADED': {
-      for (const track of tracks) {
-        if (tracks.length >= 250) return channel.send('Não posso adicionar mais que 250 músicas.')
+      case 'PLAYLIST_LOADED': {
+        for (const track of tracks) {
+          if (tracks.length >= 250) return channel.send('Não posso adicionar mais que 250 músicas.')
+          if (guild.music.queue.length >= 250) return channel.send('A fila está cheia.')
+
+          guild.music.addToQueue(track, author)
+        }
+
+        channel.send(this.client.botEmojis.musicNotes + ' | Foram adicionadas `' + tracks.length + '` músicas da playlist `' + playlistInfo.name + '`. Requisitado por: `' + author.tag + '`.')
+          .then(x => x.delete({ timeout: 10000 }))
+
+        if (!guild.music.playing) return guild.music.play()
+
+        break
+      }
+
+      case 'SEARCH_RESULT':
+      case 'TRACK_LOADED': {
         if (guild.music.queue.length >= 250) return channel.send('A fila está cheia.')
 
-        guild.music.addToQueue(track, author)
-      }
+        guild.music.addToQueue(tracks[0], author)
 
-      channel.send(this.client.botEmojis.musicNotes + ' | Foram adicionadas `' + tracks.length + '` músicas da playlist `' + playlistInfo.name + '`. Requisitado por: `' + author.tag + '`.')
-        .then(x => x.delete({ timeout: 10000 }))
+        if (guild.music.queue.length === 1) {
+          if (!guild.music.playing) return guild.music.play()
+        }
 
-      if (!guild.music.playing) return guild.music.play()
+        channel.send(this.client.botEmojis.musicNotes + ' | Adicionado na fila: `' + tracks[0].info.title + '`. Requisitado por: `' + author.tag + '`')
+          .then(x => x.delete({ timeout: 10000 }))
 
-      break
-    }
-
-    case 'SEARCH_RESULT':
-    case 'TRACK_LOADED': {
-      if (guild.music.queue.length >= 250) return channel.send('A fila está cheia.')
-
-      guild.music.addToQueue(tracks[0], author)
-
-      if (guild.music.queue.length === 1) {
         if (!guild.music.playing) return guild.music.play()
+
+        break
       }
-
-      channel.send(this.client.botEmojis.musicNotes + ' | Adicionado na fila: `' + tracks[0].info.title + '`. Requisitado por: `' + author.tag + '`')
-        .then(x => x.delete({ timeout: 10000 }))
-
-      if (!guild.music.playing) return guild.music.play()
-
-      break
-    }
     }
   }
 }

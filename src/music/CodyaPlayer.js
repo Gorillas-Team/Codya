@@ -1,6 +1,6 @@
 const { GorilinkPlayer } = require('gorilink')
 
-module.exports = class LavaPlayer extends GorilinkPlayer {
+module.exports = class CodyaPlayer extends GorilinkPlayer {
   constructor (node, options, manager) {
     super(node, options, manager)
 

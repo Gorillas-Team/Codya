@@ -1,12 +1,12 @@
 const { GorilinkManager } = require('gorilink')
 const LavalinkLoader = require('../../loaders/LavalinkLoader.js')
-const { LavaPlayer } = require('../../music')
+const { CodyaPlayer } = require('../../music')
 
 module.exports = {
   name: 'ready',
   async run () {
     this.lavalink = new GorilinkManager(this, this.config.nodes, {
-      Player: LavaPlayer
+      Player: CodyaPlayer
     })
 
     await new LavalinkLoader(this.lavalink).load()
