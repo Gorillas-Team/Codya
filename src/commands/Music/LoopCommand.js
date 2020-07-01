@@ -21,13 +21,13 @@ module.exports = class extends Command {
     const track = guild.music.track
     switch (args[0]) {
       case 'single': {
-        guild.music.loop(guild.music.looped !== 0 ? 1 : 0)
+        guild.music.loop(guild.music.looped === 0 ? 1 : 0)
         channel.send(`${this.client.botEmojis.repeatOne} | Loop na música \`${track.info.title}\` foi \`${guild.music.looped === 1 ? 'ativado' : 'desativado'}\` com sucesso.`)
           .then(msg => msg.delete({ timeout: 5000 }))
         break
       }
       case 'all': {
-        guild.music.loop(guild.music.looped !== 0 ? 2 : 0)
+        guild.music.loop(guild.music.looped === 0 ? 2 : 0)
         channel.send(`${this.client.botEmojis.repeatAll} | Loop na fila foi \`${guild.music.looped === 2 ? 'ativado' : 'desativado'}\` com sucesso.`)
           .then(msg => msg.delete({ timeout: 5000 }))
         break
