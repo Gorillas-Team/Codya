@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "yarn lint && node index.js -r module-alias/register -r dotenv/config",
+    "start": "node index.js -r module-alias/register",
     "test": "yarn lint && nodemon",
     "lint": "eslint src/ index.js",
     "lint:fix": "eslint --fix src/ index.js"
@@ -12,22 +12,22 @@
     "node": ">=12.x"
   },
   "dependencies": {
-    "discord.js": "^12.1.1",
+    "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
-    "gorilink": "^1.1.4",
+    "gorilink": "^1.1.6",
     "module-alias": "^2.2.2",
-    "moment": "^2.24.0",
-    "mongoose": "^5.9.7",
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.21",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "nodemon": "2.0.2"
+    "nodemon": "^2.0.4"
   },
   "license": "ISC"
 }
