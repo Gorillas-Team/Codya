@@ -14,7 +14,7 @@ module.exports = class extends Command {
 
   async run ({ channel, author, mentions }) {
     const user = mentions.users.first() || author
-    const doc = await this.database.find({ type: 'users', id: user.id })
+    const doc = await this.client.database.find({ type: 'users', id: user.id })
 
     const { xp: XP, level: l } = doc
     const level = Number(l) + 1
