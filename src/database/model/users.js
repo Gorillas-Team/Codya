@@ -7,10 +7,10 @@ const users = model('users', new Schema({
   money: { type: Number, default: 0 },
   daily: { type: Number, default: 0 }
 }, {
-  timestamps: { 
-    createdAt: 'created_at', 
-    updatedAt: 'updated_at' 
-  },
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 }))
 
 module.exports = users
