@@ -6,6 +6,6 @@ const users = model('users', new Schema({
   level: { type: Number, default: 0 },
   money: { type: Number, default: 0 },
   daily: { type: Number, default: 0 }
-}))
+}, { timestamps: true }))
 
 module.exports = users
