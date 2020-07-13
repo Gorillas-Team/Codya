@@ -1,5 +1,5 @@
 const { Listener } = require('../../structures/')
-const { CodyaManager } = require('../../music')
+const { CodyaManager, CodyaPlayer } = require('../../music')
 const LavalinkLoader = require('../../loaders/LavalinkLoader.js')
 
 module.exports = class ReadyListener extends Listener {
@@ -11,7 +11,9 @@ module.exports = class ReadyListener extends Listener {
   }
 
   async run () {
-    this.lavalink = new CodyaManager(this, this.config.nodes)
+    this.lavalink = new CodyaManager(this, this.config.nodes, {
+      Player: CodyaPlayer
+    })
 
     await new LavalinkLoader(this.lavalink).load()
     console.info(

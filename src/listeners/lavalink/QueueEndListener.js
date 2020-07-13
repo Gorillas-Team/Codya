@@ -10,6 +10,6 @@ module.exports = class QueueEndListener extends Listener {
   async run (player) {
     player.textChannel.send(player.manager.client.botEmojis.stopped + ' | A fila acabou...')
 
-    await this.client.leave(player.guild)
+    await this.leave(player.guild)
   }
 }
