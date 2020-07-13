@@ -11,6 +11,7 @@ module.exports = class CommandContext {
     this.channel = context.channel
     this.mentions = context.mentions
     this.client = context.client
+    this.lavalink = context.client.lavalink
     this.config = context.client.config
   }
 }

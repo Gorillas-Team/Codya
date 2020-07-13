@@ -14,13 +14,13 @@ module.exports = class extends Command {
     }
   }
 
-  async run ({ channel, args, member, guild, author }) {
+  async run ({ channel, args, lavalink, member, guild, author }) {
     if (!args.join(' ')) {
       return channel.send(this.client.botEmojis.error + ' | Você precisa informar um nome ou um link de uma música.')
         .then(x => x.delete({ timeout: 10000 }))
     }
 
-    guild.music = await this.client.lavalink.join({
+    guild.music = await lavalink.join({
       guild: guild.id,
       voiceChannel: member.voice.channel.id,
       textChannel: channel,
