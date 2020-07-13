@@ -2,14 +2,12 @@ const Models = require('./model')
 const { connect } = require('mongoose')
 
 module.exports = class Mongo {
-  constructor (connection) {
-    this.connection = connection
-
+  constructor () {
     this.start()
   }
 
   start () {
-    return connect(this.connection, { useNewUrlParser: true, useUnifiedTopology: true })
+    return connect(process.env.DATABASE_URI, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => console.log('[MONGO] Conectado com Sucesso.'))
       .catch(err => console.error('[MONGO] Erro ao conectar: ', err))
   }

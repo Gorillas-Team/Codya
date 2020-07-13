@@ -12,7 +12,7 @@ module.exports = class Codya extends Client {
     this.commands = new Collection()
     this.config = config
     this.botEmojis = Constants.emojis
-    this.database = new Mongo(process.env.DATABASE)
+    this.database = new Mongo()
   }
 
   async initLoaders () {

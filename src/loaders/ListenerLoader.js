@@ -22,16 +22,16 @@ module.exports = class ListenerLoader extends Loader {
 
   initListeners (dir = 'src/listeners/client') {
     this.log('Carregando eventos', 'listeners')
-    return FileUtils.requireDir({ dir }, (err, listener) => {
+    return FileUtils.requireDir({ dir }, (err, Listener) => {
       if (err) {
         this.logError('    Erro: ' + err.message)
         return this.failed++
       }
 
-      const { name, run } = listener
+      const listener = new Listener(this.client)
 
-      this.client[name === 'ready' ? 'once' : 'on'](name, run)
-      console.info('|    [' + name + '] carregado')
+      this.client[listener.once ? 'once' : 'on'](listener.name, listener.run)
+      console.info('|    [' + listener.name + '] carregado')
       this.success++
     })
   }
