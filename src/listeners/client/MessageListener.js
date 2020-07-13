@@ -1,7 +1,13 @@
+const { Listener, CommandContext } = require('../../structures')
 const xp = new Set()
 
-module.exports = {
-  name: 'message',
+module.exports = class MessageListener extends Listener {
+  constructor () {
+    super({
+      name: 'message'
+    })
+  }
+
   async run (message) {
     if (message.author.bot || message.channel.type === 'dm') return
 
@@ -21,36 +27,20 @@ module.exports = {
 
     setTimeout(() => xp.delete(message.author.id), 60000)
 
-    const prefix = getPrefix.call(this, message)
+    const prefix = getPrefix(message)
     if (!message.content.toLowerCase().startsWith(prefix)) return
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g)
     const cmd = args.shift().toLowerCase()
     const command = this.commands.find(({ name, aliases }) => name === cmd || aliases.includes(cmd))
 
-    if (command) return command._run(createCtx(message, args, prefix, cmd))
-  }
-}
+    const context = new CommandContext(message, args, cmd, prefix)
 
-function createCtx (ctx, args, prefix, cmd) {
-  return {
-    guild: ctx.guild,
-    me: ctx.guild.me,
-    member: ctx.member,
-    author: ctx.author,
-    channel: ctx.channel,
-    mentions: ctx.mentions,
-    client: ctx.client,
-    config: ctx.client.config,
-    lavalink: ctx.client.lavalink,
-    message: ctx,
-    prefix: prefix,
-    args,
-    cmd
+    if (command) return command._run(context)
   }
 }
 
 function getPrefix (message) {
   const content = message.content.toLowerCase()
-  return this.config.prefix.find(prefix => content.startsWith(prefix))
+  return message.client.config.prefixes.find(prefix => content.startsWith(prefix))
 }

@@ -1,7 +1,12 @@
-/* eslint-disable no-unused-vars */
+const { Listener } = require('../../structures')
 
-module.exports = {
-  name: 'voiceStateUpdate',
+module.exports = class VoiceStateUpdateListener extends Listener {
+  constructor () {
+    super({
+      name: 'voiceStateUpdate'
+    })
+  }
+
   async run (oldMember, newMember) {
     const guild = this.guilds.cache.get(oldMember.guild.id)
     if (guild.me.voice.channel &&
