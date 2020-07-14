@@ -8,6 +8,9 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     this.manager = manager
 
     this.dj = options.dj
+
+    this.nightcoreMode = false
+    this.bassboosted = false
   }
 
   addToQueue (track, user) {
@@ -15,5 +18,32 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     track.info.thumbnail = `https://img.youtube.com/vi/${track.info.identifier}/hqdefault.jpg`
 
     return this.queue.add(track)
+  }
+
+  bassboost (mode) {
+    this.bassboosted = mode
+
+    this.bassboosted ? this.setGain(1) : this.setGain(0)
+  }
+
+  nightcore (mode) {
+    this.nightcoreMode = mode
+
+    this.nightcoreMode ? this.setTimescale({ speed: 1.1, pitch: 1.3 })
+      : this.setTimescale({ speed: 1.0, pitch: 1.0 })
+  }
+
+  setGain (number) {
+    return this.setEQ(Array(3)
+      .fill('')
+      .map((value, index) => ({ band: index, gain: number })))
+  }
+
+  setTimescale ({ speed, pitch, rate }) {
+    return this.node.send({
+      op: 'filters',
+      guildId: this.guild,
+      timescale: { speed, pitch, rate }
+    })
   }
 }

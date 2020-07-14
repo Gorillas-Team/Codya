@@ -26,7 +26,7 @@ module.exports = class extends Command {
     const paginator = new Paginator({ elements: queue, length: 10 })
 
     const embed = embeds.default
-      .setAuthor('Fila de músicas.', author.displayAvatarURL())
+      .setAuthor('Fila de músicas.', this.client.user.displayAvatarURL())
       .setDescription(`**Tocando agora:** \`${queue[0].info.title}\``)
       .setFooter('Página ' + paginator.pages.actual + ' de ' + paginator.pages.total + ' | ' + embeds.default.footer.text)
 

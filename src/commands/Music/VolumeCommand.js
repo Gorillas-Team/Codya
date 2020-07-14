@@ -24,6 +24,10 @@ module.exports = class extends Command {
       return channel.send(this.client.botEmojis.error + ' | Você não informou o volume ou valor inserido é inválido.').then(x => x.delete({ timeout: 10000 }))
     }
 
+    if (volume > 200) {
+      return channel.send(this.client.botEmojis.error + ' | O volume inserido é superior a `200`.')
+    }
+
     const emoji = volume > guild.music.state.volume ? this.client.botEmojis.volumeUp : this.client.botEmojis.volumeDown
     const state = volume > guild.music.state.volume ? 'aumentado para: ' : 'reduzido para: '
     guild.music.volume(volume)

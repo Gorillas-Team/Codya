@@ -18,13 +18,25 @@ module.exports = class extends Command {
   }
 
   run ({ channel, args, guild }) {
-    const bass = Number(args[0])
+    switch (args[0]) {
+      case 'on': {
+        guild.bassboost(true)
 
-    if (isNaN(bass)) {
-      return channel.send(this.client.botEmojis.error + ' | Informe o tamanho do bassboost.').then(x => x.delete({ timeout: 10000 }))
+        channel.send(this.client.botEmojis.dancing + ' | Bassboost ativado.')
+          .then(msg => msg.delete({ timeout: 10000 }))
+        break
+      }
+      case 'off': {
+        guild.bassboost(false)
+
+        channel.send(this.client.botEmojis.dancing + ' | Bassboost desativado.')
+          .then(msg => msg.delete({ timeout: 10000 }))
+        break
+      }
+      default: {
+        channel.send(this.client.botEmojis.dancing + ' | Informe o tipo de bassboost: <on/off>')
+          .then(msg => msg.delete({ timeout: 10000 }))
+      }
     }
-
-    guild.music.setEQ(Array(3).fill('').map((_, n) => ({ band: n, gain: bass })))
-    return channel.send(this.client.botEmojis.right + ' | Bassboost alterado para: `' + bass + '`.').then(x => x.delete({ timeout: 10000 }))
   }
 }
