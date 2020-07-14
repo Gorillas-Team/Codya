@@ -29,8 +29,8 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
   nightcore (mode) {
     this.nightcoreMode = mode
 
-    this.nightcoreMode ? this.setTimescale({ speed: 1.1, pitch: 1.3 })
-      : this.setTimescale({ speed: 1.0, pitch: 1.0 })
+    this.nightcoreMode ? this.setTimescale({ speed: 1.1, pitch: 1.3, rate: 1.3 })
+      : this.setTimescale({ speed: 1.0, pitch: 1.0, rate: 0 })
   }
 
   setGain (number) {
