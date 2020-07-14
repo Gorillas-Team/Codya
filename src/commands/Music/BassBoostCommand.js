@@ -20,14 +20,14 @@ module.exports = class extends Command {
   run ({ channel, args, guild }) {
     switch (args[0]) {
       case 'on': {
-        guild.bassboost(true)
+        guild.music.bassboost(true)
 
         channel.send(this.client.botEmojis.dancing + ' | Bassboost ativado.')
           .then(msg => msg.delete({ timeout: 10000 }))
         break
       }
       case 'off': {
-        guild.bassboost(false)
+        guild.music.bassboost(false)
 
         channel.send(this.client.botEmojis.dancing + ' | Bassboost desativado.')
           .then(msg => msg.delete({ timeout: 10000 }))
