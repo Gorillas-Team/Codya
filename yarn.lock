@@ -856,7 +856,7 @@ globals@^12.1.0:
   dependencies:
     type-fest "^0.8.1"
 
-gorilink@^1.1.6:
+gorilink@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/gorilink/-/gorilink-1.1.8.tgz#3b21137a469d14fea20b4fc67531927e2023593f"
   integrity sha512-Uv8B6y5XCqNifKFJzCfqNLeFeJIun+4yZWXLvZ0Leo0wPuDrI6wbAwLRJLILmLqYloH+XKKSrfFSbF1BXLmusg==
@@ -1236,11 +1236,6 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-module-alias@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/module-alias/-/module-alias-2.2.2.tgz#151cdcecc24e25739ff0aa6e51e1c5716974c0e0"
-  integrity sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==
-
 moment@^2.27.0:
   version "2.27.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
@@ -1264,7 +1259,7 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
-mongoose@^5.9.21:
+mongoose@^5.9.24:
   version "5.9.24"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.9.24.tgz#ba7f95529da8fa2160d9b4d708b3fe9856c56636"
   integrity sha512-uxTLy/ExYmOfKvvbjn1PHbjSJg0SQzff+dW6jbnywtbBcfPRC/3etnG9hPv6KJe/5TFZQGxCyiSezkqa0+iJAQ==
