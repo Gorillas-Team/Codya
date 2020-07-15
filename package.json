@@ -14,10 +14,9 @@
   "dependencies": {
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
-    "gorilink": "^1.1.6",
-    "module-alias": "^2.2.2",
+    "gorilink": "^1.1.8",
     "moment": "^2.27.0",
-    "mongoose": "^5.9.21",
+    "mongoose": "^5.9.24",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
