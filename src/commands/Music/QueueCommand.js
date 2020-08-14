@@ -93,7 +93,9 @@ module.exports = class extends Command {
       }
     })
 
-    collector.on('end', msg.delete)
+    collector.on('end', () => {
+      msg.delete()
+    })
   }
 }
 

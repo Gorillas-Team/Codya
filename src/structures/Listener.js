@@ -4,5 +4,17 @@ module.exports = class Listener {
     this.once = options.once || false
   }
 
+  listen (client) {
+    try {
+      client[this.once ? 'once' : 'on'](this.name, this.run)
+
+      return true
+    } catch (err) {
+      console.error(err)
+
+      return false
+    }
+  }
+
   run () {}
 }

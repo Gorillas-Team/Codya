@@ -1,13 +1,6 @@
 const Client = require('./src/Codya.js')
+const config = require('./config')
 
-const Codya = new Client({
-  fetchAllMembers: true,
-  presence: {
-    activity: {
-      name: '@Codya help 😳',
-      type: 'WATCHING'
-    }
-  }
-})
+const Codya = new Client(config)
 
-Codya.login()
+Codya.start()
