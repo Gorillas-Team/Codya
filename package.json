@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js -r module-alias/register",
+    "start": "node index.js",
     "test": "yarn lint && nodemon",
     "lint": "eslint src/ index.js",
     "lint:fix": "eslint --fix src/ index.js"
