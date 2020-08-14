@@ -2,6 +2,6 @@ module.exports = {
   Command: require('./Command'),
   Loader: require('./Loader'),
   Paginator: require('./Paginator'),
-  CommandContext: require('./utils/CommandContext'),
+  CommandContext: require('./command/CommandContext'),
   Listener: require('./Listener')
 }

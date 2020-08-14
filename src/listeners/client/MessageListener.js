@@ -1,4 +1,5 @@
 const { Listener, CommandContext } = require('../../structures')
+const { getPrefix } = require('../../utils')
 const xp = new Set()
 
 module.exports = class MessageListener extends Listener {
@@ -36,11 +37,6 @@ module.exports = class MessageListener extends Listener {
 
     const context = new CommandContext(message, args, cmd, prefix)
 
-    if (command) return command._run(context)
+    if (command) return command.preLoad(context)
   }
-}
-
-function getPrefix (message) {
-  const content = message.content.toLowerCase()
-  return message.client.config.prefixes.find(prefix => content.startsWith(prefix))
 }

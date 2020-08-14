@@ -26,7 +26,7 @@ module.exports = class Command {
     }
   }
 
-  _run (ctx) {
+  preLoad (ctx) {
     if (this.cooldown.has(ctx.author.id)) {
       const now = Date.now()
       const cooldown = this.cooldown.get(ctx.author.id)
@@ -36,13 +36,13 @@ module.exports = class Command {
       return ctx.channel.send(`Espere ${time === 0 ? 'alguns milissegundos' : time + ' segundo(s)'} para usar este comando novamente`)
     }
 
-    if (this.dev && !this.client.devs.includes(ctx.author.id)) {
+    if (this.dev && !this.client.config.devs.includes(ctx.author.id)) {
       return ctx.channel.send('👋 | Apenas os desenvolvedores podem utilizar este comando.')
     }
 
-    if (this.hide && !this.client.devs.includes(ctx.author.id)) return
+    if (this.hide && !this.client.config.devs.includes(ctx.author.id)) return
 
-    if (!this.client.devs.includes(ctx.author.id)) {
+    if (!this.client.config.devs.includes(ctx.author.id)) {
       this.cooldown.set(ctx.author.id, Date.now() + this.cooldownTime * 1000)
       setTimeout(() => this.cooldown.delete(ctx.author.id), this.cooldownTime * 1000)
     }

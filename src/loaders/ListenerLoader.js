@@ -28,9 +28,9 @@ module.exports = class ListenerLoader extends Loader {
         return this.failed++
       }
 
-      const listener = new Listener(this.client)
+      const listener = new Listener()
 
-      this.client[listener.once ? 'once' : 'on'](listener.name, listener.run)
+      listener.listen(this.client)
       console.info('|    [' + listener.name + '] carregado')
       this.success++
     })

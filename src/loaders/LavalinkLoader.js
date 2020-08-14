@@ -23,16 +23,16 @@ module.exports = class LavalinkLoader extends Loader {
 
   initLavalink (dir = 'src/listeners/lavalink') {
     this.log('Carregando eventos', 'lavalink')
-    FileUtils.requireDir({ dir }, (error, Listener) => {
+    return FileUtils.requireDir({ dir }, (error, Listener) => {
       if (error) {
         this.logError('    Erro: ' + error.message)
         return this.failed++
       }
 
-      const { name, run } = new Listener(this.client)
+      const listener = new Listener()
 
-      this.client.on(name, run)
-      console.info('|    [' + name + '] carregado')
+      listener.listen(this.client)
+      console.info('|    [' + listener.name + '] carregado')
       this.success++
     })
   }
