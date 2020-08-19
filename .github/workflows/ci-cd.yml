@@ -43,7 +43,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Run docker build
-    - uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
