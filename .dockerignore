@@ -1,0 +1,12 @@
+node_modules/
+.env.example
+*Dockerfile*
+LICENSE
+README.md
+nodemon.json
+.idea/
+.editorconfig
+.env
+.eslintrc.js
+.gitignore
+.github/
