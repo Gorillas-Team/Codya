@@ -51,7 +51,7 @@ jobs:
         script: |
           docker stop codya
           docker rm codya
-          docker pull zmigueel/codya:least
-          docker run --name codya --env-file ~/codya.env --restart unless-stopped -d zmigueel/codya:least
+          docker pull zmigueel/codya:latest
+          docker run --name codya --env-file ~/codya.env --restart unless-stopped -d zmigueel/codya:latest
           docker system prune -a -f
 
