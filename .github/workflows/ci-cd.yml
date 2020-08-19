@@ -44,10 +44,9 @@ jobs:
     - uses: actions/checkout@master
     - name: Build and publish to registry
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           docker stop codya
           docker rm codya
