@@ -16,8 +16,8 @@ module.exports = class extends Command {
     }
   }
 
-  run ({ lavalink, guild, channel }) {
-    lavalink.leave(guild.id)
+  run ({ guild, channel }) {
+    guild.music.destroy()
     return channel.send(this.client.botEmojis.stopped + ' | Estou saindo do canal.')
   }
 }
