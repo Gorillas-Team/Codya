@@ -21,10 +21,9 @@ module.exports = class extends Command {
     }
 
     guild.music = await lavalink.join({
-      guild: guild.id,
-      voiceChannel: member.voice.channel.id,
-      textChannel: channel,
-      dj: author
+      guild,
+      voiceChannel: member.voice.channel,
+      textChannel: channel
     }, { selfDeaf: true })
 
     const { tracks, loadType, playlistInfo } = await lavalink.fetchTracks(args.join(' '))

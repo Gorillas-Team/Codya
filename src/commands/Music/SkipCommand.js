@@ -22,9 +22,9 @@ module.exports = class extends Command {
 
     if (!guild.music.queue[0].skipVotes) guild.music.queue[0].skipVotes = []
 
-    if (member.id === guild.music.dj.id) {
+    if (guild.data.djRole.length > 1 && member.roles.cache.has(guild.data.djRole)) {
       guild.music.stop()
-      return channel.send(this.client.botEmojis.skipped + ' | Música pulada com sucesso por conta de você ser o DJ.')
+      return channel.send(this.client.botEmojis.skipped + ' | Música pulada com sucesso.')
     }
 
     if (guild.music.queue[0].skipVotes.includes(member.id)) {
