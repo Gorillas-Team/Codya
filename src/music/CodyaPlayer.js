@@ -22,15 +22,15 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     return this.queue.add(track)
   }
 
-  bassboost (mode = null) {
-    if (mode) this.filters.bassboost = mode
+  bassboost (mode) {
+    if (typeof mode !== 'undefined') this.filters.bassboost = mode
     else this.filters.bassboost = !this.filters.bassboost
 
     this.filters.bassboost ? this.setGain(1) : this.setGain(0)
   }
 
-  nightcore (mode = null) {
-    if (mode) this.filters.nightcore = mode
+  nightcore (mode) {
+    if (typeof mode !== 'undefined') this.filters.nightcore = mode
     else this.filters.nightcore = !this.filters.nightcore
 
     this.filters.nightcore ? this.setTimescale({ speed: 1.1, pitch: 1.3, rate: 1.3 })
@@ -46,7 +46,7 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
   setTimescale ({ speed, pitch, rate }) {
     return this.node.send({
       op: 'filters',
-      guildId: this.guild,
+      guildId: this.guild || this.guild.id,
       timescale: { speed, pitch, rate }
     })
   }
