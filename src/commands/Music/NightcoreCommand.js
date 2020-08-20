@@ -18,25 +18,10 @@ module.exports = class extends Command {
   }
 
   run ({ channel, guild, args }) {
-    switch (args[0]) {
-      case 'on': {
-        guild.music.nightcore(true)
+    guild.music.nightcore()
+    const filter = guild.music.filters.nightcore
+    const mode = filter ? 'ativado' : 'desativado'
 
-        channel.send(this.client.botEmojis.dancing + ' | Nightcore ativado com sucesso.')
-          .then(msg => msg.delete({ timeout: 10000 }))
-        break
-      }
-      case 'off': {
-        guild.music.nightcore(false)
-
-        channel.send(this.client.botEmojis.dancing + ' | Nightcore desativado com sucesso.')
-          .then(msg => msg.delete({ timeout: 10000 }))
-        break
-      }
-      default: {
-        channel.send(this.client.botEmojis.error + ' | Você não informou o tipo de nightcore: <on/off>.')
-          .then(msg => msg.delete({ timeout: 10000 }))
-      }
-    }
+    channel.send(`${this.client.botEmojis.dancing} | Nightcore ${mode} com sucesso.`)
   }
 }

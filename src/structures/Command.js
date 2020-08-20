@@ -47,8 +47,8 @@ module.exports = class Command {
       setTimeout(() => this.cooldown.delete(ctx.author.id), this.cooldownTime * 1000)
     }
 
-    if (this.conf.voiceChannelOnly) {
-      if (!ctx.member.voice.channel) {
+    if (this.conf.voiceChannelOnly && ctx.guild.music) {
+      if (!ctx.member.voice.channel || ctx.member.voice.channel !== ctx.guild.music.voiceChannel) {
         return ctx.channel.send('❌ | Você precisa estar em um canal de voz ou no mesmo que eu.')
       }
     }
@@ -59,8 +59,9 @@ module.exports = class Command {
       }
     }
 
-    if (this.conf.djOnly && ctx.author.id !== ctx.guild.music.dj.id) {
-      return ctx.channel.send('❌ | Apenas o DJ `' + ctx.guild.music.dj.username + '` pode utilizar este comando.')
+    if (this.conf.djOnly && ctx.guild.data.djRole.length > 2 && !ctx.member.roles.cache.has(ctx.guild.data.djRole)) {
+      const role = ctx.guild.roles.cache.get(ctx.guild.data.djRole)
+      return ctx.channel.send('❌ | Você precisa ter o cargo `' + role.name + '` para utilizar este comando.')
     }
 
     return this.run(ctx)

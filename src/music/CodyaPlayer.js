@@ -7,10 +7,12 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     this.node = node
     this.manager = manager
 
-    this.dj = options.dj
+    this.voiceChannel = options.voiceChannel
 
-    this.nightcoreMode = false
-    this.bassboosted = false
+    this.filters = {
+      nightcore: false,
+      bassboost: false
+    }
   }
 
   addToQueue (track, user) {
@@ -20,16 +22,18 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     return this.queue.add(track)
   }
 
-  bassboost (mode) {
-    this.bassboosted = mode
+  bassboost (mode = null) {
+    if (mode) this.filters.bassboost = mode
+    else this.filters.bassboost = !this.filters.bassboost
 
-    this.bassboosted ? this.setGain(1) : this.setGain(0)
+    this.filters.bassboost ? this.setGain(1) : this.setGain(0)
   }
 
-  nightcore (mode) {
-    this.nightcoreMode = mode
+  nightcore (mode = null) {
+    if (mode) this.filters.nightcore = mode
+    else this.filters.nightcore = !this.filters.nightcore
 
-    this.nightcoreMode ? this.setTimescale({ speed: 1.1, pitch: 1.3, rate: 1.3 })
+    this.filters.nightcore ? this.setTimescale({ speed: 1.1, pitch: 1.3, rate: 1.3 })
       : this.setTimescale({ speed: 1.0, pitch: 1.0, rate: 1.0 })
   }
 
@@ -45,5 +49,14 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
       guildId: this.guild,
       timescale: { speed, pitch, rate }
     })
+  }
+
+  end () {
+    setTimeout(() => {
+      if (this.playing) return
+      this.destroy()
+      this.textChannel.send('Saindo do canal...')
+        .then(msg => msg.delete({ timeout: 5000 }))
+    }, 60000)
   }
 }

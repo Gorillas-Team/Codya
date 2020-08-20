@@ -13,6 +13,10 @@ module.exports = class MessageListener extends Listener {
     if (message.author.bot || message.channel.type === 'dm') return
 
     const authorData = await this.database.find({ type: 'users', id: message.author.id })
+    message.guild.data = await this.database.find({
+      type: 'guilds',
+      id: message.guild.id
+    })
     message.author.data = authorData
     authorData.xp += Math.floor(Math.random() * 5) + 5
 

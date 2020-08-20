@@ -18,25 +18,10 @@ module.exports = class extends Command {
   }
 
   run ({ channel, args, guild }) {
-    switch (args[0]) {
-      case 'on': {
-        guild.music.bassboost(true)
+    guild.music.bassboost()
+    const filter = guild.music.filters.bassboost
+    const mode = filter ? 'ativado' : 'desativado'
 
-        channel.send(this.client.botEmojis.dancing + ' | Bassboost ativado.')
-          .then(msg => msg.delete({ timeout: 10000 }))
-        break
-      }
-      case 'off': {
-        guild.music.bassboost(false)
-
-        channel.send(this.client.botEmojis.dancing + ' | Bassboost desativado.')
-          .then(msg => msg.delete({ timeout: 10000 }))
-        break
-      }
-      default: {
-        channel.send(this.client.botEmojis.dancing + ' | Informe o tipo de bassboost: <on/off>')
-          .then(msg => msg.delete({ timeout: 10000 }))
-      }
-    }
+    channel.send(`${this.client.botEmojis.dancing} | Bassboost ${mode} com sucesso.`)
   }
 }

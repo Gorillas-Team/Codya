@@ -18,6 +18,6 @@ module.exports = class extends Command {
 
   run ({ lavalink, guild, channel }) {
     lavalink.leave(guild.id)
-    return channel.send(this.client.botEmojis.stopped + ' | Estou saindo do canal à pedido do DJ.')
+    return channel.send(this.client.botEmojis.stopped + ' | Estou saindo do canal.')
   }
 }
