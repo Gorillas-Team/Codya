@@ -1,5 +1,6 @@
 const { Listener, CommandContext } = require('../../structures/client')
 const { getPrefix } = require('../../utils')
+const xpCooldown = new Set()
 
 module.exports = class MessageListener extends Listener {
   constructor () {
@@ -11,7 +12,22 @@ module.exports = class MessageListener extends Listener {
   async run (message) {
     if (message.author.bot || message.channel.type === 'dm') return
 
-    message.guild.data = await this.database.findDocument(message.guild.id, 'guilds')
+    const userDocument = await message.author.document
+
+    if (!xpCooldown.has(message.author.id)) {
+      const { xp, level } = userDocument
+      const queryOptions = { _id: message.author.id }
+
+      this.database.models.users.updateOne(queryOptions, { xp: Math.floor(Math.random() * 3) + 2 })
+
+      if (xp >= level * 60) {
+        await this.database.models.users.updateOne(queryOptions, { xp: 0, $inc: { level: Math.floor(xp / 60 - level) } })
+      }
+
+      xpCooldown.add(message.author.id)
+    }
+
+    setTimeout(() => xpCooldown.delete(message.author.id), 60000)
 
     const prefix = getPrefix(message)
     if (!message.content.toLowerCase().startsWith(prefix)) return
