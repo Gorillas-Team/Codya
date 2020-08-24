@@ -1,4 +1,4 @@
-const { Command } = require('../../structures')
+const { Command } = require('../../structures/client')
 
 module.exports = class extends Command {
   constructor (client) {
@@ -12,16 +12,17 @@ module.exports = class extends Command {
     })
   }
 
-  async run ({ channel, author, mentions }) {
+  async run ({ channel, author, mentions, member }) {
     const user = mentions.users.first() || author
-    const doc = await this.client.database.find({ type: 'users', id: user.id })
+    const doc = await this.client.database.findDocument(user.id, 'users')
 
     const { xp: XP, level: l } = doc
-    const level = Number(l) + 1
+    const level = Number(l)
     const xp = Number(XP)
 
     channel.send(this.embed({ author })
+      .setColor(member.displayHexColor)
       .setTitle(user.id === author.id ? 'Seu XP' : `XP de ${user.username}`)
-      .setDescription(`Level ${level} - [${xp}/${level * 60}] | ${Math.floor(xp / (level * 60) * 100)}%`))
+      .setDescription(`Level ${level} - [${xp}/${level * 60}] | ${Math.floor(xp / (level * 60) * 100) || 0}%`))
   }
 }

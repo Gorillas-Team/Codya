@@ -1,4 +1,4 @@
-const { Listener } = require('../../structures/')
+const { Listener } = require('../../structures/client')
 const { CodyaManager, CodyaPlayer } = require('../../music')
 const LavalinkLoader = require('../../loaders/LavalinkLoader.js')
 

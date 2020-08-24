@@ -1,9 +1,9 @@
 module.exports = class CommandContext {
   constructor (context, args, cmd, prefix) {
-    this.message = context
-    this.args = args
     this.cmd = cmd
+    this.args = args
     this.prefix = prefix
+    this.message = context
 
     this.guild = context.guild
     this.member = context.member

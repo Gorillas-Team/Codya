@@ -59,7 +59,7 @@ module.exports = class Command {
       }
     }
 
-    if (this.conf.djOnly && ctx.guild.data.djRole.length > 2 && !ctx.member.roles.cache.has(ctx.guild.data.djRole)) {
+    if (this.conf.djOnly && ctx.guild.data.djRole && !ctx.member.roles.cache.has(ctx.guild.data.djRole)) {
       const role = ctx.guild.roles.cache.get(ctx.guild.data.djRole)
       return ctx.channel.send('❌ | Você precisa ter o cargo `' + role.name + '` para utilizar este comando.')
     }
