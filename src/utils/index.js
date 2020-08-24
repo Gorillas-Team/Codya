@@ -1,5 +1,5 @@
 module.exports = {
   FileUtils: require('./FileUtils'),
-  Constants: require('./Constants.js'),
+  Constants: require('./Constants'),
   getPrefix: require('./command/getPrefix')
 }

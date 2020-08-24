@@ -1,7 +1,7 @@
 /* eslint-disable no-eval */
 /* eslint-disable no-unused-vars */
 
-const { Command } = require('../../structures')
+const { Command } = require('../../structures/client')
 const fetch = require('node-fetch')
 const { inspect } = require('util')
 
@@ -19,10 +19,6 @@ module.exports = class extends Command {
 
   async run ({ channel, args, author, config, prefix, message, guild, member, lavalink }) {
     const input = args.join(' ').replace(/^`(``(js)?\s?)?|`(``)?$/g, '')
-
-    if (!input) {
-      return channel.send('Informe o argumento.').then(x => x.delete({ timeout: 10000 }))
-    }
 
     if (input.includes('token')) return
 

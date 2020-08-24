@@ -1,4 +1,4 @@
-const { Command } = require('../../structures')
+const { Command } = require('../../structures/client')
 const moment = require('moment')
 moment.locale('pt-BR')
 

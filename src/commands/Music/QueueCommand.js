@@ -1,4 +1,4 @@
-const { Command, Paginator } = require('../../structures')
+const { Command, Paginator } = require('../../structures/client')
 
 module.exports = class extends Command {
   constructor (client) {

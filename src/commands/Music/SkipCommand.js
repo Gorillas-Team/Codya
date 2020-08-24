@@ -1,4 +1,4 @@
-const { Command } = require('../../structures')
+const { Command } = require('../../structures/client')
 
 module.exports = class extends Command {
   constructor (client) {
@@ -22,7 +22,7 @@ module.exports = class extends Command {
 
     if (!guild.music.queue[0].skipVotes) guild.music.queue[0].skipVotes = []
 
-    if (guild.data.djRole.length > 1 && member.roles.cache.has(guild.data.djRole)) {
+    if (guild.data.djRole && member.roles.cache.has(guild.data.djRole)) {
       guild.music.stop()
       return channel.send(this.client.botEmojis.skipped + ' | Música pulada com sucesso.')
     }

@@ -1,4 +1,4 @@
-const { Command } = require('../../structures')
+const { Command } = require('../../structures/client')
 
 module.exports = class extends Command {
   constructor (client) {
@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
   }
 
-  async run ({ channel, guild, member }) {
+  async run ({ channel, guild }) {
     const { track, state } = guild.music
 
     const embed = this.embed()
@@ -25,7 +25,7 @@ module.exports = class extends Command {
       ${this.client.botEmojis.time} **| Duração:** \`${this.formatTime(state.position)}\` de \`${this.formatTime(track.info.length)}\`
       `)
       .setThumbnail(track.info.thumbnail)
-      .setColor(member.displayHexColor)
+      .setColor(guild.me.displayHexColor)
 
     channel.send(embed)
   }

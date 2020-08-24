@@ -1,7 +1,9 @@
 const { Client, Collection } = require('discord.js')
 const { Constants } = require('./utils/')
 const Loaders = require('./loaders')
-const Mongo = require('./database/Mongo')
+const Database = require('./database/Database')
+
+require('./structures/discord')
 
 module.exports = class Codya extends Client {
   constructor (options = {}) {
@@ -13,10 +15,11 @@ module.exports = class Codya extends Client {
     this.config = {
       devs: options.devs,
       prefixes: options.prefixes,
-      nodes: options.nodes
+      nodes: options.nodes,
+      database: options.database
     }
 
-    this.database = new Mongo(options.database)
+    this.database = new Database(this)
     this.commands = new Collection()
   }
 

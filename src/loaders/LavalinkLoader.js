@@ -1,4 +1,4 @@
-const { Loader } = require('../structures')
+const { Loader } = require('../structures/client')
 const { FileUtils } = require('../utils')
 
 module.exports = class LavalinkLoader extends Loader {

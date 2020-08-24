@@ -1,4 +1,4 @@
-const { Listener } = require('../../structures')
+const { Listener } = require('../../structures/client')
 
 module.exports = class NodeErrorListener extends Listener {
   constructor () {
