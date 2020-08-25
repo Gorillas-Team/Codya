@@ -35,7 +35,7 @@ module.exports = class extends Command {
           .then(({ key }) => key)
           .catch(x => x.send('DM fechada! fuck'))
 
-        channel.send('Olha a dm...')
+        channel.sendTempMessage('Olha a dm...')
         return author.send('https://speedbin.xyz/' + key)
       }
 
