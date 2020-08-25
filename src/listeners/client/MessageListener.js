@@ -12,7 +12,7 @@ module.exports = class MessageListener extends Listener {
   async run (message) {
     if (message.author.bot || message.channel.type === 'dm') return
 
-    const userDocument = await message.author.document
+    const userDocument = await message.author.data
 
     if (!xpCooldown.has(message.author.id)) {
       const { xp, level } = userDocument

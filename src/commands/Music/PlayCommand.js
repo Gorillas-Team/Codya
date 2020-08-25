@@ -20,7 +20,7 @@ module.exports = class extends Command {
         .then(x => x.delete({ timeout: 10000 }))
     }
 
-    guild.music = await lavalink.join({
+    const player = await lavalink.join({
       guild,
       voiceChannel: member.voice.channel,
       textChannel: channel
@@ -38,33 +38,33 @@ module.exports = class extends Command {
       case 'PLAYLIST_LOADED': {
         for (const track of tracks) {
           if (tracks.length >= 250) return channel.send('Não posso adicionar mais que 250 músicas.')
-          if (guild.music.queue.length >= 250) return channel.send('A fila está cheia.')
+          if (player.queue.length >= 250) return channel.send('A fila está cheia.')
 
-          guild.music.addToQueue(track, author)
+          player.addToQueue(track, author)
         }
 
         channel.send(this.client.botEmojis.musicNotes + ' | Foram adicionadas `' + tracks.length + '` músicas da playlist `' + playlistInfo.name + '`. Requisitado por: `' + author.tag + '`.')
           .then(x => x.delete({ timeout: 10000 }))
 
-        if (!guild.music.playing) return guild.music.play()
+        if (!player.playing) return player.play()
 
         break
       }
 
       case 'SEARCH_RESULT':
       case 'TRACK_LOADED': {
-        if (guild.music.queue.length >= 250) return channel.send('A fila está cheia.')
+        if (player.queue.length >= 250) return channel.send('A fila está cheia.')
 
-        guild.music.addToQueue(tracks[0], author)
+        player.addToQueue(tracks[0], author)
 
-        if (guild.music.queue.length === 1) {
-          if (!guild.music.playing) return guild.music.play()
+        if (player.queue.length === 1) {
+          if (!player.playing) return player.play()
         }
 
         channel.send(this.client.botEmojis.musicNotes + ' | Adicionado na fila: `' + tracks[0].info.title + '`. Requisitado por: `' + author.tag + '`')
           .then(x => x.delete({ timeout: 10000 }))
 
-        if (!guild.music.playing) return guild.music.play()
+        if (!player.playing) return player.play()
 
         break
       }

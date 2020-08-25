@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js')
+const { Constants: { permissions } } = require('../../utils')
 const colors = {
   default: '0ED4DA',
   red: 'FF0000'
@@ -11,6 +12,7 @@ module.exports = class Command {
     this.aliases = opts.aliases || []
     this.category = opts.category || 'Sem categoria.'
     this.usage = opts.usage || 'Sem uso.'
+    this.permissions = opts.permissions || []
 
     this.cooldownTime = opts.cooldownTime || 3
     this.cooldown = new Map()
@@ -36,15 +38,18 @@ module.exports = class Command {
       return ctx.channel.send(`Espere ${time === 0 ? 'alguns milissegundos' : time + ' segundo(s)'} para usar este comando novamente`)
     }
 
-    if (this.dev && !this.client.config.devs.includes(ctx.author.id)) {
+    if ((this.dev || this.hide) && !this.client.config.devs.includes(ctx.author.id)) {
       return ctx.channel.send('👋 | Apenas os desenvolvedores podem utilizar este comando.')
     }
-
-    if (this.hide && !this.client.config.devs.includes(ctx.author.id)) return
 
     if (!this.client.config.devs.includes(ctx.author.id)) {
       this.cooldown.set(ctx.author.id, Date.now() + this.cooldownTime * 1000)
       setTimeout(() => this.cooldown.delete(ctx.author.id), this.cooldownTime * 1000)
+    }
+
+    if (this.permissions.length >= 1 && !ctx.member.hasPermission(this.permissions)) {
+      const neededPermissions = this.permissions.map(perm => permissions[perm])
+      return ctx.channel.send(`Você não possui a permissão dê \`${neededPermissions.join(', ')}\` para executar este comando.`)
     }
 
     if (this.conf.voiceChannelOnly && ctx.guild.music) {
@@ -54,7 +59,7 @@ module.exports = class Command {
     }
 
     if (this.conf.queueOnly) {
-      if (!ctx.guild.music || !ctx.guild.music.queue[0]) {
+      if (!ctx.guild.music?.queue[0]) {
         return ctx.channel.send('❌ | Não há músicas tocando.')
       }
     }
