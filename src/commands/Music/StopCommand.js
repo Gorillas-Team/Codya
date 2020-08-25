@@ -18,6 +18,6 @@ module.exports = class extends Command {
 
   run ({ guild, channel }) {
     guild.music.destroy()
-    return channel.send(this.client.botEmojis.stopped + ' | Estou saindo do canal.')
+    return channel.sendTempMessage(this.client.botEmojis.stopped + ' | Estou saindo do canal.')
   }
 }

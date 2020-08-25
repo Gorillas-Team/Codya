@@ -16,8 +16,7 @@ module.exports = class extends Command {
 
   async run ({ channel, args, lavalink, member, guild, author }) {
     if (!args.join(' ')) {
-      return channel.send(this.client.botEmojis.error + ' | Você precisa informar um nome ou um link de uma música.')
-        .then(x => x.delete({ timeout: 10000 }))
+      return channel.sendTempMessage(this.client.botEmojis.error + ' | Você precisa informar um nome ou um link de uma música.')
     }
 
     const player = await lavalink.join({
@@ -30,21 +29,19 @@ module.exports = class extends Command {
 
     switch (loadType) {
       case 'NO_MATCHES': {
-        channel.send(this.client.botEmojis.error + ' | Não encontrei a música.')
-          .then(x => x.delete({ timeout: 5000 }))
+        channel.sendTempMessage(this.client.botEmojis.error + ' | Não encontrei a música.', 5000)
         break
       }
 
       case 'PLAYLIST_LOADED': {
         for (const track of tracks) {
-          if (tracks.length >= 250) return channel.send('Não posso adicionar mais que 250 músicas.')
-          if (player.queue.length >= 250) return channel.send('A fila está cheia.')
+          if (tracks.length >= 250) return channel.sendTempMessage('Não posso adicionar mais que 250 músicas.')
+          if (player.queue.length >= 250) return channel.sendTempMessage('A fila está cheia.')
 
           player.addToQueue(track, author)
         }
 
-        channel.send(this.client.botEmojis.musicNotes + ' | Foram adicionadas `' + tracks.length + '` músicas da playlist `' + playlistInfo.name + '`. Requisitado por: `' + author.tag + '`.')
-          .then(x => x.delete({ timeout: 10000 }))
+        channel.sendTempMessage(this.client.botEmojis.musicNotes + ' | Foram adicionadas `' + tracks.length + '` músicas da playlist `' + playlistInfo.name + '`. Requisitado por: `' + author.tag + '`.')
 
         if (!player.playing) return player.play()
 
@@ -61,8 +58,7 @@ module.exports = class extends Command {
           if (!player.playing) return player.play()
         }
 
-        channel.send(this.client.botEmojis.musicNotes + ' | Adicionado na fila: `' + tracks[0].info.title + '`. Requisitado por: `' + author.tag + '`')
-          .then(x => x.delete({ timeout: 10000 }))
+        channel.sendTempMessage(this.client.botEmojis.musicNotes + ' | Adicionado na fila: `' + tracks[0].info.title + '`. Requisitado por: `' + author.tag + '`')
 
         if (!player.playing) return player.play()
 

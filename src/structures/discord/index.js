@@ -1,4 +1,5 @@
 module.exports = {
   CodyaGuild: require('./CodyaGuild'),
-  CodyaUser: require('./CodyaUser')
+  CodyaUser: require('./CodyaUser'),
+  CodyaTextChannel: require('./CodyaTextChannel')
 }

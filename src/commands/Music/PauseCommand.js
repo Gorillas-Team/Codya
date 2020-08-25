@@ -19,10 +19,10 @@ module.exports = class extends Command {
 
   run ({ channel, guild }) {
     if (guild.music.paused) {
-      return channel.send(this.client.botEmojis.error + ' | A música já se encontra pausada.')
+      return channel.sendTempMessage(this.client.botEmojis.error + ' | A música já se encontra pausada.')
     }
 
     guild.music.pause(true)
-    return channel.send(this.client.botEmojis.paused + ' | Música pausada com sucesso.').then(x => x.delete({ timeout: 10000 }))
+    return channel.sendTempMessage(this.client.botEmojis.paused + ' | Música pausada com sucesso.')
   }
 }

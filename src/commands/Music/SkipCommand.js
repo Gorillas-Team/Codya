@@ -24,23 +24,22 @@ module.exports = class extends Command {
 
     if (guild.data.djRole && member.roles.cache.has(guild.data.djRole)) {
       guild.music.stop()
-      return channel.send(this.client.botEmojis.skipped + ' | Música pulada com sucesso.')
+      return channel.sendTempMessage(this.client.botEmojis.skipped + ' | Música pulada com sucesso.')
     }
 
     if (guild.music.queue[0].skipVotes.includes(member.id)) {
-      return channel.send(this.client.botEmojis.error + ' | Você já votou.')
+      return channel.sendTempMessage(this.client.botEmojis.error + ' | Você já votou.')
     }
 
     guild.music.queue[0].skipVotes.push(member.id)
 
     if (guild.music.queue[0].skipVotes.length >= required) {
       guild.music.stop()
-      return channel.send(this.client.botEmojis.skipped + ' | A votação venceu! A música foi pulada com sucesso.')
-        .then(x => x.delete({ timeout: 10000 }))
+      return channel.sendTempMessage(this.client.botEmojis.skipped + ' | A votação venceu! A música foi pulada com sucesso.')
     }
 
     const voteLength = guild.music.queue[0].skipVotes.length
 
-    return channel.send(this.client.botEmojis.right + ' | Você votou com sucesso! ' + voteLength + '/' + required + '.')
+    return channel.sendTempMessage(this.client.botEmojis.right + ' | Você votou com sucesso! ' + voteLength + '/' + required + '.')
   }
 }
