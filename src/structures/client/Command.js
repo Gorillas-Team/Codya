@@ -47,9 +47,15 @@ module.exports = class Command {
       setTimeout(() => this.cooldown.delete(ctx.author.id), this.cooldownTime * 1000)
     }
 
-    if (this.permissions.length >= 1 && !ctx.member.hasPermission(this.permissions)) {
+    if (this.permissions.length >= 1) {
       const neededPermissions = this.permissions.map(perm => permissions[perm])
-      return ctx.channel.send(`Você não possui a permissão dê \`${neededPermissions.join(', ')}\` para executar este comando.`)
+      if (!ctx.member.hasPermission(this.permissions)) {
+        return ctx.channel.send(`❌ | Você não possui a permissão de \`${neededPermissions.join(', ')}\` para executar este comando.`)
+      }
+
+      if (!ctx.guild.me.hasPermission(this.permissions)) {
+        return ctx.channel.send(`❌ | Eu não posso a permissão de \`${neededPermissions.join(', ')}\` para executar o comando \`${this.name}\`.`)
+      }
     }
 
     if (this.conf.voiceChannelOnly && ctx.guild.music) {
@@ -64,7 +70,10 @@ module.exports = class Command {
       }
     }
 
-    if (this.conf.djOnly && ctx.guild.data.djRole && !ctx.member.roles.cache.has(ctx.guild.data.djRole)) {
+    if (this.conf.djOnly &&
+      ctx.guild.data.djRole &&
+      !ctx.member.roles.cache.has(ctx.guild.data.djRole)
+    ) {
       const role = ctx.guild.roles.cache.get(ctx.guild.data.djRole)
       return ctx.channel.send('❌ | Você precisa ter o cargo `' + role.name + '` para utilizar este comando.')
     }
@@ -97,25 +106,19 @@ module.exports = class Command {
     return this.usage.replace(/<prefix>/g, prefix).replace(/<cmd>/g, cmd)
   }
 
-  _format (obj) {
-    obj = Object.entries(obj)
-    const result = []
-    const [[, days], [, hours]] = obj
-    let n = 1
-    let str = ''
-    if (!days === 0) str = days > 1 ? days + ' dias' : days + ' dia'
-    if (!hours) n = 2
-    for (const x of obj.slice(n)) result.push(x[1] < 10 & x[1] >= 0 ? '0' + x[1] : x[1])
-    return str ? str + ', ' + result.join(':') : result.join(':')
+  formatTime (s) {
+    const ms = s % 1000
+    s = (s - ms) / 1000
+    const secs = s % 60
+    s = (s - secs) / 60
+    const mins = s % 60
+    const hrs = (s - mins) / 60
+
+    return hrs > 0 ? (this.pad(hrs) + ':') : '' + this.pad(mins) + ':' + this.pad(secs)
   }
 
-  formatTime (ms) {
-    if (ms < 0) return
-    const diff = {}
-    for (diff.days = 0; ms >= 86400000; diff.days++, ms -= 86400000);
-    for (diff.hours = 0; ms >= 3600000; diff.hours++, ms -= 3600000);
-    for (diff.minutes = 0; ms >= 60000; diff.minutes++, ms -= 60000);
-    for (diff.seconds = 0; ms >= 1000; diff.seconds++, ms -= 1000);
-    return this._format(diff)
+  pad (n, z) {
+    z = z || 2
+    return ('00' + n).slice(-z)
   }
 }

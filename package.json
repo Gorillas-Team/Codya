@@ -12,15 +12,15 @@
     "node": ">=12.x"
   },
   "dependencies": {
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "gorilink": "^1.2.0",
     "moment": "^2.27.0",
-    "mongoose": "^5.9.24",
+    "mongoose": "^5.10.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "eslint": "^7.4.0",
+    "eslint": "^7.7.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",

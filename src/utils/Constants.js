@@ -24,7 +24,8 @@ module.exports.emojis = {
   playing: '▶️',
   time: '<a:tempo:587785531358838804>',
   dvd: '📀',
-  lamp: '💡'
+  lamp: '💡',
+  ban: '<:OLHAOBAN:602295781055135765>'
 }
 
 module.exports.permissions = {
