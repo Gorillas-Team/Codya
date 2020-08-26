@@ -10,8 +10,10 @@ module.exports = class Database {
   }
 
   start () {
-    return connect(this.client.config.database, { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: false })
-      .then(() => console.log('[MONGO] Conectado com Sucesso.'))
+    return connect(this.client.config.database, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }).then(() => console.log('[MONGO] Conectado com Sucesso.'))
       .catch(err => console.error('[MONGO] Erro ao conectar: ', err))
   }
 

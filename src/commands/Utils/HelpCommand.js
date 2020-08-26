@@ -37,6 +37,10 @@ module.exports = class extends Command {
             {
               name: `${this.client.botEmojis.lamp} **| Misc: [${commandPerCategory('Misc').size}]**`,
               value: mapCommandsByCategory(commands, 'Misc')
+            },
+            {
+              name: `👮 **| Moderação: [${commandPerCategory('moderation').size}]**`,
+              value: mapCommandsByCategory(commands, 'moderation')
             }
           ]
         )
