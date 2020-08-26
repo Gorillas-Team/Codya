@@ -54,7 +54,7 @@ module.exports = class Command {
       }
 
       if (!ctx.guild.me.hasPermission(this.permissions)) {
-        return ctx.channel.send(`❌ | Eu não posso a permissão de \`${neededPermissions.join(', ')}\` para executar o comando \`${this.name}\`.`)
+        return ctx.channel.send(`❌ | Eu não possuo a permissão de \`${neededPermissions.join(', ')}\` para executar o comando \`${this.name}\`.`)
       }
     }
 
