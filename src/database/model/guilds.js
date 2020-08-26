@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose')
 
 module.exports = model('guilds', new Schema({
   _id: { type: String, required: true },
-  punishments: { type: Map, default: new Map() },
-  djRole: { type: String, default: false }
+  punishments: { type: Array, default: [] },
+  punishmentChannel: { type: String, default: null },
+  djRole: { type: String, default: null }
 }))

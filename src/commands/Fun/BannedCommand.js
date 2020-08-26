@@ -1,4 +1,5 @@
 const { Command } = require('../../structures/client')
+const { banned } = require('../../../assets')
 
 module.exports = class extends Command {
   constructor (client) {
@@ -10,9 +11,8 @@ module.exports = class extends Command {
   }
 
   async run ({ channel }) {
-    const video = 'https://cdn.discordapp.com/attachments/629888697013108756/716342571000922222/video0.mov'
     channel.send('Banido.', {
-      files: [{ attachment: video, name: 'banido.mp4' }]
+      files: [{ attachment: banned, name: 'Banned.mp4' }]
     })
   }
 }
