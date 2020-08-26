@@ -18,17 +18,21 @@ module.exports = class extends Command {
       default: this.embed({ author }), error: this.embed({ color: 'red', author })
     }
 
-    const guildDjRole = guild.roles.cache.get(guildDocument.djRole)
-    const guildPunishmentChannel = guild.channels.cache.get(guildDocument.punishmentChannel)
+    const guildDjRole = guildDocument.djRole
+      ? guild.roles.cache.get(guildDocument.djRole).toString()
+      : 'Nenhum cargo.'
+    const guildPunishmentChannel = guildDocument.punishmentChannel
+      ? guild.channels.cache.get(guildDocument.punishmentChannel).toString()
+      : 'Nenhum canal.'
 
     channel.send(embeds.default
       .setAuthor('Central de configuração.', this.client.user.displayAvatarURL())
       .setDescription(`${this.client.botEmojis.dancing} **| DJ:**
-      **Atual:** ${guildDjRole.toString() || 'Nenhum cargo'}
+      **Atual:** ${guildDjRole}
       \`\`\`${prefix}${cmd} dj <id/menção/nome>\`\`\`
 
       ${this.client.botEmojis.ban} **| Canal de punições:**
-      **Atual:** ${guildPunishmentChannel.toString() || 'Nenhum canal.'}
+      **Atual:** ${guildPunishmentChannel}
       \`\`\`${prefix}${cmd} punição <id/menção/nome>\`\`\`
       `)
     )
