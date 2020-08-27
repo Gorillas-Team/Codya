@@ -33,10 +33,11 @@ module.exports = class extends Command {
         })
           .then(res => res.json())
           .then(({ key }) => key)
-          .catch(x => x.send('DM fechada! fuck'))
 
-        channel.send('Olha a dm...')
-        return author.send('https://speedbin.xyz/' + key)
+        author.send('https://speedbin.xyz/' + key)
+          .then(() => channel.send('Olha a DM...'))
+          .catch(() => channel.send('DM fechada! fuck'))
+        return
       }
 
       channel.send(`${this.client.botEmojis.code} | Resultado:\n\`\`\`js\n${clean(code.replace(new RegExp(this.client.token, 'g'), '😎'))}\`\`\``)

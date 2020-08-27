@@ -8,7 +8,7 @@ Structures.extend('User', User => {
     }
 
     get document () {
-      return this.client.database.findDocument(this.id, 'users').then(document => document)
+      return this.client.database.findDocument(this.id, 'users')
     }
   }
 
