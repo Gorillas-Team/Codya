@@ -1,6 +1,7 @@
 const { Listener, CommandContext } = require('../../structures/client')
-const { getPrefix } = require('../../utils')
-const xpCooldown = new Set()
+const { CommandUtils: { getPrefix }, CooldownManager } = require('../../utils')
+
+const cooldownManager = CooldownManager(1000 * 60)
 
 module.exports = class MessageListener extends Listener {
   constructor () {
@@ -14,20 +15,20 @@ module.exports = class MessageListener extends Listener {
 
     const userDocument = await message.author.data
 
-    if (!xpCooldown.has(message.author.id)) {
+    if (!cooldownManager.has(message.author.id)) {
       const { xp, level } = userDocument
-      const queryOptions = { _id: message.author.id }
 
-      this.database.models.users.updateOne(queryOptions, { xp: Math.floor(Math.random() * 3) + 2 })
+      await userDocument.updateOne({ $inc: { xp: Math.floor(Math.random() * 3) + 2 } })
 
       if (xp >= level * 60) {
-        await this.database.models.users.updateOne(queryOptions, { xp: 0, $inc: { level: Math.floor(xp / 60 - level) } })
+        await userDocument.updateOne({
+          xp: 0,
+          $inc: { level: Math.floor(xp / 60 - level) }
+        })
       }
 
-      xpCooldown.add(message.author.id)
+      cooldownManager.add(message.author.id)
     }
-
-    setTimeout(() => xpCooldown.delete(message.author.id), 60000)
 
     const prefix = getPrefix(message)
     if (!message.content.toLowerCase().startsWith(prefix)) return

@@ -1,28 +1,29 @@
-const { Command } = require('../../structures/client')
+const { MusicCommand } = require('../../music')
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
   constructor (client) {
     super(client, {
       name: 'skip',
       aliases: ['s', 'pular'],
       description: 'Pule uma música da fila.',
       usage: '<prefix>skip <index>',
-      category: 'Music'
+      category: 'Music',
+      requirements: {
+        voiceChannelOnly: true,
+        queueOnly: true
+      }
     })
-
-    this.conf = {
-      voiceChannelOnly: true,
-      queueOnly: true
-    }
   }
 
-  run ({ channel, guild, member }) {
+  async run ({ channel, guild, member }) {
     const memberCount = member.voice.channel.members.filter(x => !x.user.bot).size
     const required = Math.ceil(memberCount / 2)
 
+    const guildDocument = await guild.data
+
     if (!guild.music.queue[0].skipVotes) guild.music.queue[0].skipVotes = []
 
-    if (guild.data.djRole && member.roles.cache.has(guild.data.djRole)) {
+    if (guildDocument.djRole && member.roles.cache.has(guildDocument.djRole)) {
       guild.music.stop()
       return channel.sendTempMessage(this.client.botEmojis.skipped + ' | Música pulada com sucesso.')
     }

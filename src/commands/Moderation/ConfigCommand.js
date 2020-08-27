@@ -18,24 +18,27 @@ module.exports = class extends Command {
       default: this.embed({ author }), error: this.embed({ color: 'red', author })
     }
 
-    const guildDjRole = guildDocument.djRole
-      ? guild.roles.cache.get(guildDocument.djRole).toString()
-      : 'Nenhum cargo.'
-    const guildPunishmentChannel = guildDocument.punishmentChannel
-      ? guild.channels.cache.get(guildDocument.punishmentChannel).toString()
-      : 'Nenhum canal.'
+    const guildDjRole = guild.roles.cache.get(guildDocument.djRole)?.toString() || 'Nenhum cargo.'
+    const guildPunishmentChannel = guild.channels.cache.get(guildDocument.punishmentChannel)?.toString() || 'Nenhum canal.'
+    const guildLogsChannel = guild.channels.cache.get(guildDocument.logChannel)?.toString() || 'Nenhum canal.'
 
-    channel.send(embeds.default
-      .setAuthor('Central de configuração.', this.client.user.displayAvatarURL())
-      .setDescription(`${this.client.botEmojis.dancing} **| DJ:**
+    if (!config) {
+      return channel.send(embeds.default
+        .setAuthor('Central de configuração.', this.client.user.displayAvatarURL())
+        .setDescription(`${this.client.botEmojis.dancing} **| DJ:**
       **Atual:** ${guildDjRole}
       \`\`\`${prefix}${cmd} dj <id/menção/nome>\`\`\`
 
       ${this.client.botEmojis.ban} **| Canal de punições:**
       **Atual:** ${guildPunishmentChannel}
       \`\`\`${prefix}${cmd} punição <id/menção/nome>\`\`\`
+
+      💬 **| Canal de logs:**
+      **Atual:** ${guildLogsChannel}
+      \`\`\`${prefix}${cmd} logs <id/menção/nome>\`\`\`
       `)
-    )
+      )
+    }
 
     switch (config.toLowerCase()) {
       case 'dj': {
@@ -65,7 +68,20 @@ module.exports = class extends Command {
         await channel.send('Canal de punições atualizado para: ' + punishmentChannel.toString())
         break
       }
+      case 'logs':
+      case 'logChannel':
+      case 'logsChannel': {
+        const logChannel = guild.channels.cache.get(value) ||
+          guild.channels.cache.find(channel => channel.name === value) ||
+          guild.channels.cache.find(channel => channel.toString() === value)
 
+        if (!logChannel) return channel.sendTempMessage('Canal não encontrado.')
+
+        await guildDocument.updateOne({ logChannel: logChannel.id })
+
+        await channel.send('Canal de logs atualizado para: ' + logChannel.toString())
+        break
+      }
       default:
         channel.send(embeds.error.setDescription(this.client.botEmojis.error + ' | Opção inválida.'))
     }

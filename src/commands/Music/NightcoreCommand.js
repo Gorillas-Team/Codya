@@ -1,20 +1,19 @@
-const { Command } = require('../../structures/client')
+const { MusicCommand } = require('../../music')
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
   constructor (client) {
     super(client, {
       name: 'nightcore',
       aliases: ['nc'],
       category: 'Music',
       usage: '<prefix>nightcore',
-      description: 'Ative o modo nightcore na fila de músicas.'
+      description: 'Ative o modo nightcore na fila de músicas.',
+      requirements: {
+        voiceChannelOnly: true,
+        queueOnly: true,
+        djOnly: true
+      }
     })
-
-    this.conf = {
-      voiceChannelOnly: true,
-      queueOnly: true,
-      djOnly: true
-    }
   }
 
   run ({ channel, guild, args }) {

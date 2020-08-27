@@ -16,11 +16,10 @@ module.exports = class ReadyListener extends Listener {
     })
 
     await new LavalinkLoader(this.lavalink).load()
-    console.info(
+    this.logger.log(
       `${this.user.username} iniciada com:
     ${this.users.cache.size} usuários;
     ${this.guilds.cache.size} guilds;
-    ${this.commands.size} comandos.`
-    )
+    ${this.commands.size} comandos.`, 'cyan')
   }
 }

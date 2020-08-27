@@ -8,9 +8,8 @@ module.exports = class QueueEndListener extends Listener {
   }
 
   async run (player) {
-    await player.textChannel.send(player.manager.client.botEmojis.stopped + ' | A fila acabou...')
-      .then(msg => msg.delete({ timeout: 5000 }))
+    await player.textChannel.sendTempMessage(player.manager.client.botEmojis.stopped + ' | A fila acabou...')
 
-    player.end()
+    await player.end()
   }
 }

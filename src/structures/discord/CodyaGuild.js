@@ -5,8 +5,10 @@ Structures.extend('Guild', Guild => {
     // eslint-disable-next-line no-useless-constructor
     constructor (...data) {
       super(...data)
+    }
 
-      this.data = this.client.database.findDocument(this.id, 'guilds')
+    get data () {
+      return this.client.database.findDocument(this.id, 'guilds')
     }
 
     get music () {

@@ -1,5 +1,6 @@
 const { Client, Collection } = require('discord.js')
 const { Constants } = require('./utils/')
+const { Logger } = require('./structures/client')
 const Loaders = require('./loaders')
 const Database = require('./database/Database')
 
@@ -20,6 +21,7 @@ module.exports = class Codya extends Client {
     }
 
     this.database = new Database(this)
+    this.logger = new Logger(this)
     this.commands = new Collection()
   }
 

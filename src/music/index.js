@@ -1,4 +1,5 @@
 module.exports = {
   CodyaManager: require('./CodyaManager'),
-  CodyaPlayer: require('./CodyaPlayer.js')
+  CodyaPlayer: require('./CodyaPlayer'),
+  MusicCommand: require('./MusicCommand')
 }
