@@ -19,9 +19,9 @@ module.exports = class extends MusicCommand {
     const { track, state } = guild.music
 
     const embed = this.embed()
-      .setDescription(`${this.client.botEmojis.dancing} **| Tocando agora:** [${track.info.title}](${track.info.uri})
-      ${this.client.botEmojis.dvd} **| Autor:** \`${track.info.author}\`
-      ${this.client.botEmojis.time} **| Duração:** \`${this.formatTime(state.position)}\` de \`${this.formatTime(track.info.length)}\`
+      .setDescription(`${this.client.getEmoji('dancing')} **| Tocando agora:** [${track.info.title}](${track.info.uri})
+      ${this.client.getEmoji('disco')} **| Autor:** \`${track.info.author}\`
+      ${this.client.getEmoji('time')} **| Duração:** \`${this.formatTime(state.position)}\` de \`${this.formatTime(track.info.length)}\`
       `)
       .setThumbnail(track.info.thumbnail)
       .setColor(guild.me.displayHexColor)

@@ -25,22 +25,22 @@ module.exports = class extends MusicCommand {
 
     if (guildDocument.djRole && member.roles.cache.has(guildDocument.djRole)) {
       guild.music.stop()
-      return channel.sendTempMessage(this.client.botEmojis.skipped + ' | Música pulada com sucesso.')
+      return channel.sendTempMessage(this.client.getEmoji('skipped') + ' | Música pulada com sucesso.')
     }
 
     if (guild.music.queue[0].skipVotes.includes(member.id)) {
-      return channel.sendTempMessage(this.client.botEmojis.error + ' | Você já votou.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | Você já votou.')
     }
 
     guild.music.queue[0].skipVotes.push(member.id)
 
     if (guild.music.queue[0].skipVotes.length >= required) {
       guild.music.stop()
-      return channel.sendTempMessage(this.client.botEmojis.skipped + ' | A votação venceu! A música foi pulada com sucesso.')
+      return channel.sendTempMessage(this.client.getEmoji('skipped') + ' | A votação venceu! A música foi pulada com sucesso.')
     }
 
     const voteLength = guild.music.queue[0].skipVotes.length
 
-    return channel.sendTempMessage(this.client.botEmojis.right + ' | Você votou com sucesso! ' + voteLength + '/' + required + '.')
+    return channel.sendTempMessage(this.client.getEmoji('correct') + ' | Você votou com sucesso! ' + voteLength + '/' + required + '.')
   }
 }

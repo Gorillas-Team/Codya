@@ -25,17 +25,17 @@ module.exports = class extends Command {
       .addFields(
         [
           {
-            name: `${this.client.botEmojis.gear} | **Estatísticas:**`,
+            name: `${this.client.getEmoji('gear')} | **Estatísticas:**`,
             value: `
-            ${this.client.botEmojis.members} | **Usuários:** ${this.client.users.cache.size}
-            ${this.client.botEmojis.servers} | **Servidores:** ${this.client.guilds.cache.size}
-            ${this.client.botEmojis.channels} | **Canais de Texto:** ${this.client.channels.cache.filter(channel => channel.type === 'text').size}
+            ${this.client.getEmoji('members')} | **Usuários:** ${this.client.users.cache.size}
+            ${this.client.getEmoji('servers')} | **Servidores:** ${this.client.guilds.cache.size}
+            ${this.client.getEmoji('channels')} | **Canais de Texto:** ${this.client.channels.cache.filter(channel => channel.type === 'text').size}
             🔊 | **Voz:** ${this.client.channels.cache.filter(channel => channel.type === 'voice').size}
             `,
             inline: true
           },
           {
-            name: `${this.client.botEmojis.dancing} | **Lavalink:**`,
+            name: `${this.client.getEmoji('dancing')} | **Lavalink:**`,
             value: `
             **Uptime:** ${this.formatTime(lavalinkStats.uptime)}
             **Players tocando:** ${lavalinkStats.playingPlayers}
@@ -43,7 +43,7 @@ module.exports = class extends Command {
             inline: true
           },
           {
-            name: `${this.client.botEmojis.star} | **Extras:**`,
+            name: `${this.client.getEmoji('star')} | **Extras:**`,
             value: `
             **Versão:** ${packageJson.version}
             **Discord.js:** ${discordJsVersion}

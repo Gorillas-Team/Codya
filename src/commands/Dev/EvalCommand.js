@@ -39,7 +39,7 @@ module.exports = class extends Command {
         return author.send('https://speedbin.xyz/' + key)
       }
 
-      channel.send(`${this.client.botEmojis.code} | Resultado:\n\`\`\`js\n${clean(code.replace(new RegExp(this.client.token, 'g'), '😎'))}\`\`\``)
+      channel.send(`${this.client.getEmoji('code')} | Resultado:\n\`\`\`js\n${clean(code.replace(new RegExp(this.client.token, 'g'), '😎'))}\`\`\``)
     } catch (e) {
       return channel.send(e, { code: 'js' })
     }

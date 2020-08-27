@@ -12,7 +12,7 @@ module.exports = class VoiceStateUpdateListener extends Listener {
     if (guild.me.voice.channel &&
       guild.me.voice.channel.members.size < 2
     ) {
-      guild.music.textChannel.send(this.botEmojis.sleeping + ' | Saindo do canal por inatividade.')
+      guild.music.textChannel.send(this.getEmoji('sleeping') + ' | Saindo do canal por inatividade.')
       await this.lavalink.leave(oldMember.guild.id)
     }
   }

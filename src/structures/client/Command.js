@@ -27,11 +27,11 @@ module.exports = class Command extends CommandImpl {
 
       const time = Math.round((cooldown - now) / 1000)
 
-      return ctx.channel.send(`Espere ${time === 0 ? 'alguns milissegundos' : time + ' segundo(s)'} para usar este comando novamente`)
+      return ctx.channel.send(`${this.client.getEmoji('error')} | Espere ${time === 0 ? 'alguns milissegundos' : time + ' segundo(s)'} para usar este comando novamente`)
     }
 
     if ((this.dev || this.hide) && !this.client.config.devs.includes(ctx.author.id)) {
-      return ctx.channel.send('👋 | Apenas os desenvolvedores podem utilizar este comando.')
+      return ctx.channel.send(`${this.client.getEmoji('bye')} | Apenas os desenvolvedores podem utilizar este comando.`)
     }
 
     if (!this.client.config.devs.includes(ctx.author.id)) {
@@ -41,7 +41,7 @@ module.exports = class Command extends CommandImpl {
     if (this.permissions.length >= 1) {
       const neededPermissions = this.permissions.map(perm => permissions[perm])
       if (!ctx.member.hasPermission(this.permissions)) {
-        return ctx.channel.send(`❌ | Você não possui a permissão de \`${neededPermissions.join(', ')}\` para executar este comando.`)
+        return ctx.channel.send(`${this.client.getEmoji('error')} | Você não possui a permissão de \`${neededPermissions.join(', ')}\` para executar este comando.`)
       }
     }
 

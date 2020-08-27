@@ -16,6 +16,6 @@ module.exports = class extends Command {
 
     const avatarUrl = user.displayAvatarURL({ format: 'png', dynamic: true, size: 2048 })
 
-    return channel.send(this.client.botEmojis.picture + ' | Avatar de ' + user.username, { files: [avatarUrl] })
+    return channel.send(this.client.getEmoji('picture') + ' | Avatar de ' + user.username, { files: [avatarUrl] })
   }
 }

@@ -18,10 +18,10 @@ module.exports = class extends MusicCommand {
 
   run ({ channel, guild }) {
     if (guild.music.paused) {
-      return channel.sendTempMessage(this.client.botEmojis.error + ' | A música já se encontra pausada.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | A música já se encontra pausada.')
     }
 
     guild.music.pause(true)
-    return channel.sendTempMessage(this.client.botEmojis.paused + ' | Música pausada com sucesso.')
+    return channel.sendTempMessage(this.client.getEmoji('paused') + ' | Música pausada com sucesso.')
   }
 }

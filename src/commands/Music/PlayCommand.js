@@ -14,7 +14,7 @@ module.exports = class extends MusicCommand {
 
   async run ({ channel, args, lavalink, member, guild, author }) {
     if (!args.join(' ')) {
-      return channel.sendTempMessage(this.client.botEmojis.error + ' | Você precisa informar um nome ou um link de uma música.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | Você precisa informar um nome ou um link de uma música.')
     }
 
     const player = await lavalink.join({
@@ -27,7 +27,7 @@ module.exports = class extends MusicCommand {
 
     switch (loadType) {
       case 'NO_MATCHES': {
-        channel.sendTempMessage(this.client.botEmojis.error + ' | Não encontrei a música.', 5000)
+        channel.sendTempMessage(this.client.getEmoji('error') + ' | Não encontrei a música.', 5000)
         break
       }
 
@@ -40,7 +40,7 @@ module.exports = class extends MusicCommand {
 
         const trackQuantity = tracks.length > 250 ? `Foram adicionadas \`${tracks.slice(0, 250).length}\` e descartadas \`${tracks.length - 250}\`` : `Foram adicionadas \`${tracks.slice(0, 250).length}\``
 
-        channel.sendTempMessage(`${this.client.botEmojis.musicNotes} | ${trackQuantity} das músicas da playlist \`${playlistInfo.name}\`. Requisitado por: \`${author.tag}\`.'`)
+        channel.sendTempMessage(`${this.client.getEmoji('music_notes')} | ${trackQuantity} das músicas da playlist \`${playlistInfo.name}\`. Requisitado por: \`${author.tag}\`.'`)
         if (!player.playing) return player.play()
         break
       }
@@ -55,7 +55,7 @@ module.exports = class extends MusicCommand {
           if (!player.playing) return player.play()
         }
 
-        channel.sendTempMessage(this.client.botEmojis.musicNotes + ' | Adicionado na fila: `' + tracks[0].info.title + '`. Requisitado por: `' + author.tag + '`')
+        channel.sendTempMessage(this.client.getEmoji('music_notes') + ' | Adicionado na fila: `' + tracks[0].info.title + '`. Requisitado por: `' + author.tag + '`')
 
         if (!player.playing) return player.play()
 

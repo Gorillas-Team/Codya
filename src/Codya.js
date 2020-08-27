@@ -9,9 +9,6 @@ require('./structures/discord')
 module.exports = class Codya extends Client {
   constructor (options = {}) {
     super(options)
-    // temp
-    this.botEmojis = Constants.emojis
-
     this.token = options.token
     this.config = {
       devs: options.devs,
@@ -40,5 +37,14 @@ module.exports = class Codya extends Client {
     this.initLoaders()
     super.login(this.token)
     return this
+  }
+
+  getEmoji (emojiName) {
+    const emoji = this.emojis.cache.find(emoji => emoji.name === emojiName)?.toString() ||
+      Constants.emojis[emojiName]
+
+    if (!emoji) throw new Error('This emoji not exists.')
+
+    return emoji
   }
 }
