@@ -13,6 +13,8 @@ module.exports = class Loader {
   }
 
   logError (message, tag) {
-    return console.error(`${tag ? '[' + tag.toUpperCase() + '] ' : ''}${message}`)
+    return console.error(
+      `${tag ? '[' + tag.toUpperCase() + '] ' : ''}${message}`
+    )
   }
 }

@@ -12,7 +12,15 @@ module.exports = class CommandLoader extends Loader {
   load () {
     try {
       this.initCommands()
-      this.log(this.failed ? this.success + ' carregaram com sucesso e ' + this.failed + ' falharam' : 'Todos carregados com sucesso', 'Commands')
+      this.log(
+        this.failed
+          ? this.success +
+              ' carregaram com sucesso e ' +
+              this.failed +
+              ' falharam'
+          : 'Todos carregados com sucesso',
+        'Commands'
+      )
       return true
     } catch (err) {
       this.logError(err.stack, 'commands')

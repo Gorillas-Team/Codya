@@ -8,6 +8,6 @@ module.exports = class NodeConnectListener extends Listener {
   }
 
   async run (node) {
-    console.log('Node: ' + node.tag + ' conectado com sucesso.')
+    this.client.logger.info('Node: ' + node.tag + ' conectado com sucesso.')
   }
 }

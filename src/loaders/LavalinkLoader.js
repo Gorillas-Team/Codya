@@ -13,7 +13,15 @@ module.exports = class LavalinkLoader extends Loader {
   load () {
     try {
       this.initLavalink()
-      this.log(this.failed ? this.success + ' carregaram com sucesso e ' + this.failed + ' falharam' : 'Todos carregados com sucesso', 'Lavalink')
+      this.log(
+        this.failed
+          ? this.success +
+              ' carregaram com sucesso e ' +
+              this.failed +
+              ' falharam'
+          : 'Todos carregados com sucesso',
+        'Lavalink'
+      )
       return true
     } catch (err) {
       this.logError(err.message, 'lavalink')

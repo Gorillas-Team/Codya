@@ -12,6 +12,10 @@ module.exports = class extends Command {
   }
 
   async run ({ channel }) {
-    channel.send('📡 | Minha latência é de: `' + Number(this.client.ws.ping).toFixed() + 'ms`.')
+    channel.send(
+      '📡 | Minha latência é de: `' +
+        Number(this.client.ws.ping).toFixed() +
+        'ms`.'
+    )
   }
 }

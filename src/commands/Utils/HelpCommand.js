@@ -1,5 +1,11 @@
 const { Command } = require('../../structures/client')
 
+const mapCommandsByCategory = (commands, category) =>
+  commands
+    .filter(command => command.category === category)
+    .map(command => '`' + command.name + '`')
+    .join(', ')
+
 module.exports = class extends Command {
   constructor (client) {
     super(client, {
@@ -11,64 +17,78 @@ module.exports = class extends Command {
     })
   }
 
-  async run ({ channel, args, prefix, author }) {
-    const commands = this.client.commands.filter(({ hide, dev }) => !hide && !dev)
-    const commandPerCategory = (category) => commands.filter(cmd => cmd.category === category)
+  async run ({ channel, args, prefix, author, cmd }) {
+    const commands = this.client.commands.filter(
+      ({ hide, dev }) => !hide && !dev
+    )
+    const commandPerCategory = category =>
+      commands.filter(cmd => cmd.category === category)
     const opts = args[0] ? args[0].toLowerCase() : ''
 
     if (!opts) {
       const embed = this.embed({ author })
         .setTitle('**Central de ajuda**')
         .setDescription(`**Comandos [${commands.filter(x => !x.dev).size}]**`)
-        .addFields(
-          [
-            {
-              name: `${this.client.botEmojis.gear} **| Utilitários: [${commandPerCategory('Utils').size}]**`,
-              value: mapCommandsByCategory(commands, 'Utils')
-            },
-            {
-              name: `${this.client.botEmojis.dancing} **| Música: [${commandPerCategory('Music').size}]**`,
-              value: mapCommandsByCategory(commands, 'Music')
-            },
-            {
-              name: `${this.client.botEmojis.star} **| Diversão: [${commandPerCategory('Fun').size}]**`,
-              value: mapCommandsByCategory(commands, 'Fun')
-            },
-            {
-              name: `${this.client.botEmojis.lamp} **| Misc: [${commandPerCategory('Misc').size}]**`,
-              value: mapCommandsByCategory(commands, 'Misc')
-            }
-          ]
+        .addFields([
+          {
+            name: `${this.client.getEmoji('gear')} **| Utilitários: [${
+              commandPerCategory('Utils').size
+            }]**`,
+            value: mapCommandsByCategory(commands, 'Utils')
+          },
+          {
+            name: `${this.client.getEmoji('dancing')} **| Música: [${
+              commandPerCategory('Music').size
+            }]**`,
+            value: mapCommandsByCategory(commands, 'Music')
+          },
+          {
+            name: `${this.client.getEmoji('star')} **| Diversão: [${
+              commandPerCategory('Fun').size
+            }]**`,
+            value: mapCommandsByCategory(commands, 'Fun')
+          },
+          {
+            name: `${this.client.getEmoji('lamp')} **| Misc: [${
+              commandPerCategory('Misc').size
+            }]**`,
+            value: mapCommandsByCategory(commands, 'Misc')
+          },
+          {
+            name: `${this.client.getEmoji('cop')} **| Moderação: [${
+              commandPerCategory('moderation').size
+            }]**`,
+            value: mapCommandsByCategory(commands, 'moderation')
+          }
+        ])
+        .setFooter(
+          this.resolvePrefix(prefix) +
+            cmd +
+            ' <comando> | Executado por ' +
+            author.username,
+          author.displayAvatarURL({ format: 'png', size: 2048, dynamic: true })
         )
-        .setFooter(this.resolvePrefix(prefix) + 'help <comando> | Executado por ' + author.username, author.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }))
         .setTimestamp()
 
-      return channel.send(embed)
-        .then(m => m.delete({ timeout: 60 * 1000 }))
+      return channel.send(embed).then(m => m.delete({ timeout: 60 * 1000 }))
     }
 
-    const command = commands.find(c => c.name === opts || c.aliases.includes(opts))
+    const command = commands.find(
+      c => c.name === opts || c.aliases.includes(opts)
+    )
 
-    switch (!!command) {
-      case true: {
-        const embed = this.embed()
-          .addField('Nome:', `\`${command.name}\``)
-          .addField('Descrição:', `\`${command.description}\``)
-          .addField('Como usar:', `\`${command.getUsage(prefix)}\``)
-          .addField('Alternativas:', `\`${command.aliases.join(', ')}\``)
-
-        channel.send(embed)
-        break
-      }
-      default: {
-        channel.send('❌ | Este comando não existe.')
-      }
+    if (!command) {
+      return channel.send(
+        `${this.client.getEmoji('error')} | Este comando não existe.`
+      )
     }
+
+    const embed = this.embed()
+      .addField('Nome:', `\`${command.name}\``)
+      .addField('Descrição:', `\`${command.description}\``)
+      .addField('Como usar:', `\`${command.getUsage(prefix, cmd)}\``)
+      .addField('Alternativas:', `\`${command.aliases.join(', ')}\``)
+
+    channel.send(embed)
   }
-}
-
-function mapCommandsByCategory (commands, category) {
-  return commands.filter(command => command.category === category)
-    .map(command => `\`${command.name}\``)
-    .join(', ')
 }

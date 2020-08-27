@@ -8,6 +8,9 @@ module.exports = class NodeErrorListener extends Listener {
   }
 
   async run (node, error) {
-    console.error('Erro ao conectar no node ' + node.tag + ':', error)
+    this.client.logger.error(
+      'Erro ao conectar no node ' + node.tag + ':',
+      error
+    )
   }
 }

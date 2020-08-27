@@ -1,29 +1,31 @@
-const { Command } = require('../../structures/client')
+const { MusicCommand } = require('../../music')
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
   constructor (client) {
     super(client, {
       name: 'resume',
       aliases: ['retornar', 'unpause', 'despausar'],
       category: 'Music',
       usage: '<prefix>resume',
-      description: 'Despause a fila de músicas.'
+      description: 'Despause a fila de músicas.',
+      requirements: {
+        voiceChannelOnly: true,
+        queueOnly: true,
+        djOnly: true
+      }
     })
-
-    this.conf = {
-      voiceChannelOnly: true,
-      queueOnly: true,
-      djOnly: true
-    }
   }
 
   run ({ channel, guild }) {
     if (!guild.music.paused) {
-      channel.send(this.client.botEmojis.error + ' | A música não se encontra pausada.')
-        .then(x => x.delete({ timeout: 10000 }))
+      return channel.sendTempMessage(
+        this.client.getEmoji('error') + ' | A música não se encontra pausada.'
+      )
     }
 
     guild.music.pause(false)
-    return channel.send(this.client.botEmojis.playing + ' | Música retomada com sucesso.').then(x => x.delete({ timeout: 10000 }))
+    return channel.sendTempMessage(
+      this.client.getEmoji('playing') + ' | Música retomada com sucesso.'
+    )
   }
 }

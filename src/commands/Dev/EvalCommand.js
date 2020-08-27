@@ -34,13 +34,15 @@ module.exports = class extends Command {
           .then(res => res.json())
           .then(({ key }) => key)
 
-        author.send('https://speedbin.xyz/' + key)
-          .then(() => channel.send('Olha a DM...'))
-          .catch(() => channel.send('DM fechada! fuck'))
-        return
+        channel.sendTempMessage('Olha a dm...')
+        return author.send('https://speedbin.xyz/' + key)
       }
 
-      channel.send(`${this.client.botEmojis.code} | Resultado:\n\`\`\`js\n${clean(code.replace(new RegExp(this.client.token, 'g'), '😎'))}\`\`\``)
+      channel.send(
+        `${this.client.getEmoji('code')} | Resultado:\n\`\`\`js\n${clean(
+          code.replace(new RegExp(this.client.token, 'g'), '😎')
+        )}\`\`\``
+      )
     } catch (e) {
       return channel.send(e, { code: 'js' })
     }
@@ -48,5 +50,9 @@ module.exports = class extends Command {
 }
 
 function clean (text) {
-  return typeof (text) === 'string' ? text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203)) : text
+  return typeof text === 'string'
+    ? text
+      .replace(/`/g, '`' + String.fromCharCode(8203))
+      .replace(/@/g, '@' + String.fromCharCode(8203))
+    : text
 }

@@ -13,16 +13,24 @@ module.exports = class extends Command {
   }
 
   async run ({ channel, author, mentions, member }) {
-    const user = mentions.users.first() || author
-    const doc = await this.client.database.findDocument(user.id, 'users')
+    const guildMember = mentions.members.first() || member
+    const doc = await this.client.database.findDocument(guildMember.id, 'users')
 
     const { xp: XP, level: l } = doc
     const level = Number(l)
     const xp = Number(XP)
 
-    channel.send(this.embed({ author })
-      .setColor(member.displayHexColor)
-      .setTitle(user.id === author.id ? 'Seu XP' : `XP de ${user.username}`)
-      .setDescription(`Level ${level} - [${xp}/${level * 60}] | ${Math.floor(xp / (level * 60) * 100) || 0}%`))
+    const user = guildMember.user
+
+    channel.send(
+      this.embed({ author: user })
+        .setColor(guildMember.displayHexColor)
+        .setTitle(user.id === author.id ? 'Seu XP' : `XP de ${user.username}`)
+        .setDescription(
+          `Level ${level} - [${xp}/${level * 60}] | ${
+            Math.floor((xp / (level * 60)) * 100) || 0
+          }%`
+        )
+    )
   }
 }
