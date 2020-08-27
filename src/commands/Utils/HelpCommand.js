@@ -28,23 +28,23 @@ module.exports = class extends Command {
         .addFields(
           [
             {
-              name: `${this.client.botEmojis.gear} **| Utilitários: [${commandPerCategory('Utils').size}]**`,
+              name: `${this.client.getEmoji('gear')} **| Utilitários: [${commandPerCategory('Utils').size}]**`,
               value: mapCommandsByCategory(commands, 'Utils')
             },
             {
-              name: `${this.client.botEmojis.dancing} **| Música: [${commandPerCategory('Music').size}]**`,
+              name: `${this.client.getEmoji('dancing')} **| Música: [${commandPerCategory('Music').size}]**`,
               value: mapCommandsByCategory(commands, 'Music')
             },
             {
-              name: `${this.client.botEmojis.star} **| Diversão: [${commandPerCategory('Fun').size}]**`,
+              name: `${this.client.getEmoji('star')} **| Diversão: [${commandPerCategory('Fun').size}]**`,
               value: mapCommandsByCategory(commands, 'Fun')
             },
             {
-              name: `${this.client.botEmojis.lamp} **| Misc: [${commandPerCategory('Misc').size}]**`,
+              name: `${this.client.getEmoji('lamp')} **| Misc: [${commandPerCategory('Misc').size}]**`,
               value: mapCommandsByCategory(commands, 'Misc')
             },
             {
-              name: `👮 **| Moderação: [${commandPerCategory('moderation').size}]**`,
+              name: `${this.client.getEmoji('cop')} **| Moderação: [${commandPerCategory('moderation').size}]**`,
               value: mapCommandsByCategory(commands, 'moderation')
             }
           ]
@@ -58,7 +58,7 @@ module.exports = class extends Command {
 
     const command = commands.find(c => c.name === opts || c.aliases.includes(opts))
 
-    if (!command) return channel.send('❌ | Este comando não existe.')
+    if (!command) return channel.send(`${this.client.getEmoji('error')} | Este comando não existe.`)
 
     const embed = this.embed()
       .addField('Nome:', `\`${command.name}\``)

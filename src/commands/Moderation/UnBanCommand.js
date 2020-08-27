@@ -15,15 +15,15 @@ module.exports = class extends Command {
 
   async run ({ channel, guild, args: [user], author }) {
     if (!guild.me.hasPermission('BAN_MEMBERS')) {
-      return channel.sendTempMessage(this.client.botEmojis.error + ' | Eu não possuo permissão de `Banir membros` para executar este comando.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | Eu não possuo permissão de `Banir membros` para executar este comando.')
     }
 
     const guildDocument = await guild.data
 
-    if (!user) return channel.sendTempMessage('Informe o id do membro.')
+    if (!user) return channel.sendTempMessage(this.client.getEmoji('error') + ' | Informe o id do membro.')
 
     const ban = await guild.fetchBan(user).catch(err => {
-      channel.sendTempMessage(this.client.botEmojis.error + ' | Este membro não está banido.')
+      channel.sendTempMessage(this.client.getEmoji('error') + ' | Este membro não está banido.')
       console.error(err)
     })
 
@@ -39,7 +39,7 @@ module.exports = class extends Command {
     if (guildDocument.punishmentChannel) {
       const punishmentChannel = this.client.channels.cache.get(guildDocument.punishmentChannel)
 
-      channel.sendTempMessage('Membro desbanido com sucesso.')
+      channel.sendTempMessage(this.client.getEmoji('correct') + ' | Membro desbanido com sucesso.')
       return punishmentChannel.send(embed)
     }
 

@@ -8,7 +8,7 @@ module.exports = class QueueEndListener extends Listener {
   }
 
   async run (player) {
-    await player.textChannel.sendTempMessage(player.manager.client.botEmojis.stopped + ' | A fila acabou...')
+    await player.textChannel.sendTempMessage(this.client.getEmoji('stopped') + ' | A fila acabou...')
 
     await player.end()
   }

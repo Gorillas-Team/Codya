@@ -55,7 +55,9 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     setTimeout(() => {
       if (this.playing) return
       this.destroy()
-      this.textChannel.sendTempMessage('Saindo do canal...', 5000)
+      this.textChannel.sendTempMessage(`
+        ${this.manager.client.getEmoji('bye')} | Saindo do canal...
+      `, 5000)
     }, 60000)
   }
 }

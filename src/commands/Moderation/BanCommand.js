@@ -13,13 +13,13 @@ module.exports = class extends Command {
 
   async run ({ channel, args: [user, ...args], member: guildMember, guild, mentions }) {
     if (!guild.me.hasPermission('BAN_MEMBERS')) {
-      return channel.sendTempMessage(this.client.botEmojis.error + ' | Eu não possuo permissão de `Banir membros` para executar este comando.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | Eu não possuo permissão de `Banir membros` para executar este comando.')
     }
 
     const guildDocument = await guild.data
 
     if (!user) {
-      return channel.sendTempMessage(this.client.botEmojis.error + ' | Você não inseriu o id ou mencionou um membro.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | Você não inseriu o id ou mencionou um membro.')
     }
 
     const mention = mentions.members.first()
@@ -27,24 +27,24 @@ module.exports = class extends Command {
     const member = mention || guild.member(user)
 
     if (!member) {
-      return channel.sendTempMessage(this.client.botEmojis.error + ' | O membro inserido não foi encontrado.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | O membro inserido não foi encontrado.')
     }
 
     /*
     const isBanned = await guild.fetchBan(member.id)
     if (isBanned) {
-      return channel.sendTempMessage(this.client.botEmojis.error + ' | O membro já está banido.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | O membro já está banido.')
     }
     */
 
     const guildMemberPosition = guildMember.roles.highest.position
     const memberPosition = member.roles.highest.position
     if (memberPosition >= guildMemberPosition) {
-      return channel.sendTempMessage('Você não pode banir este membro.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | Você não pode banir este membro.')
     }
 
     if (memberPosition >= guild.me.roles.highest.position) {
-      return channel.sendTempMessage('Não posso banir este membro.')
+      return channel.sendTempMessage(this.client.getEmoji('error') + ' | Não posso banir este membro.')
     }
 
     const reason = args.join(' ') || 'Nenhum motivo informado.'

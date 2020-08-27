@@ -16,12 +16,16 @@ module.exports = class MusicCommand extends Command {
   async preLoad (ctx) {
     if (this.options.requirements.voiceChannelOnly) {
       if (!ctx.member.voice.channel) {
-        return ctx.channel.send('❌ | Você precisa estar em um canal de voz ou no mesmo que eu.')
+        return ctx.channel.send(`
+          ${this.client.getEmoji('error')} | Você precisa estar em um canal de voz ou no mesmo que eu.
+        `)
       }
     }
 
     if (this.options.requirements.queueOnly && !ctx.guild.music?.queue[0]) {
-      return ctx.channel.send('❌ | Não há músicas tocando.')
+      return ctx.channel.send(`
+        ${this.client.getEmoji('error')} | Não há músicas tocando.
+      `)
     }
 
     const guildDocument = await ctx.guild.data
@@ -31,7 +35,9 @@ module.exports = class MusicCommand extends Command {
       !ctx.member.roles.cache.has(guildDocument.djRole)
     ) {
       const role = ctx.guild.roles.cache.get(guildDocument.djRole)
-      return ctx.channel.send('❌ | Você precisa ter o cargo `' + role.name + '` para utilizar este comando.')
+      return ctx.channel.send(`
+        ${this.client.getEmoji('error')} | Você precisa ter o cargo \`${role.name}\` para utilizar este comando.
+      `)
     }
 
     return this.run(ctx)
