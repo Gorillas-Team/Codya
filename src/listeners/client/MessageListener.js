@@ -14,7 +14,7 @@ module.exports = class MessageListener extends Listener {
   }
 
   async run (message) {
-    if (message.author.bot || message.channel.type === 'dm') return
+    if (message.author.bot || !message.guild) return
 
     const userDocument = await message.author.data
 

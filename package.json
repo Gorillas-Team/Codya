@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "yarn lint && nodemon",
+    "debug": "yarn lint && nodemon inspect",
     "lint": "eslint src/ index.js",
     "lint:fix": "eslint --fix src/ index.js"
   },

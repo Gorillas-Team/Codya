@@ -33,7 +33,6 @@ module.exports = class extends Command {
         })
           .then(res => res.json())
           .then(({ key }) => key)
-          .catch(x => x.send('DM fechada! fuck'))
 
         channel.sendTempMessage('Olha a dm...')
         return author.send('https://speedbin.xyz/' + key)
