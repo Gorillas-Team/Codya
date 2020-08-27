@@ -1,5 +1,6 @@
 const { Command } = require('../../structures/client')
-const { version } = require('discord.js')
+const { version: discordJsVersion } = require('discord.js')
+const packageJson = require('../../../package.json')
 
 module.exports = class extends Command {
   constructor (client) {
@@ -44,9 +45,9 @@ module.exports = class extends Command {
           {
             name: `${this.client.botEmojis.star} | **Extras:**`,
             value: `
-            **Versão:** 0.0.1
-            **Discord.js:** ${version}
-            **Node:** 12.18.0
+            **Versão:** ${packageJson.version}
+            **Discord.js:** ${discordJsVersion}
+            **Node:** ${process.version}
             `,
             inline: true
           }
