@@ -1,4 +1,4 @@
-const models = require('./model')
+const models = require('./models')
 const { connect } = require('mongoose')
 
 module.exports = class Database {

@@ -1,17 +1,15 @@
-const { Command } = require('../../structures/client')
+const { MusicCommand } = require('../../music')
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
   constructor (client) {
     super(client, {
       name: 'play',
       aliases: ['tocar', 'p'],
       usage: '<prefix>play <args>',
       description: 'Ouça músicas em algum canal de voz.',
-      category: 'Music'
+      category: 'Music',
+      requirements: { voiceChannelOnly: true }
     })
-    this.conf = {
-      voiceChannelOnly: true
-    }
   }
 
   async run ({ channel, args, lavalink, member, guild, author }) {
@@ -34,17 +32,16 @@ module.exports = class extends Command {
       }
 
       case 'PLAYLIST_LOADED': {
-        for (const track of tracks) {
-          if (tracks.length >= 250) return channel.sendTempMessage('Não posso adicionar mais que 250 músicas.')
+        for (const track of tracks.slice(0, 250)) {
           if (player.queue.length >= 250) return channel.sendTempMessage('A fila está cheia.')
 
           player.addToQueue(track, author)
         }
 
-        channel.sendTempMessage(this.client.botEmojis.musicNotes + ' | Foram adicionadas `' + tracks.length + '` músicas da playlist `' + playlistInfo.name + '`. Requisitado por: `' + author.tag + '`.')
+        const trackQuantity = tracks.length > 250 ? `Foram adicionadas \`${tracks.slice(0, 250).length}\` e descartadas \`${tracks.length - 250}\`` : `Foram adicionadas \`${tracks.slice(0, 250).length}\``
 
+        channel.sendTempMessage(`${this.client.botEmojis.musicNotes} | ${trackQuantity} das músicas da playlist \`${playlistInfo.name}\`. Requisitado por: \`${author.tag}\`.'`)
         if (!player.playing) return player.play()
-
         break
       }
 

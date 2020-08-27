@@ -5,15 +5,24 @@ module.exports = class extends Command {
     super(client, {
       name: 'unban',
       aliases: ['desbanir'],
-      permissions: ['BAN_MEMBERS'],
+      permissions: {
+        verify: true,
+        names: ['BAN_MEMBERS']
+      },
       category: 'moderation'
     })
   }
 
-  async run ({ channel, guild, args, author }) {
+  async run ({ channel, guild, args: [user], author }) {
+    if (!guild.me.hasPermission('BAN_MEMBERS')) {
+      return channel.sendTempMessage(this.client.botEmojis.error + ' | Eu não possuo permissão de `Banir membros` para executar este comando.')
+    }
+
     const guildDocument = await guild.data
 
-    const ban = await guild.fetchBan(args[0]).catch(err => {
+    if (!user) return channel.sendTempMessage('Informe o id do membro.')
+
+    const ban = await guild.fetchBan(user).catch(err => {
       channel.sendTempMessage(this.client.botEmojis.error + ' | Este membro não está banido.')
       console.error(err)
     })

@@ -55,8 +55,7 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     setTimeout(() => {
       if (this.playing) return
       this.destroy()
-      this.textChannel.send('Saindo do canal...')
-        .then(msg => msg.delete({ timeout: 5000 }))
+      this.textChannel.sendTempMessage('Saindo do canal...', 5000)
     }, 60000)
   }
 }

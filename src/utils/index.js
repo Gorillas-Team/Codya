@@ -1,5 +1,6 @@
 module.exports = {
   FileUtils: require('./FileUtils'),
   Constants: require('./Constants'),
-  getPrefix: require('./command/getPrefix')
+  CommandUtils: require('./command'),
+  CooldownManager: require('./CooldownManager')
 }

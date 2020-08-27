@@ -1,20 +1,19 @@
-const { Command } = require('../../structures/client')
+const { MusicCommand } = require('../../music')
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
   constructor (client) {
     super(client, {
       name: 'loop',
       aliases: ['repeat'],
       category: 'Music',
       usage: '<prefix>loop <all/single>',
-      description: 'Determine o tipo de loop que está na queue.'
+      description: 'Determine o tipo de loop que está na queue.',
+      requirements: {
+        voiceChannelOnly: true,
+        queueOnly: true,
+        djOnly: true
+      }
     })
-
-    this.conf = {
-      voiceChannelOnly: true,
-      queueOnly: true,
-      djOnly: true
-    }
   }
 
   async run ({ channel, guild, args }) {

@@ -1,39 +1,38 @@
-module.exports = function Paginator ({ elements, length }) {
-  this.pages = {
-    actual: 1,
-    total: Math.ceil(elements.length / length),
-    length
+class Paginator {
+  constructor ({ elements, size }) {
+    this.elements = elements
+    this.pages = {
+      actual: 1,
+      total: Math.ceil(elements.length / size),
+      size
+    }
   }
 
-  this.nextPage = function nextPage () {
+  nextPage () {
     const { actual, total } = this.pages
     if (actual < total) this.pages.actual++
 
     return this
   }
 
-  this.prevPage = function prevPage () {
+  prevPage () {
     const { actual } = this.pages
     if (actual > 1) this.pages.actual--
 
     return this
   }
 
-  this.get = function get (removeFirst = false) {
-    if (typeof removeFirst !== 'boolean') throw new TypeError('The "path" argument must be of type boolean. Received ' + typeof removeFirst)
-    const { actual, length } = this.pages
+  get (removeFirst = false) {
+    if (typeof removeFirst !== 'boolean') throw new TypeError('Expected boolean but received ' + typeof removeFirst)
+    const { actual, size } = this.pages
 
-    const [first, second] = getIndexs({ actual, length })
-    const result = elements.slice(first + removeFirst, second)
+    const first = (actual - 1) * size
+    const second = actual * size
+
+    const result = this.elements.slice(first + removeFirst, second)
 
     return result
   }
 }
 
-function getIndexs ({ actual, length }) {
-  if (typeof actual !== 'number' || typeof length !== 'number') throw new TypeError(':pensive:')
-
-  const first = (actual - 1) * length
-  const second = actual * length
-  return [first, second]
-}
+module.exports = Paginator

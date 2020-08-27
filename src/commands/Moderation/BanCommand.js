@@ -12,6 +12,10 @@ module.exports = class extends Command {
   }
 
   async run ({ channel, args: [user, ...args], member: guildMember, guild, mentions }) {
+    if (!guild.me.hasPermission('BAN_MEMBERS')) {
+      return channel.sendTempMessage(this.client.botEmojis.error + ' | Eu não possuo permissão de `Banir membros` para executar este comando.')
+    }
+
     const guildDocument = await guild.data
 
     if (!user) {
@@ -20,16 +24,18 @@ module.exports = class extends Command {
 
     const mention = mentions.members.first()
 
-    const member = mention || guild.member(await this.client.users.fetch(user))
+    const member = mention || guild.member(user)
 
     if (!member) {
       return channel.sendTempMessage(this.client.botEmojis.error + ' | O membro inserido não foi encontrado.')
     }
 
+    /*
     const isBanned = await guild.fetchBan(member.id)
     if (isBanned) {
       return channel.sendTempMessage(this.client.botEmojis.error + ' | O membro já está banido.')
     }
+    */
 
     const guildMemberPosition = guildMember.roles.highest.position
     const memberPosition = member.roles.highest.position

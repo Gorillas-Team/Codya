@@ -1,23 +1,22 @@
-const { Command } = require('../../structures/client')
+const { MusicCommand } = require('../../music')
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
   constructor (client) {
     super(client, {
       name: 'bassboost',
       aliases: ['bass'],
       usage: '<prefix>bassboost <gain>',
       description: 'Sete o tamanho do bassboost da fila.',
-      category: 'Music'
+      category: 'Music',
+      requirements: {
+        voiceChannelOnly: true,
+        queueOnly: true,
+        djOnly: true
+      }
     })
-
-    this.conf = {
-      voiceChannelOnly: true,
-      queueOnly: true,
-      djOnly: true
-    }
   }
 
-  run ({ channel, args, guild }) {
+  run ({ channel, guild }) {
     guild.music.bassboost()
     const filter = guild.music.filters.bassboost
     const mode = filter ? 'ativado' : 'desativado'
