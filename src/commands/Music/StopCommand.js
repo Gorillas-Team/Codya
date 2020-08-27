@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor (client) {
+  constructor(client) {
     super(client, {
       name: 'stop',
       aliases: ['parar'],
@@ -16,8 +16,10 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  run ({ guild, channel }) {
+  run({ guild, channel }) {
     guild.music.destroy()
-    return channel.sendTempMessage(this.client.getEmoji('stopped') + ' | Estou saindo do canal.')
+    return channel.sendTempMessage(
+      this.client.getEmoji('stopped') + ' | Estou saindo do canal.'
+    )
   }
 }

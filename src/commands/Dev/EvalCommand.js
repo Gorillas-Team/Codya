@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 const { inspect } = require('util')
 
 module.exports = class extends Command {
-  constructor (client) {
+  constructor(client) {
     super(client, {
       name: 'eval',
       aliases: ['ev'],
@@ -17,7 +17,17 @@ module.exports = class extends Command {
     })
   }
 
-  async run ({ channel, args, author, config, prefix, message, guild, member, lavalink }) {
+  async run({
+    channel,
+    args,
+    author,
+    config,
+    prefix,
+    message,
+    guild,
+    member,
+    lavalink
+  }) {
     const input = args.join(' ').replace(/^`(``(js)?\s?)?|`(``)?$/g, '')
 
     if (input.includes('token')) return
@@ -39,13 +49,21 @@ module.exports = class extends Command {
         return author.send('https://speedbin.xyz/' + key)
       }
 
-      channel.send(`${this.client.getEmoji('code')} | Resultado:\n\`\`\`js\n${clean(code.replace(new RegExp(this.client.token, 'g'), '😎'))}\`\`\``)
+      channel.send(
+        `${this.client.getEmoji('code')} | Resultado:\n\`\`\`js\n${clean(
+          code.replace(new RegExp(this.client.token, 'g'), '😎')
+        )}\`\`\``
+      )
     } catch (e) {
       return channel.send(e, { code: 'js' })
     }
   }
 }
 
-function clean (text) {
-  return typeof (text) === 'string' ? text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203)) : text
+function clean(text) {
+  return typeof text === 'string'
+    ? text
+        .replace(/`/g, '`' + String.fromCharCode(8203))
+        .replace(/@/g, '@' + String.fromCharCode(8203))
+    : text
 }

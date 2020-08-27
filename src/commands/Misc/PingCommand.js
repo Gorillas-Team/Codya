@@ -1,7 +1,7 @@
 const { Command } = require('../../structures/client')
 
 module.exports = class extends Command {
-  constructor (client) {
+  constructor(client) {
     super(client, {
       name: 'ping',
       aliases: ['latency'],
@@ -11,7 +11,11 @@ module.exports = class extends Command {
     })
   }
 
-  async run ({ channel }) {
-    channel.send('📡 | Minha latência é de: `' + Number(this.client.ws.ping).toFixed() + 'ms`.')
+  async run({ channel }) {
+    channel.send(
+      '📡 | Minha latência é de: `' +
+        Number(this.client.ws.ping).toFixed() +
+        'ms`.'
+    )
   }
 }

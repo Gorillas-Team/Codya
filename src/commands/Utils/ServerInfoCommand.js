@@ -1,7 +1,7 @@
 const { Command } = require('../../structures/client')
 
 module.exports = class extends Command {
-  constructor (client) {
+  constructor(client) {
     super(client, {
       name: 'serverinfo',
       aliases: ['server-info', 'infoserver', 'sinfo'],
@@ -11,7 +11,7 @@ module.exports = class extends Command {
     })
   }
 
-  run ({ channel, guild, args, author }) {
+  run({ channel, guild, args, author }) {
     const guildInfo = args[0] ? this.client.guilds.cache.get(args[0]) : guild
     const regions = {
       brazil: 'Brasil',
@@ -33,7 +33,10 @@ module.exports = class extends Command {
       .addField('| Nome:', `\`${guildInfo.name}\``, true)
       .addField('| ID:', `\`${guildInfo.id}\``, true)
       .addField('| Região:', `\`${regions[guildInfo.region]}\``)
-      .addField('| Dono:', `\`${guildInfo.owner.user.username} (${guildInfo.owner.user.id})\``)
+      .addField(
+        '| Dono:',
+        `\`${guildInfo.owner.user.username} (${guildInfo.owner.user.id})\``
+      )
 
     channel.send(embed)
   }

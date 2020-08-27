@@ -3,7 +3,7 @@ const moment = require('moment')
 moment.locale('pt-BR')
 
 module.exports = class extends Command {
-  constructor (client) {
+  constructor(client) {
     super(client, {
       name: 'userinfo',
       aliases: ['uinfo', 'infouser'],
@@ -13,8 +13,10 @@ module.exports = class extends Command {
     })
   }
 
-  async run ({ channel, args, author, mentions, guild }) {
-    const user = args[0] ? mentions.users.first() || await this.client.users.fetch(args[0]) : author
+  async run({ channel, args, author, mentions, guild }) {
+    const user = args[0]
+      ? mentions.users.first() || (await this.client.users.fetch(args[0]))
+      : author
     const { timestamp } = guild.member(user).lastMessage
 
     const embed = this.embed({ author })
@@ -24,12 +26,20 @@ module.exports = class extends Command {
       .addField('| Id:', `\`${user.id}\``, true)
       .addField('| Discriminador:', `\`${user.discriminator}\``, true)
       .addField('| Bot?', `\`${user.bot ? 'Sim.' : 'Não.'}\``, true)
-      .addField('| Conta criada em:', `\`${formatDate(user.createdAt, 'LLLL')}\``, true)
-      .addField('| Visto última vez em:', `\`${moment(timestamp).fromNow()}\``, true)
+      .addField(
+        '| Conta criada em:',
+        `\`${formatDate(user.createdAt, 'LLLL')}\``,
+        true
+      )
+      .addField(
+        '| Visto última vez em:',
+        `\`${moment(timestamp).fromNow()}\``,
+        true
+      )
 
     channel.send(embed)
 
-    function formatDate (date, format) {
+    function formatDate(date, format) {
       return moment(date).format(format)
     }
   }

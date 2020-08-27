@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor (client) {
+  constructor(client) {
     super(client, {
       name: 'nightcore',
       aliases: ['nc'],
@@ -16,11 +16,13 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  run ({ channel, guild, args }) {
+  run({ channel, guild, args }) {
     guild.music.nightcore()
     const filter = guild.music.filters.nightcore
     const mode = filter ? 'ativado' : 'desativado'
 
-    channel.sendTempMessage(`${this.client.getEmoji('dancing')} | Nightcore ${mode} com sucesso.`)
+    channel.sendTempMessage(
+      `${this.client.getEmoji('dancing')} | Nightcore ${mode} com sucesso.`
+    )
   }
 }

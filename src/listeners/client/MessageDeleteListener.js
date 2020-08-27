@@ -2,13 +2,13 @@ const { Listener } = require('../../structures/client')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class MessageDeleteListener extends Listener {
-  constructor () {
+  constructor() {
     super({
       name: 'messageDelete'
     })
   }
 
-  async run (message) {
+  async run(message) {
     if (message.author.bot) return
 
     const guildDocument = await message.guild.data
@@ -16,10 +16,12 @@ module.exports = class MessageDeleteListener extends Listener {
     const embed = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
-      .setDescription(`**Canal:** ${message.channel.toString()}
+      .setDescription(
+        `**Canal:** ${message.channel.toString()}
         **Mensagem excluída:**
         ${message.content}
-        `)
+        `
+      )
       .setTimestamp()
 
     if (guildDocument.logChannel) {

@@ -7,7 +7,7 @@ const Database = require('./database/Database')
 require('./structures/discord')
 
 module.exports = class Codya extends Client {
-  constructor (options = {}) {
+  constructor(options = {}) {
     super(options)
     this.token = options.token
     this.config = {
@@ -22,7 +22,7 @@ module.exports = class Codya extends Client {
     this.commands = new Collection()
   }
 
-  async initLoaders () {
+  async initLoaders() {
     for (const Loader of Object.values(Loaders)) {
       const loader = new Loader(this)
       try {
@@ -33,14 +33,15 @@ module.exports = class Codya extends Client {
     }
   }
 
-  start () {
+  start() {
     this.initLoaders()
     super.login(this.token)
     return this
   }
 
-  getEmoji (emojiName) {
-    const emoji = this.emojis.cache.find(emoji => emoji.name === emojiName)?.toString() ||
+  getEmoji(emojiName) {
+    const emoji =
+      this.emojis.cache.find(emoji => emoji.name === emojiName)?.toString() ||
       Constants.emojis[emojiName]
 
     if (!emoji) throw new Error('This emoji not exists.')

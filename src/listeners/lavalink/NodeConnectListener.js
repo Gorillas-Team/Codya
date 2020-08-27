@@ -1,13 +1,13 @@
 const { Listener } = require('../../structures/client')
 
 module.exports = class NodeConnectListener extends Listener {
-  constructor () {
+  constructor() {
     super({
       name: 'nodeConnect'
     })
   }
 
-  async run (node) {
+  async run(node) {
     this.client.logger.info('Node: ' + node.tag + ' conectado com sucesso.')
   }
 }

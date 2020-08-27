@@ -1,16 +1,19 @@
 const { Listener, CommandContext } = require('../../structures/client')
-const { CommandUtils: { getPrefix }, CooldownManager } = require('../../utils')
+const {
+  CommandUtils: { getPrefix },
+  CooldownManager
+} = require('../../utils')
 
 const cooldownManager = CooldownManager(1000 * 60)
 
 module.exports = class MessageListener extends Listener {
-  constructor () {
+  constructor() {
     super({
       name: 'message'
     })
   }
 
-  async run (message) {
+  async run(message) {
     if (message.author.bot || message.channel.type === 'dm') return
 
     const userDocument = await message.author.data
@@ -18,7 +21,9 @@ module.exports = class MessageListener extends Listener {
     if (!cooldownManager.has(message.author.id)) {
       const { xp, level } = userDocument
 
-      await userDocument.updateOne({ $inc: { xp: Math.floor(Math.random() * 3) + 2 } })
+      await userDocument.updateOne({
+        $inc: { xp: Math.floor(Math.random() * 3) + 2 }
+      })
 
       if (xp >= level * 60) {
         await userDocument.updateOne({
@@ -35,7 +40,9 @@ module.exports = class MessageListener extends Listener {
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g)
     const cmd = args.shift().toLowerCase()
-    const command = this.commands.find(({ name, aliases }) => name === cmd || aliases.includes(cmd))
+    const command = this.commands.find(
+      ({ name, aliases }) => name === cmd || aliases.includes(cmd)
+    )
 
     const context = new CommandContext(message, args, cmd, prefix)
 

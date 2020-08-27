@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor (client) {
+  constructor(client) {
     super(client, {
       name: 'nowplaying',
       aliases: ['np'],
@@ -15,14 +15,20 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  async run ({ channel, guild }) {
+  async run({ channel, guild }) {
     const { track, state } = guild.music
 
     const embed = this.embed()
-      .setDescription(`${this.client.getEmoji('dancing')} **| Tocando agora:** [${track.info.title}](${track.info.uri})
+      .setDescription(
+        `${this.client.getEmoji('dancing')} **| Tocando agora:** [${
+          track.info.title
+        }](${track.info.uri})
       ${this.client.getEmoji('disco')} **| Autor:** \`${track.info.author}\`
-      ${this.client.getEmoji('time')} **| Duração:** \`${this.formatTime(state.position)}\` de \`${this.formatTime(track.info.length)}\`
-      `)
+      ${this.client.getEmoji('time')} **| Duração:** \`${this.formatTime(
+          state.position
+        )}\` de \`${this.formatTime(track.info.length)}\`
+      `
+      )
       .setThumbnail(track.info.thumbnail)
       .setColor(guild.me.displayHexColor)
 

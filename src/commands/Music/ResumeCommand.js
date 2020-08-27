@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor (client) {
+  constructor(client) {
     super(client, {
       name: 'resume',
       aliases: ['retornar', 'unpause', 'despausar'],
@@ -16,12 +16,16 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  run ({ channel, guild }) {
+  run({ channel, guild }) {
     if (!guild.music.paused) {
-      return channel.sendTempMessage(this.client.getEmoji('error') + ' | A música não se encontra pausada.')
+      return channel.sendTempMessage(
+        this.client.getEmoji('error') + ' | A música não se encontra pausada.'
+      )
     }
 
     guild.music.pause(false)
-    return channel.sendTempMessage(this.client.getEmoji('playing') + ' | Música retomada com sucesso.')
+    return channel.sendTempMessage(
+      this.client.getEmoji('playing') + ' | Música retomada com sucesso.'
+    )
   }
 }

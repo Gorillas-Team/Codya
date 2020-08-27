@@ -2,7 +2,7 @@ const { Console } = require('console')
 const chalk = require('chalk')
 
 module.exports = class Logger extends Console {
-  constructor (client) {
+  constructor(client) {
     super({
       stdout: process.stdout,
       stderr: process.stderr,
@@ -12,7 +12,7 @@ module.exports = class Logger extends Console {
     this.client = client
   }
 
-  log (message, color = 'blue') {
+  log(message, color = 'blue') {
     return super.log(chalk[color](message))
   }
 }

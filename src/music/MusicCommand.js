@@ -1,7 +1,7 @@
 const { Command } = require('../structures/client')
 
 module.exports = class MusicCommand extends Command {
-  constructor (client, options) {
+  constructor(client, options) {
     super(client, options)
 
     this.requirements = options.requirements || {
@@ -13,11 +13,13 @@ module.exports = class MusicCommand extends Command {
     this.options = options
   }
 
-  async preLoad (ctx) {
+  async preLoad(ctx) {
     if (this.options.requirements.voiceChannelOnly) {
       if (!ctx.member.voice.channel) {
         return ctx.channel.send(`
-          ${this.client.getEmoji('error')} | Você precisa estar em um canal de voz ou no mesmo que eu.
+          ${this.client.getEmoji(
+            'error'
+          )} | Você precisa estar em um canal de voz ou no mesmo que eu.
         `)
       }
     }
@@ -30,13 +32,16 @@ module.exports = class MusicCommand extends Command {
 
     const guildDocument = await ctx.guild.data
 
-    if (this.options.requirements.djOnly &&
+    if (
+      this.options.requirements.djOnly &&
       guildDocument.djRole &&
       !ctx.member.roles.cache.has(guildDocument.djRole)
     ) {
       const role = ctx.guild.roles.cache.get(guildDocument.djRole)
       return ctx.channel.send(`
-        ${this.client.getEmoji('error')} | Você precisa ter o cargo \`${role.name}\` para utilizar este comando.
+        ${this.client.getEmoji('error')} | Você precisa ter o cargo \`${
+        role.name
+      }\` para utilizar este comando.
       `)
     }
 

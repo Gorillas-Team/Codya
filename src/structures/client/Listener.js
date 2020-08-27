@@ -1,10 +1,10 @@
 module.exports = class Listener {
-  constructor (options) {
+  constructor(options) {
     this.name = options.name
     this.once = options.once || false
   }
 
-  listen (client) {
+  listen(client) {
     try {
       client[this.once ? 'once' : 'on'](this.name, this.run)
 
@@ -16,5 +16,5 @@ module.exports = class Listener {
     }
   }
 
-  run () {}
+  run() {}
 }

@@ -3,15 +3,15 @@ const { Structures } = require('discord.js')
 Structures.extend('Guild', Guild => {
   class CodyaGuild extends Guild {
     // eslint-disable-next-line no-useless-constructor
-    constructor (...data) {
+    constructor(...data) {
       super(...data)
     }
 
-    get data () {
+    get data() {
       return this.client.database.findDocument(this.id, 'guilds')
     }
 
-    get music () {
+    get music() {
       return this.client.lavalink.players.get(this.id) || null
     }
   }

@@ -1,5 +1,5 @@
 module.exports = class CommandContext {
-  constructor (context, args, cmd, prefix) {
+  constructor(context, args, cmd, prefix) {
     this.cmd = cmd
     this.args = args
     this.prefix = prefix
