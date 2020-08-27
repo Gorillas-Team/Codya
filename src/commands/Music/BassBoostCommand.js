@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'bassboost',
       aliases: ['bass'],
@@ -16,7 +16,7 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  run({ channel, guild }) {
+  run ({ channel, guild }) {
     guild.music.bassboost()
     const filter = guild.music.filters.bassboost
     const mode = filter ? 'ativado' : 'desativado'

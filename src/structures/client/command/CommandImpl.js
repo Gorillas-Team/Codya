@@ -5,7 +5,7 @@ const colors = {
 }
 
 module.exports = class CommandImpl {
-  embed(opts = {}) {
+  embed (opts = {}) {
     const embed = new MessageEmbed()
       .setColor(
         opts.color && typeof opts.color === 'string'
@@ -28,9 +28,9 @@ module.exports = class CommandImpl {
     return embed
   }
 
-  run() {}
+  run () {}
 
-  resolvePrefix(prefix) {
+  resolvePrefix (prefix) {
     return prefix !== 'codya'
       ? /<@!?\d+>/.test(prefix)
         ? '@Codya '
@@ -38,12 +38,12 @@ module.exports = class CommandImpl {
       : prefix + ' '
   }
 
-  getUsage(prefix, cmd) {
+  getUsage (prefix, cmd) {
     prefix = this.resolvePrefix(prefix)
     return this.usage.replace(/<prefix>/g, prefix).replace(/<cmd>/g, cmd)
   }
 
-  parseTime(ms) {
+  parseTime (ms) {
     const seconds = Math.floor(ms / 1000)
     const minutes = Math.floor(seconds / 60)
     const hours = Math.floor(minutes / 60)
@@ -51,7 +51,7 @@ module.exports = class CommandImpl {
     return { seconds: seconds % 60, minutes: minutes % 60, hours: hours % 24 }
   }
 
-  formatTime(time) {
+  formatTime (time) {
     const { seconds, minutes, hours } = this.parseTime(time)
     const resolvedTime =
       minutes.toString().padStart(2, 0) +

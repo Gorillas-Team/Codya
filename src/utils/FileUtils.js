@@ -2,7 +2,7 @@ const { readdirSync, statSync } = require('fs')
 const { resolve } = require('path')
 
 module.exports = class FileUtils {
-  static requireDir(
+  static requireDir (
     { dir, filesOnly = ['js', 'json'], recursive = true },
     callback
   ) {

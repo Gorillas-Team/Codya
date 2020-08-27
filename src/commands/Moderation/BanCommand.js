@@ -2,7 +2,7 @@ const { Command } = require('../../structures/client')
 const { banned } = require('../../../assets')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'ban',
       aliases: ['banir'],
@@ -11,7 +11,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({
+  async run ({
     channel,
     args: [user, ...args],
     member: guildMember,

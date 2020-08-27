@@ -7,7 +7,7 @@ const mapCommandsByCategory = (commands, category) =>
     .join(', ')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'help',
       aliases: ['ajuda', 'comandos', 'commands'],
@@ -17,7 +17,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({ channel, args, prefix, author, cmd }) {
+  async run ({ channel, args, prefix, author, cmd }) {
     const commands = this.client.commands.filter(
       ({ hide, dev }) => !hide && !dev
     )
@@ -77,10 +77,11 @@ module.exports = class extends Command {
       c => c.name === opts || c.aliases.includes(opts)
     )
 
-    if (!command)
+    if (!command) {
       return channel.send(
         `${this.client.getEmoji('error')} | Este comando não existe.`
       )
+    }
 
     const embed = this.embed()
       .addField('Nome:', `\`${command.name}\``)

@@ -5,13 +5,11 @@ module.exports = {
     node: true
   },
   extends: [
-    'standard',
-    'plugin:prettier/recommended'
+    'standard'
   ],
   parserOptions: {
     ecmaVersion: 11
   },
   rules: {
-    'prettier/prettier': ['error']
   }
 }

@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 const { inspect } = require('util')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'eval',
       aliases: ['ev'],
@@ -17,7 +17,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({
+  async run ({
     channel,
     args,
     author,
@@ -60,10 +60,10 @@ module.exports = class extends Command {
   }
 }
 
-function clean(text) {
+function clean (text) {
   return typeof text === 'string'
     ? text
-        .replace(/`/g, '`' + String.fromCharCode(8203))
-        .replace(/@/g, '@' + String.fromCharCode(8203))
+      .replace(/`/g, '`' + String.fromCharCode(8203))
+      .replace(/@/g, '@' + String.fromCharCode(8203))
     : text
 }

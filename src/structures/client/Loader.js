@@ -1,18 +1,18 @@
 module.exports = class Loader {
-  constructor(client) {
+  constructor (client) {
     this.client = client
     this.critical = false
   }
 
-  load() {
+  load () {
     return true
   }
 
-  log(message, tag) {
+  log (message, tag) {
     return console.log(`${tag ? '[' + tag.toUpperCase() + '] ' : ''}${message}`)
   }
 
-  logError(message, tag) {
+  logError (message, tag) {
     return console.error(
       `${tag ? '[' + tag.toUpperCase() + '] ' : ''}${message}`
     )

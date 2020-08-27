@@ -2,13 +2,13 @@ const { Listener } = require('../../structures/client')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class MessageDeleteListener extends Listener {
-  constructor() {
+  constructor () {
     super({
       name: 'messageDelete'
     })
   }
 
-  async run(message) {
+  async run (message) {
     if (message.author.bot) return
 
     const guildDocument = await message.guild.data

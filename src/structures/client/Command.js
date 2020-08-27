@@ -5,7 +5,7 @@ const {
 const CommandImpl = require('./command/CommandImpl')
 
 module.exports = class Command extends CommandImpl {
-  constructor(client, opts) {
+  constructor (client, opts) {
     super()
 
     this.client = client
@@ -23,7 +23,7 @@ module.exports = class Command extends CommandImpl {
     this.hide = opts.hide || false
   }
 
-  preLoad(ctx) {
+  preLoad (ctx) {
     if (this.cooldown.has(ctx.author.id)) {
       const now = Date.now()
       const cooldown = this.cooldown.get(ctx.author.id)
@@ -68,5 +68,5 @@ module.exports = class Command extends CommandImpl {
     return this.run(ctx)
   }
 
-  run() {}
+  run () {}
 }

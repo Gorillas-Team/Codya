@@ -1,7 +1,7 @@
 const { Command } = require('../../structures/client')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'unban',
       aliases: ['desbanir'],
@@ -13,7 +13,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({ channel, guild, args: [user], author }) {
+  async run ({ channel, guild, args: [user], author }) {
     if (!guild.me.hasPermission('BAN_MEMBERS')) {
       return channel.sendTempMessage(
         this.client.getEmoji('error') +
@@ -23,10 +23,11 @@ module.exports = class extends Command {
 
     const guildDocument = await guild.data
 
-    if (!user)
+    if (!user) {
       return channel.sendTempMessage(
         this.client.getEmoji('error') + ' | Informe o id do membro.'
       )
+    }
 
     const ban = await guild.fetchBan(user).catch(err => {
       channel.sendTempMessage(

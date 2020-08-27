@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'loop',
       aliases: ['repeat'],
@@ -16,7 +16,7 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  async run({ channel, guild, args }) {
+  async run ({ channel, guild, args }) {
     const track = guild.music.track
     switch (args[0]) {
       case 'single': {

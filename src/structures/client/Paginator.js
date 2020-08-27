@@ -1,5 +1,5 @@
 class Paginator {
-  constructor({ elements, size }) {
+  constructor ({ elements, size }) {
     this.elements = elements
     this.pages = {
       actual: 1,
@@ -8,23 +8,22 @@ class Paginator {
     }
   }
 
-  nextPage() {
+  nextPage () {
     const { actual, total } = this.pages
     if (actual < total) this.pages.actual++
 
     return this
   }
 
-  prevPage() {
+  prevPage () {
     const { actual } = this.pages
     if (actual > 1) this.pages.actual--
 
     return this
   }
 
-  get(removeFirst = false) {
-    if (typeof removeFirst !== 'boolean')
-      throw new TypeError('Expected boolean but received ' + typeof removeFirst)
+  get (removeFirst = false) {
+    if (typeof removeFirst !== 'boolean') { throw new TypeError('Expected boolean but received ' + typeof removeFirst) }
     const { actual, size } = this.pages
 
     const first = (actual - 1) * size

@@ -2,7 +2,7 @@ const { Command } = require('../../structures/client')
 const { banned } = require('../../../assets')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'banned',
       aliases: ['banido'],
@@ -10,7 +10,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({ channel }) {
+  async run ({ channel }) {
     channel.send('Banido.', {
       files: [{ attachment: banned, name: 'Banned.mp4' }]
     })

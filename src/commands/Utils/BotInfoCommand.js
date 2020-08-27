@@ -3,7 +3,7 @@ const { version: discordJsVersion } = require('discord.js')
 const packageJson = require('../../../package.json')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'botinfo',
       aliases: ['bot-info', 'infobot', 'binfo'],
@@ -13,7 +13,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({ channel, lavalink }) {
+  async run ({ channel, lavalink }) {
     const lavalinkStats = lavalink.idealNodes[0].stats
 
     const embed = this.embed()

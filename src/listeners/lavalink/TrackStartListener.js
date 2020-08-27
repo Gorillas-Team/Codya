@@ -1,13 +1,13 @@
 const { Listener } = require('../../structures/client')
 
 module.exports = class TrackStartListener extends Listener {
-  constructor() {
+  constructor () {
     super({
       name: 'trackStart'
     })
   }
 
-  async run(player, track) {
+  async run (player, track) {
     player.textChannel.sendTempMessage(
       this.client.getEmoji('disco') +
         ' | Tocando agora: `' +

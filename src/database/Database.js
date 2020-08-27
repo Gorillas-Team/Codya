@@ -2,14 +2,14 @@ const models = require('./models')
 const { connect } = require('mongoose')
 
 module.exports = class Database {
-  constructor(client) {
+  constructor (client) {
     this.client = client
     this.models = models
 
     this.start()
   }
 
-  start() {
+  start () {
     return connect(this.client.config.database, {
       useNewUrlParser: true,
       useUnifiedTopology: true
@@ -18,7 +18,7 @@ module.exports = class Database {
       .catch(err => console.error('[MONGO] Erro ao conectar: ', err))
   }
 
-  async findDocument(id, type) {
+  async findDocument (id, type) {
     const model = this.models[type]
     const doc = (await model.findById(id)) || (await model.create({ _id: id }))
     return doc

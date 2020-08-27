@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'play',
       aliases: ['tocar', 'p'],
@@ -12,7 +12,7 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  async run({ channel, args, lavalink, member, guild, author }) {
+  async run ({ channel, args, lavalink, member, guild, author }) {
     if (!args.join(' ')) {
       return channel.sendTempMessage(
         this.client.getEmoji('error') +
@@ -44,8 +44,7 @@ module.exports = class extends MusicCommand {
 
       case 'PLAYLIST_LOADED': {
         for (const track of tracks.slice(0, 250)) {
-          if (player.queue.length >= 250)
-            return channel.sendTempMessage('A fila está cheia.')
+          if (player.queue.length >= 250) { return channel.sendTempMessage('A fila está cheia.') }
 
           player.addToQueue(track, author)
         }
@@ -70,8 +69,7 @@ module.exports = class extends MusicCommand {
 
       case 'SEARCH_RESULT':
       case 'TRACK_LOADED': {
-        if (player.queue.length >= 250)
-          return channel.send('A fila está cheia.')
+        if (player.queue.length >= 250) { return channel.send('A fila está cheia.') }
 
         player.addToQueue(tracks[0], author)
 

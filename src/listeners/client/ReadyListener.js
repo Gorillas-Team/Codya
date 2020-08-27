@@ -3,14 +3,14 @@ const { CodyaManager, CodyaPlayer } = require('../../music')
 const LavalinkLoader = require('../../loaders/LavalinkLoader.js')
 
 module.exports = class ReadyListener extends Listener {
-  constructor() {
+  constructor () {
     super({
       name: 'ready',
       once: true
     })
   }
 
-  async run() {
+  async run () {
     this.lavalink = new CodyaManager(this, this.config.nodes, {
       Player: CodyaPlayer
     })

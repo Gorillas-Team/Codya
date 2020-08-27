@@ -2,7 +2,7 @@ const { Command } = require('../../structures/client')
 const { djAzeitona } = require('../../../assets')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'config',
       aliases: ['cfg'],
@@ -11,7 +11,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({ channel, guild, author, args: [config, value], prefix, cmd }) {
+  async run ({ channel, guild, author, args: [config, value], prefix, cmd }) {
     const guildDocument = await guild.data
 
     const embeds = {
@@ -55,10 +55,11 @@ module.exports = class extends Command {
           guild.roles.cache.find(role => role.name.toLowerCase() === value) ||
           guild.roles.cache.find(role => role.toString() === value)
 
-        if (!role)
+        if (!role) {
           return channel.sendTempMessage(
             this.client.getEmoji('error') + ' | Cargo não encontrado.'
           )
+        }
 
         await guildDocument.updateOne({ djRole: role.id })
 
@@ -80,10 +81,11 @@ module.exports = class extends Command {
           guild.channels.cache.find(channel => channel.name === value) ||
           guild.channels.cache.find(channel => channel.toString() === value)
 
-        if (!punishmentChannel)
+        if (!punishmentChannel) {
           return channel.sendTempMessage(
             this.client.getEmoji('error') + ' | Canal não encontrado'
           )
+        }
 
         await guildDocument.updateOne({
           punishmentChannel: punishmentChannel.id
@@ -104,10 +106,11 @@ module.exports = class extends Command {
           guild.channels.cache.find(channel => channel.name === value) ||
           guild.channels.cache.find(channel => channel.toString() === value)
 
-        if (!logChannel)
+        if (!logChannel) {
           return channel.sendTempMessage(
             this.client.getEmoji('error') + ' | Canal não encontrado.'
           )
+        }
 
         await guildDocument.updateOne({ logChannel: logChannel.id })
 

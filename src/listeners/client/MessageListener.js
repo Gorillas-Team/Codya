@@ -7,13 +7,13 @@ const {
 const cooldownManager = CooldownManager(1000 * 60)
 
 module.exports = class MessageListener extends Listener {
-  constructor() {
+  constructor () {
     super({
       name: 'message'
     })
   }
 
-  async run(message) {
+  async run (message) {
     if (message.author.bot || message.channel.type === 'dm') return
 
     const userDocument = await message.author.data

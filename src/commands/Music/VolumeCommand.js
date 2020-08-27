@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'volume',
       aliases: ['vol'],
@@ -16,7 +16,7 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  run({ channel, args, guild }) {
+  run ({ channel, args, guild }) {
     const volume = Number(args[0])
 
     if (isNaN(volume)) {

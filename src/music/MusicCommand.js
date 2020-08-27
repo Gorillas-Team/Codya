@@ -1,7 +1,7 @@
 const { Command } = require('../structures/client')
 
 module.exports = class MusicCommand extends Command {
-  constructor(client, options) {
+  constructor (client, options) {
     super(client, options)
 
     this.requirements = options.requirements || {
@@ -13,7 +13,7 @@ module.exports = class MusicCommand extends Command {
     this.options = options
   }
 
-  async preLoad(ctx) {
+  async preLoad (ctx) {
     if (this.options.requirements.voiceChannelOnly) {
       if (!ctx.member.voice.channel) {
         return ctx.channel.send(`

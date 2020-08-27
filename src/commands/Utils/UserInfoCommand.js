@@ -3,7 +3,7 @@ const moment = require('moment')
 moment.locale('pt-BR')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'userinfo',
       aliases: ['uinfo', 'infouser'],
@@ -13,7 +13,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({ channel, args, author, mentions, guild }) {
+  async run ({ channel, args, author, mentions, guild }) {
     const user = args[0]
       ? mentions.users.first() || (await this.client.users.fetch(args[0]))
       : author
@@ -39,7 +39,7 @@ module.exports = class extends Command {
 
     channel.send(embed)
 
-    function formatDate(date, format) {
+    function formatDate (date, format) {
       return moment(date).format(format)
     }
   }

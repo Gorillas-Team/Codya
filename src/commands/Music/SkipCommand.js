@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'skip',
       aliases: ['s', 'pular'],
@@ -15,7 +15,7 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  async run({ channel, guild, member }) {
+  async run ({ channel, guild, member }) {
     const memberCount = member.voice.channel.members.filter(x => !x.user.bot)
       .size
     const required = Math.ceil(memberCount / 2)

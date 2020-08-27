@@ -12,7 +12,7 @@ const mapSongs = (paginator, song, index) => {
 }
 
 module.exports = class extends MusicCommand {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'queue',
       aliases: ['fila'],
@@ -26,7 +26,7 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  async run({ channel, guild, author }) {
+  async run ({ channel, guild, author }) {
     const { queue } = guild.music
 
     const embeds = {

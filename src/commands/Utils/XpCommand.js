@@ -1,7 +1,7 @@
 const { Command } = require('../../structures/client')
 
 module.exports = class extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'xp',
       aliases: ['nivel', 'nível', 'level'],
@@ -12,7 +12,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run({ channel, author, mentions, member }) {
+  async run ({ channel, author, mentions, member }) {
     const guildMember = mentions.members.first() || member
     const doc = await this.client.database.findDocument(guildMember.id, 'users')
 

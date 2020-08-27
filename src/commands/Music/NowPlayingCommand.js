@@ -1,7 +1,7 @@
 const { MusicCommand } = require('../../music')
 
 module.exports = class extends MusicCommand {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'nowplaying',
       aliases: ['np'],
@@ -15,7 +15,7 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  async run({ channel, guild }) {
+  async run ({ channel, guild }) {
     const { track, state } = guild.music
 
     const embed = this.embed()
