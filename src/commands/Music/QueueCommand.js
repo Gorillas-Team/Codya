@@ -3,9 +3,12 @@ const { MusicCommand } = require('../../music')
 
 const EMOJIS = ['⬅️', '⛔', '➡️']
 
-const getIndexSong = ({ actual, size }) => actual === 1 ? (actual - 1) * size + 1 : (actual - 1) * size
+const getIndexSong = ({ actual, size }) =>
+  actual === 1 ? (actual - 1) * size + 1 : (actual - 1) * size
 const mapSongs = (paginator, song, index) => {
-  return `**${getIndexSong(paginator.pages) + index}). **\`${song.info.title}\` - **Requisitado por: \`${song.info.requester.username}\`**`
+  return `**${getIndexSong(paginator.pages) + index}). **\`${
+    song.info.title
+  }\` - **Requisitado por: \`${song.info.requester.username}\`**`
 }
 
 module.exports = class extends MusicCommand {
@@ -36,14 +39,24 @@ module.exports = class extends MusicCommand {
     const embed = embeds.default
       .setAuthor('Fila de músicas.', this.client.user.displayAvatarURL())
       .setDescription(`**Tocando agora:** \`${queue[0].info.title}\``)
-      .setFooter('Página ' + paginator.pages.actual + ' de ' + paginator.pages.total + ' | ' + embeds.default.footer.text)
+      .setFooter(
+        'Página ' +
+          paginator.pages.actual +
+          ' de ' +
+          paginator.pages.total +
+          ' | ' +
+          embeds.default.footer.text
+      )
 
     if (queue.length > 1) {
       embed.setDescription(`${embed.description}
 
                 **Próximas músicas: [${queue.length - 1}]**
 
-                ${paginator.get(true).map(mapSongs.bind(null, paginator)).join('\n')}
+                ${paginator
+                  .get(true)
+                  .map(mapSongs.bind(null, paginator))
+                  .join('\n')}
               `)
     }
 
@@ -57,7 +70,7 @@ module.exports = class extends MusicCommand {
 
     const collector = msg.createReactionCollector(filter, { time: 120000 })
 
-    collector.on('collect', async (r) => {
+    collector.on('collect', async r => {
       switch (r.emoji.name) {
         case EMOJIS[0]: {
           paginator.prevPage()
@@ -71,7 +84,9 @@ module.exports = class extends MusicCommand {
 
                     ${songs.map(mapSongs.bind(null, paginator)).join('\n')}`)
 
-          embed.setFooter('Página ' + paginator.pages.actual + ' de ' + paginator.pages.total)
+          embed.setFooter(
+            'Página ' + paginator.pages.actual + ' de ' + paginator.pages.total
+          )
 
           r.users.remove(author.id).catch(console.error)
           msg.edit(embed)
@@ -88,7 +103,9 @@ module.exports = class extends MusicCommand {
                     **Próximas músicas: [${queue.length - 1}]**
 
                     ${songs.map(mapSongs.bind(null, paginator)).join('\n')}`)
-          embed.setFooter('Página ' + paginator.pages.actual + ' de ' + paginator.pages.total)
+          embed.setFooter(
+            'Página ' + paginator.pages.actual + ' de ' + paginator.pages.total
+          )
 
           r.users.remove(author.id).catch(console.error)
           msg.edit(embed)

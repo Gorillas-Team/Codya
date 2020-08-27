@@ -21,6 +21,8 @@ module.exports = class extends MusicCommand {
     const filter = guild.music.filters.bassboost
     const mode = filter ? 'ativado' : 'desativado'
 
-    channel.sendTempMessage(`${this.client.getEmoji('dancing')} | Bassboost ${mode} com sucesso.`)
+    channel.sendTempMessage(
+      `${this.client.getEmoji('dancing')} | Bassboost ${mode} com sucesso.`
+    )
   }
 }

@@ -1,6 +1,10 @@
 const cooldownTypes = {
-  get set () { return new Set() },
-  get map () { return new Map() }
+  get set () {
+    return new Set()
+  },
+  get map () {
+    return new Map()
+  }
 }
 
 const CooldownManager = (time, type = 'set') => {

@@ -17,17 +17,21 @@ module.exports = class MessageUpdateListener extends Listener {
       const embed = new MessageEmbed()
         .setColor(oldMessage.guild.me.displayHexColor)
         .setAuthor(oldMessage.author.tag, oldMessage.author.displayAvatarURL())
-        .setDescription(`**Canal:** ${oldMessage.channel.toString()}
+        .setDescription(
+          `**Canal:** ${oldMessage.channel.toString()}
         **Conteúdo antigo:**
         ${oldMessage.content}
 
         **Conteúdo atual:**
         ${newMessage.content}
-        `)
+        `
+        )
         .setTimestamp()
 
       if (guildDocument.logChannel) {
-        const channel = oldMessage.guild.channels.cache.get(guildDocument.logChannel)
+        const channel = oldMessage.guild.channels.cache.get(
+          guildDocument.logChannel
+        )
 
         channel.send(embed)
       }

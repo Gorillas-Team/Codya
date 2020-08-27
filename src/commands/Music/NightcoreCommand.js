@@ -21,6 +21,8 @@ module.exports = class extends MusicCommand {
     const filter = guild.music.filters.nightcore
     const mode = filter ? 'ativado' : 'desativado'
 
-    channel.sendTempMessage(`${this.client.getEmoji('dancing')} | Nightcore ${mode} com sucesso.`)
+    channel.sendTempMessage(
+      `${this.client.getEmoji('dancing')} | Nightcore ${mode} com sucesso.`
+    )
   }
 }

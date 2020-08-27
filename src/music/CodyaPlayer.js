@@ -33,14 +33,17 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     if (typeof mode !== 'undefined') this.filters.nightcore = mode
     else this.filters.nightcore = !this.filters.nightcore
 
-    this.filters.nightcore ? this.setTimescale({ speed: 1.1, pitch: 1.3, rate: 1.3 })
+    this.filters.nightcore
+      ? this.setTimescale({ speed: 1.1, pitch: 1.3, rate: 1.3 })
       : this.setTimescale({ speed: 1.0, pitch: 1.0, rate: 1.0 })
   }
 
   setGain (number) {
-    return this.setEQ(Array(3)
-      .fill('')
-      .map((value, index) => ({ band: index, gain: number })))
+    return this.setEQ(
+      Array(3)
+        .fill('')
+        .map((value, index) => ({ band: index, gain: number }))
+    )
   }
 
   setTimescale ({ speed, pitch, rate }) {
@@ -55,9 +58,12 @@ module.exports = class CodyaPlayer extends GorilinkPlayer {
     setTimeout(() => {
       if (this.playing) return
       this.destroy()
-      this.textChannel.sendTempMessage(`
+      this.textChannel.sendTempMessage(
+        `
         ${this.manager.client.getEmoji('bye')} | Saindo do canal...
-      `, 5000)
+      `,
+        5000
+      )
     }, 60000)
   }
 }

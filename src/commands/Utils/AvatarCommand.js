@@ -12,10 +12,19 @@ module.exports = class extends Command {
   }
 
   async run ({ channel, mentions, args, author }) {
-    const user = args[0] ? mentions.users.first() || await this.client.users.fetch(args[0]) : author
+    const user = args[0]
+      ? mentions.users.first() || (await this.client.users.fetch(args[0]))
+      : author
 
-    const avatarUrl = user.displayAvatarURL({ format: 'png', dynamic: true, size: 2048 })
+    const avatarUrl = user.displayAvatarURL({
+      format: 'png',
+      dynamic: true,
+      size: 2048
+    })
 
-    return channel.send(this.client.getEmoji('picture') + ' | Avatar de ' + user.username, { files: [avatarUrl] })
+    return channel.send(
+      this.client.getEmoji('picture') + ' | Avatar de ' + user.username,
+      { files: [avatarUrl] }
+    )
   }
 }

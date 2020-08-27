@@ -33,7 +33,10 @@ module.exports = class extends Command {
       .addField('| Nome:', `\`${guildInfo.name}\``, true)
       .addField('| ID:', `\`${guildInfo.id}\``, true)
       .addField('| Região:', `\`${regions[guildInfo.region]}\``)
-      .addField('| Dono:', `\`${guildInfo.owner.user.username} (${guildInfo.owner.user.id})\``)
+      .addField(
+        '| Dono:',
+        `\`${guildInfo.owner.user.username} (${guildInfo.owner.user.id})\``
+      )
 
     channel.send(embed)
   }

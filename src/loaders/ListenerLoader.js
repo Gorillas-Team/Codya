@@ -12,7 +12,15 @@ module.exports = class ListenerLoader extends Loader {
   load () {
     try {
       this.initListeners()
-      this.log(this.failed ? this.success + ' carregaram com sucesso e ' + this.failed + ' falharam' : 'Todos carregados com sucesso', 'Listeners')
+      this.log(
+        this.failed
+          ? this.success +
+              ' carregaram com sucesso e ' +
+              this.failed +
+              ' falharam'
+          : 'Todos carregados com sucesso',
+        'Listeners'
+      )
       return true
     } catch (err) {
       this.logError(err.message, 'listeners')

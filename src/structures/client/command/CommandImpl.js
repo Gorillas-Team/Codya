@@ -7,22 +7,35 @@ const colors = {
 module.exports = class CommandImpl {
   embed (opts = {}) {
     const embed = new MessageEmbed()
-      .setColor(opts.color && typeof opts.color === 'string' ? colors[opts.color.toLowerCase()] : colors.default)
+      .setColor(
+        opts.color && typeof opts.color === 'string'
+          ? colors[opts.color.toLowerCase()]
+          : colors.default
+      )
       .setTimestamp()
 
     if ('author' in opts) {
-      embed.setFooter(`Executado por: ${opts.author.username}`, opts.author.displayAvatarURL({
-        format: 'png', dynamic: true, size: 2048
-      }))
+      embed.setFooter(
+        `Executado por: ${opts.author.username}`,
+        opts.author.displayAvatarURL({
+          format: 'png',
+          dynamic: true,
+          size: 2048
+        })
+      )
     }
 
     return embed
   }
 
-  run () { }
+  run () {}
 
   resolvePrefix (prefix) {
-    return prefix !== 'codya' ? /<@!?\d+>/.test(prefix) ? '@Codya ' : prefix : prefix + ' '
+    return prefix !== 'codya'
+      ? /<@!?\d+>/.test(prefix)
+        ? '@Codya '
+        : prefix
+      : prefix + ' '
   }
 
   getUsage (prefix, cmd) {
@@ -40,7 +53,12 @@ module.exports = class CommandImpl {
 
   formatTime (time) {
     const { seconds, minutes, hours } = this.parseTime(time)
-    const resolvedTime = minutes.toString().padStart(2, 0) + ':' + seconds.toString().padStart(2, 0)
-    return hours > 0 ? hours.toString().padStart(2, 0) + ':' + resolvedTime : resolvedTime
+    const resolvedTime =
+      minutes.toString().padStart(2, 0) +
+      ':' +
+      seconds.toString().padStart(2, 0)
+    return hours > 0
+      ? hours.toString().padStart(2, 0) + ':' + resolvedTime
+      : resolvedTime
   }
 }

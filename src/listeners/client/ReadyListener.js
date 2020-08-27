@@ -20,6 +20,8 @@ module.exports = class ReadyListener extends Listener {
       `${this.user.username} iniciada com:
     ${this.users.cache.size} usuários;
     ${this.guilds.cache.size} guilds;
-    ${this.commands.size} comandos.`, 'cyan')
+    ${this.commands.size} comandos.`,
+      'cyan'
+    )
   }
 }

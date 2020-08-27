@@ -22,9 +22,15 @@ module.exports = class extends Command {
 
     const user = guildMember.user
 
-    channel.send(this.embed({ author: user })
-      .setColor(guildMember.displayHexColor)
-      .setTitle(user.id === author.id ? 'Seu XP' : `XP de ${user.username}`)
-      .setDescription(`Level ${level} - [${xp}/${level * 60}] | ${Math.floor(xp / (level * 60) * 100) || 0}%`))
+    channel.send(
+      this.embed({ author: user })
+        .setColor(guildMember.displayHexColor)
+        .setTitle(user.id === author.id ? 'Seu XP' : `XP de ${user.username}`)
+        .setDescription(
+          `Level ${level} - [${xp}/${level * 60}] | ${
+            Math.floor((xp / (level * 60)) * 100) || 0
+          }%`
+        )
+    )
   }
 }

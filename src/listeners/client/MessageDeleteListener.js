@@ -16,10 +16,12 @@ module.exports = class MessageDeleteListener extends Listener {
     const embed = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
-      .setDescription(`**Canal:** ${message.channel.toString()}
+      .setDescription(
+        `**Canal:** ${message.channel.toString()}
         **Mensagem excluída:**
         ${message.content}
-        `)
+        `
+      )
       .setTimestamp()
 
     if (guildDocument.logChannel) {

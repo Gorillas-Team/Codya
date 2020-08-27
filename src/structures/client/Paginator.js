@@ -23,7 +23,7 @@ class Paginator {
   }
 
   get (removeFirst = false) {
-    if (typeof removeFirst !== 'boolean') throw new TypeError('Expected boolean but received ' + typeof removeFirst)
+    if (typeof removeFirst !== 'boolean') { throw new TypeError('Expected boolean but received ' + typeof removeFirst) }
     const { actual, size } = this.pages
 
     const first = (actual - 1) * size
