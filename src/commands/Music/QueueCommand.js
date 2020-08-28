@@ -1,5 +1,5 @@
 const { Paginator } = require('../../structures/client')
-const { MusicCommand } = require('../../music')
+const MusicCommand = require('../../impl/MusicCommand')
 
 const EMOJIS = ['⬅️', '⛔', '➡️']
 

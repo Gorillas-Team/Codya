@@ -1,5 +1,3 @@
-# Codya
-
-Discord Bot
-
-### Structure based on Switchblade, checkout -> https://github.com/SwitchbladeBot/switchblade/
+<p align="center">
+  <img src="https://i.imgur.com/znbq7zn.png" />
+</p>

@@ -1,5 +1,4 @@
 const {
-  Constants: { permissions },
   CooldownManager
 } = require('../../utils')
 const CommandImpl = require('./command/CommandImpl')
@@ -13,7 +12,6 @@ module.exports = class Command extends CommandImpl {
     this.aliases = opts.aliases || []
     this.category = opts.category || 'Sem categoria.'
     this.usage = opts.usage || 'Sem uso.'
-    this.permissions = opts.permissions || []
 
     this.cooldownTime = opts.cooldownTime || 3
     this.cooldown = CooldownManager(this.cooldownTime * 1000, 'map')
@@ -50,19 +48,6 @@ module.exports = class Command extends CommandImpl {
 
     if (!this.client.config.devs.includes(ctx.author.id)) {
       this.cooldown.add(ctx.author.id, Date.now() + this.cooldownTime * 1000)
-    }
-
-    if (this.permissions.length >= 1) {
-      const neededPermissions = this.permissions.map(perm => permissions[perm])
-      if (!ctx.member.hasPermission(this.permissions)) {
-        return ctx.channel.send(
-          `${this.client.getEmoji(
-            'error'
-          )} | Você não possui a permissão de \`${neededPermissions.join(
-            ', '
-          )}\` para executar este comando.`
-        )
-      }
     }
 
     return this.run(ctx)

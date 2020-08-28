@@ -1,12 +1,14 @@
-const { Command } = require('../../structures/client')
+const ModerationCommand = require('../../impl/ModerationCommand')
 const { djAzeitona } = require('../../../assets')
 
-module.exports = class extends Command {
+module.exports = class extends ModerationCommand {
   constructor (client) {
     super(client, {
       name: 'config',
       aliases: ['cfg'],
-      permissions: ['ADMINISTRATOR'],
+      permissions: {
+        names: ['ADMINISTRADOR']
+      },
       category: 'moderation'
     })
   }

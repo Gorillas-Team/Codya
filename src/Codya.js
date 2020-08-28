@@ -44,7 +44,7 @@ module.exports = class Codya extends Client {
       this.emojis.cache.find(emoji => emoji.name === emojiName)?.toString() ||
       Constants.emojis[emojiName]
 
-    if (!emoji) throw new Error('This emoji not exists.')
+    if (!emoji) throw new Error('Unknown emoji.')
 
     return emoji
   }

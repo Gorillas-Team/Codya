@@ -1,6 +1,6 @@
-const { Command } = require('../../structures/client')
+const ModerationCommand = require('../../impl/ModerationCommand')
 
-module.exports = class extends Command {
+module.exports = class extends ModerationCommand {
   constructor (client) {
     super(client, {
       name: 'unban',
@@ -14,13 +14,6 @@ module.exports = class extends Command {
   }
 
   async run ({ channel, guild, args: [user], author }) {
-    if (!guild.me.hasPermission('BAN_MEMBERS')) {
-      return channel.sendTempMessage(
-        this.client.getEmoji('error') +
-          ' | Eu não possuo permissão de `Banir membros` para executar este comando.'
-      )
-    }
-
     const guildDocument = await guild.data
 
     if (!user) {
