@@ -1,26 +1,19 @@
 const ModerationCommand = require('../../impl/ModerationCommand')
-const { banned } = require('../../../assets')
 
 module.exports = class extends ModerationCommand {
   constructor (client) {
     super(client, {
-      name: 'ban',
-      aliases: ['banir'],
+      name: 'kick',
+      aliases: ['expulsar'],
+      category: 'moderation',
       permissions: {
-        names: ['BAN_MEMBERS'],
+        names: ['KICK_MEMBERS'],
         verify: true
-      },
-      category: 'moderation'
+      }
     })
   }
 
-  async run ({
-    channel,
-    args: [user, ...args],
-    member: guildMember,
-    guild,
-    mentions
-  }) {
+  async run ({ channel, guild, args: [user, ...args], mentions, member: guildMember }) {
     const guildDocument = await guild.data
 
     if (!user) {
@@ -45,25 +38,23 @@ module.exports = class extends ModerationCommand {
     const memberPosition = member.roles.highest.position
     if (memberPosition >= guildMemberPosition) {
       return channel.sendTempMessage(
-        this.client.getEmoji('error') + ' | Você não pode banir este membro.'
+        this.client.getEmoji('error') + ' | Você não pode expulsar este membro.'
       )
     }
 
     if (memberPosition >= guild.me.roles.highest.position) {
       return channel.sendTempMessage(
-        this.client.getEmoji('error') + ' | Não posso banir este membro.'
+        this.client.getEmoji('error') + ' | Não posso expulsar este membro.'
       )
     }
 
     const reason = args.join(' ') || 'Nenhum motivo informado.'
 
-    await guild.members.ban(member, {
-      reason: `Membro banido por: ${guildMember.user.tag}. Motivo: ${reason}`
-    })
+    await member.kick(reason)
 
     const punishment = {
       case: guildDocument.punishments.length + 1,
-      type: 'Ban',
+      type: 'Kick',
       author: guildMember,
       punished: member,
       reason
@@ -88,9 +79,7 @@ module.exports = class extends ModerationCommand {
 
     if (!guildDocument.punishmentChannel) return channel.send(embed)
 
-    channel.sendTempMessage({
-      files: [{ attachment: banned, name: 'Banido.mp4' }]
-    })
+    channel.sendTempMessage(`${this.client.getEmoji('correct')} | Membro expulso com sucesso.`)
     punishmentChannel.send(embed)
   }
 }
