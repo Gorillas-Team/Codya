@@ -28,7 +28,7 @@ module.exports = class MessageListener extends Listener {
       if (xp >= level * 60) {
         await userDocument.updateOne({
           xp: 0,
-          $inc: { level: Math.floor(xp / 60 - level) }
+          $inc: { level: Math.floor(xp / 60) }
         })
       }
 
