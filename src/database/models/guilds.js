@@ -7,6 +7,7 @@ module.exports = model(
     punishments: { type: Array, default: [] },
     punishmentChannel: { type: String, default: null },
     logChannel: { type: String, default: null },
-    djRole: { type: String, default: null }
+    djRole: { type: String, default: null },
+    language: { type: String, default: 'pt-BR' }
   })
 )

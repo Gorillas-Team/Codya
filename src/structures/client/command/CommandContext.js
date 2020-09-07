@@ -13,5 +13,11 @@ module.exports = class CommandContext {
     this.client = context.client
     this.lavalink = context.client.lavalink
     this.config = context.client.config
+
+    this.t = () => { throw new Error('You don\'t set the FixedT') }
+  }
+
+  setFixedT (translate) {
+    this.t = translate
   }
 }
