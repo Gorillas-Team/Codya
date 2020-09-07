@@ -17,7 +17,7 @@ module.exports = class extends Command {
     })
   }
 
-  async run ({ channel, args, author, config, prefix, message, guild, member, lavalink }) {
+  async run ({ t, channel, args, author, config, prefix, message, guild, member, lavalink }) {
     const input = args.join(' ').replace(/^`(``(js)?\s?)?|`(``)?$/g, '')
 
     if (input.includes('token')) return

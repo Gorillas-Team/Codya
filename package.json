@@ -18,6 +18,8 @@
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "gorilink": "^1.2.0",
+    "i18next": "^19.7.0",
+    "i18next-fs-backend": "^1.0.7",
     "moment": "^2.27.0",
     "mongoose": "^5.10.0",
     "node-fetch": "^2.6.0"

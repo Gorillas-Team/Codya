@@ -4,6 +4,7 @@ const {
   CooldownManager
 } = require('../../utils')
 
+const i18next = require('i18next')
 const cooldownManager = CooldownManager(1000 * 60)
 
 module.exports = class MessageListener extends Listener {
@@ -44,7 +45,11 @@ module.exports = class MessageListener extends Listener {
       ({ name, aliases }) => name === cmd || aliases.includes(cmd)
     )
 
+    const { language } = await message.guild.data
+
     const context = new CommandContext(message, args, cmd, prefix)
+
+    context.setFixedT(i18next.getFixedT(language))
 
     if (command) return command.preLoad(context)
   }
