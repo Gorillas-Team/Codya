@@ -1,2 +1,12 @@
 {
+    "play": {
+        "noSongProvided": "{{emoji}} | Você precisa informar um nome ou um link de uma música.",
+        "noSongFound": "{{emoji}} | Não encontrei a música.",
+        "queueFull": "{{emoji}} | A fila está cheia.",
+        "playlist": {
+            "discarded": "{{emoji}} | Foram adicionadas `{{tracksAdded}}` e foram descartadas `{{tracksDiscarded}}` das músicas da playlist `{{playlistName}}`. Requisitada por: `{{username}}`.",
+            "all": "{{emoji}} | Foram adicionadas `{{tracksAdded}}` das músicas da playlist `{{playlistName}}`. Requisitada por: `{{username}}`."
+        },
+        "songAdded": "{{emoji}} | Adicionado na fila: `{{track}}`. Requisitado por: `{{username}}`"
+    }
 }

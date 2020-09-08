@@ -12,12 +12,11 @@ module.exports = class extends MusicCommand {
     })
   }
 
-  async run ({ channel, args, lavalink, member, guild, author }) {
+  async run ({ t, channel, args, lavalink, member, guild, author }) {
     if (!args.join(' ')) {
-      return channel.sendTempMessage(
-        this.client.getEmoji('error') +
-          ' | Você precisa informar um nome ou um link de uma música.'
-      )
+      return channel.sendTempMessage(t('commands:play.noSongProvided', {
+        emoji: this.client.getEmoji('error')
+      }))
     }
 
     const player = await lavalink.join(
@@ -36,7 +35,9 @@ module.exports = class extends MusicCommand {
     switch (loadType) {
       case 'NO_MATCHES': {
         channel.sendTempMessage(
-          this.client.getEmoji('error') + ' | Não encontrei a música.',
+          t('commands:play.noSongFound', {
+            emoji: this.client.getEmoji('error')
+          }),
           5000
         )
         break
@@ -44,24 +45,29 @@ module.exports = class extends MusicCommand {
 
       case 'PLAYLIST_LOADED': {
         for (const track of tracks.slice(0, 250)) {
-          if (player.queue.length >= 250) { return channel.sendTempMessage('A fila está cheia.') }
+          if (player.queue.length >= 250) {
+            return channel.sendTempMessage(t('commands:play.queueFull', {
+              emoji: this.client.getEmoji('error')
+            }))
+          }
 
           player.addToQueue(track, author)
         }
 
-        const trackQuantity =
-          tracks.length > 250
-            ? `Foram adicionadas \`${
-                tracks.slice(0, 250).length
-              }\` e descartadas \`${tracks.length - 250}\``
-            : `Foram adicionadas \`${tracks.slice(0, 250).length}\``
-
         channel.sendTempMessage(
-          `${this.client.getEmoji(
-            'music_notes'
-          )} | ${trackQuantity} das músicas da playlist \`${
-            playlistInfo.name
-          }\`. Requisitado por: \`${author.tag}\`.'`
+          tracks.length > 250 ? t('commands:play.playlist.discarded', {
+            emoji: this.client.getEmoji('music_notes'),
+            tracksAdded: tracks.slice(0, 250).length,
+            tracksDiscarded: tracks.length - 250,
+            playlistName: playlistInfo.name,
+            username: author.tag
+          })
+            : t('commands:play.playlist.all', {
+              emoji: this.client.getEmoji('music_notes'),
+              tracksAdded: tracks.slice(0, 250).length,
+              playlistName: playlistInfo.name,
+              username: author.tag
+            })
         )
         if (!player.playing) return player.play()
         break
@@ -69,7 +75,11 @@ module.exports = class extends MusicCommand {
 
       case 'SEARCH_RESULT':
       case 'TRACK_LOADED': {
-        if (player.queue.length >= 250) { return channel.send('A fila está cheia.') }
+        if (player.queue.length >= 250) {
+          return channel.sendTempMessage(t('commands:play.queueFull', {
+            emoji: this.client.getEmoji('error')
+          }))
+        }
 
         player.addToQueue(tracks[0], author)
 
@@ -78,12 +88,11 @@ module.exports = class extends MusicCommand {
         }
 
         channel.sendTempMessage(
-          this.client.getEmoji('music_notes') +
-            ' | Adicionado na fila: `' +
-            tracks[0].info.title +
-            '`. Requisitado por: `' +
-            author.tag +
-            '`'
+          t('commands:play.songAdded', {
+            emoji: this.client.getEmoji('music_notes'),
+            track: tracks[0].info.title,
+            username: author.tag
+          })
         )
 
         if (!player.playing) return player.play()
