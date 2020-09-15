@@ -19,5 +19,8 @@ module.exports = i18next
     defaultNS: 'commands',
     backend: {
       loadPath: join(__dirname, '../locales/{{lng}}/{{ns}}.json')
+    },
+    interpolation: {
+      escapeValue: false
     }
   })
