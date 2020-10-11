@@ -21,7 +21,12 @@ module.exports = class Command extends CommandImpl {
     this.hide = opts.hide || false
   }
 
-  preLoad (ctx) {
+  async preLoad (ctx) {
+    const user = await this.client.repositories.users.get(ctx.author.id)
+    if (user.blacklist) {
+      return ctx.channel.send('Você está na blacklist.')
+    }
+
     if (this.cooldown.has(ctx.author.id)) {
       const now = Date.now()
       const cooldown = this.cooldown.get(ctx.author.id)

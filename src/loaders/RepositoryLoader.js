@@ -33,6 +33,7 @@ module.exports = class CommandLoader extends Loader {
 
       const repository = new Repository(this.client)
       if (!this.client.repositories[repository.name]) this.client.repositories[repository.name] = repository
+      repository.load()
       console.info('|    [' + repository.name + '] carregado.')
     })
   }

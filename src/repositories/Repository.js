@@ -6,6 +6,14 @@ class Repository {
   }
 
   load () {}
+
+  async create () {}
+
+  async get () {}
+
+  async delete () {}
+
+  async update () {}
 }
 
 module.exports = Repository
