@@ -12,7 +12,7 @@ class UserRepository extends Repository {
   }
 
   async create (id) {
-    await this.client.database.models.users.create(id)
+    await this.client.database.models.users.create({ _id: id })
   }
 
   async get (id) {
