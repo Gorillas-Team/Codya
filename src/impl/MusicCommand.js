@@ -14,7 +14,7 @@ module.exports = class MusicCommand extends Command {
   }
 
   async preLoad (ctx) {
-    if (this.options.requirements.voiceChannelOnly) {
+    if (this.requirements.voiceChannelOnly) {
       if (!ctx.member.voice.channel) {
         return ctx.channel.send(`
           ${this.client.getEmoji(
@@ -45,6 +45,6 @@ module.exports = class MusicCommand extends Command {
       `)
     }
 
-    return this.run(ctx)
+    return super.preLoad(ctx)
   }
 }

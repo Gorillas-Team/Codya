@@ -9,6 +9,8 @@ require('./structures/discord')
 module.exports = class Codya extends Client {
   constructor (options = {}) {
     super(options)
+    this.repositories = {}
+
     this.token = options.token
     this.config = {
       devs: options.devs,

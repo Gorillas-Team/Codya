@@ -31,6 +31,6 @@ module.exports = class ModerationCommand extends Command {
       }
     }
 
-    return this.run(ctx)
+    return super.preLoad(ctx)
   }
 }

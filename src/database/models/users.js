@@ -8,7 +8,8 @@ module.exports = model(
       xp: { type: Number, default: 0 },
       level: { type: Number, default: 1 },
       money: { type: Number, default: 0 },
-      daily: { type: Number, default: 0 }
+      daily: { type: Number, default: 0 },
+      blacklist: { type: Boolean, default: false }
     },
     {
       timestamps: {
