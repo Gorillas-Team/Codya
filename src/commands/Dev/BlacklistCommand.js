@@ -5,7 +5,7 @@ module.exports = class extends Command {
     super(client, {
       name: 'blacklist',
       aliases: ['bl'],
-      devOnly: true
+      dev: true
     })
   }
 
