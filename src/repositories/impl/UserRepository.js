@@ -16,7 +16,7 @@ class UserRepository extends Repository {
   }
 
   async get (id) {
-    return this.client.database.models.findById(id) || (await this.create(id))
+    return this.client.database.models.users.findById(id) || (await this.create(id))
   }
 
   async update (id, data = {}) {
