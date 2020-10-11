@@ -12,7 +12,7 @@ class UserRepository extends Repository {
   }
 
   async create (id) {
-    await this.client.database.models.users.create({ _id: id })
+    return this.client.database.models.users.create({ _id: id })
   }
 
   async get (id) {
@@ -20,11 +20,11 @@ class UserRepository extends Repository {
   }
 
   async update (id, data = {}) {
-    await this.client.database.models.users.updateOne({ _id: id }, data)
+    return this.client.database.models.users.updateOne({ _id: id }, data)
   }
 
   async delete (id) {
-    await this.client.database.models.users.deleteOne({ _id: id })
+    return this.client.database.models.users.deleteOne({ _id: id })
   }
 }
 
