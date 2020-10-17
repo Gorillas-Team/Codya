@@ -37,12 +37,6 @@ module.exports = class extends Command {
             value: mapCommandsByCategory(commands, 'Utils')
           },
           {
-            name: `${this.client.getEmoji('dancing')} **| Música: [${
-              commandPerCategory('Music').size
-            }]**`,
-            value: mapCommandsByCategory(commands, 'Music')
-          },
-          {
             name: `${this.client.getEmoji('star')} **| Diversão: [${
               commandPerCategory('Fun').size
             }]**`,
