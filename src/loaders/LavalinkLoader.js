@@ -1,5 +1,4 @@
 const { Loader } = require('../structures/client')
-const { FileUtils } = require('../utils')
 
 module.exports = class LavalinkLoader extends Loader {
   constructor (client) {
@@ -11,25 +10,11 @@ module.exports = class LavalinkLoader extends Loader {
   }
 
   load () {
-    try {
-      this.initLavalink()
-      this.log(
-        this.failed
-          ? this.success +
-              ' carregaram com sucesso e ' +
-              this.failed +
-              ' falharam'
-          : 'Todos carregados com sucesso',
-        'Lavalink'
-      )
-      return true
-    } catch (err) {
-      this.logError(err.message, 'lavalink')
-    }
-    return false
+    return this
   }
 
   initLavalink (dir = 'src/listeners/lavalink') {
+    /*
     this.log('Carregando eventos', 'lavalink')
     return FileUtils.requireDir({ dir }, (error, Listener) => {
       if (error) {
@@ -43,5 +28,6 @@ module.exports = class LavalinkLoader extends Loader {
       console.info('|    [' + listener.name + '] carregado')
       this.success++
     })
+    */
   }
 }
