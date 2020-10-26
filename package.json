@@ -22,16 +22,21 @@
     "i18next-fs-backend": "^1.0.7",
     "moment": "^2.27.0",
     "mongoose": "^5.10.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "pg": "^8.4.1",
+    "sequelize": "^6.3.5"
   },
   "devDependencies": {
     "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.14.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.2"
   },
   "license": "ISC"
 }

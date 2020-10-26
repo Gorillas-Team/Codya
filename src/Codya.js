@@ -19,8 +19,8 @@ module.exports = class Codya extends Client {
       database: options.database
     }
 
-    this.database = new Database(this)
     this.logger = new Logger(this)
+    this.database = new Database(this.config.database, this)
     this.commands = new Collection()
   }
 

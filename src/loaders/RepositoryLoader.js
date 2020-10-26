@@ -12,10 +12,7 @@ module.exports = class CommandLoader extends Loader {
   load () {
     try {
       this.initRepositories()
-      this.log(
-        'Todos carregados com sucesso.',
-        'repositories'
-      )
+      this.log('Todos carregados com sucesso.', 'repositories')
       return true
     } catch (err) {
       this.logError(err.stack, 'commands')
@@ -25,16 +22,23 @@ module.exports = class CommandLoader extends Loader {
 
   initRepositories (dir = 'src/repositories/impl') {
     this.log('Carregando repositórios', 'repositories')
-    return FileUtils.requireDir({ dir }, (error, Repository) => {
+    return FileUtils.requireDir(dir, (error, Repository) => {
       if (error) {
         this.logError('    [ERRO] Erro: ' + error.message)
         return this.failed++
       }
 
       const repository = new Repository(this.client)
-      if (!this.client.repositories[repository.name]) this.client.repositories[repository.name] = repository
+      this.setRepositoryInClient(repository)
       repository.load()
       console.info('|    [' + repository.name + '] carregado.')
     })
+  }
+
+  setRepositoryInClient (repository) {
+    const { name } = repository
+    const { repositories } = this.client
+    if (!(name in repositories)) repositories[repository.name] = repository
+    return true
   }
 }

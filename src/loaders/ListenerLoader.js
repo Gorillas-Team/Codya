@@ -30,7 +30,7 @@ module.exports = class ListenerLoader extends Loader {
 
   initListeners (dir = 'src/listeners/client') {
     this.log('Carregando eventos', 'listeners')
-    return FileUtils.requireDir({ dir }, (err, Listener) => {
+    return FileUtils.requireDir(dir, (err, Listener) => {
       if (err) {
         this.logError('    Erro: ' + err.message)
         return this.failed++

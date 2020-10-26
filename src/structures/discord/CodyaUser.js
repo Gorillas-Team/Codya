@@ -6,10 +6,6 @@ Structures.extend('User', User => {
     constructor (...data) {
       super(...data)
     }
-
-    get data () {
-      return this.client.database.findDocument(this.id, 'users')
-    }
   }
 
   return CodyaUser

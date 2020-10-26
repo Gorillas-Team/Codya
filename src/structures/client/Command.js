@@ -22,10 +22,10 @@ module.exports = class Command extends CommandImpl {
   }
 
   async preLoad (ctx) {
-    const user = await this.client.repositories.users.get(ctx.author.id)
-    if (!this.client.config.devs.includes(ctx.author.id) && user.blacklist) {
-      return ctx.channel.send('Você está na blacklist.')
-    }
+    // const user = await this.client.repositories.users.get(ctx.author.id)
+    // if (!this.client.config.devs.includes(ctx.author.id) && user.blacklist) {
+    //   return ctx.channel.send('Você está na blacklist.')
+    // }
 
     if (this.cooldown.has(ctx.author.id)) {
       const now = Date.now()

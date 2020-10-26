@@ -7,10 +7,6 @@ Structures.extend('Guild', Guild => {
       super(...data)
     }
 
-    get data () {
-      return this.client.database.findDocument(this.id, 'guilds')
-    }
-
     get music () {
       return this.client.lavalink.players.get(this.id) || null
     }

@@ -1,26 +1,26 @@
-const models = require('./models')
-const { connect } = require('mongoose')
+/* eslint-disable no-unused-vars */
+
+// const models = require('./models')
+const { Sequelize } = require('sequelize')
 
 module.exports = class Database {
-  constructor (client) {
+  constructor (options, client) {
+    this.options = options
     this.client = client
-    this.models = models
+    this.sequelize = null
+
+    this.models = {}
 
     this.start()
   }
 
   start () {
-    return connect(this.client.config.database, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
-      .then(() => console.log('[MONGO] Conectado com Sucesso.'))
-      .catch(err => console.error('[MONGO] Erro ao conectar: ', err))
-  }
+    this.sequelize = new Sequelize(this.options)
 
-  async findDocument (id, type) {
-    const model = this.models[type]
-    const doc = (await model.findById(id)) || (await model.create({ _id: id }))
-    return doc
+    this.client.logger.createGroup('[DATABASE]')
+    this.client.logger.log('> Connection started with success.')
+    this.client.logger.closeGroup()
+
+    return this
   }
 }

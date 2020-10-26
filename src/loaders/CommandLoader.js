@@ -30,7 +30,7 @@ module.exports = class CommandLoader extends Loader {
 
   initCommands (dir = 'src/commands') {
     this.log('Carregando comandos', 'commands')
-    return FileUtils.requireDir({ dir }, (error, Command) => {
+    return FileUtils.requireDir(dir, (error, Command) => {
       if (error) {
         this.logError('    [ERRO] Erro: ' + error.message)
         return this.failed++

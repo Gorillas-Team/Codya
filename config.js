@@ -4,8 +4,15 @@ module.exports = {
 
   // Bot options
   token: process.env.TOKEN,
-  database: process.env.DATABASE_URI,
   devs: JSON.parse(process.env.DEVELOPERS),
   prefixes: JSON.parse(process.env.PREFIXES),
-  nodes: JSON.parse(process.env.LAVALINK_NODES)
+
+  database: {
+    dialect: 'postgres',
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+    user: process.env.DATABASE_USER,
+    database: process.env.DATABASE_NAME,
+    password: process.env.DATABASE_PASSWORD
+  }
 }
