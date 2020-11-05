@@ -7,27 +7,41 @@ const cooldownTypes = {
   }
 }
 
-const CooldownManager = (time, type = 'set') => {
-  const cooldown = cooldownTypes[type] || new Set()
+/**
+ * @name CooldownManager
+ * @class
+ */
+class CooldownManager {
+  /**
+   * @param {number} time
+   * @param {('set'|'map')} [type='set']
+   */
+  constructor (time, type = 'set') {
+    this.time = time
+    this.type = type
 
-  return {
-    has (key) {
-      return cooldown.has(key)
-    },
-    get (key) {
-      if (!(cooldown instanceof Map)) return 0
-      return cooldown.get(key)
-    },
-    add (key, value) {
-      setTimeout(() => this.delete(key), time)
+    this.cooldown = cooldownTypes[type] || new Set()
+  }
 
-      if (cooldown instanceof Map) return cooldown.set(key, value)
+  has (key) {
+    return this.cooldown.has(key)
+  }
 
-      return cooldown.add(key)
-    },
-    delete (key) {
-      return cooldown.delete(key)
-    }
+  get (key) {
+    if (!(this.cooldown instanceof Map)) return 0
+    return this.cooldown.get(key)
+  }
+
+  add (key, value) {
+    setTimeout(() => this.delete(key), this.time)
+
+    if (this.cooldown instanceof Map) return this.cooldown.set(key, value)
+
+    return this.cooldown.add(key)
+  }
+
+  delete (key) {
+    return this.cooldown.delete(key)
   }
 }
 

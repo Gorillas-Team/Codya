@@ -1,6 +1,6 @@
 {
     "execMap": {
-        "js": "node -r dotenv/config"
+        "js": "node -r module-alias/register -r dotenv/config"
     },
     "watch": "index.js",
     "ext": "js"

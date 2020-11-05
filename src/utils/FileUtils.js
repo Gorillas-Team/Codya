@@ -1,7 +1,7 @@
 const { readdirSync, statSync } = require('fs')
 const { resolve } = require('path')
 
-module.exports = class FileUtils {
+class FileUtils {
   static requireDir (dir, opts, callback) {
     if (typeof opts === 'function') {
       callback = opts
@@ -14,11 +14,11 @@ module.exports = class FileUtils {
     for (const file of files) {
       const fullPath = resolve(dir, file)
 
-      if (recursive && statSync(dir + '/' + file).isDirectory()) { 
+      if (recursive && statSync(dir + '/' + file).isDirectory()) {
         this.requireDir(`${dir}/${file}`, opts, callback)
       }
 
-      if (filesOnly.some(ext => new RegExp(`.${ext}$`).test(file))) {
+      if (filesOnly.some((ext) => new RegExp(`.${ext}$`).test(file))) {
         try {
           const required = require(fullPath)
           callback(null, required)
@@ -29,3 +29,5 @@ module.exports = class FileUtils {
     }
   }
 }
+
+module.exports = FileUtils

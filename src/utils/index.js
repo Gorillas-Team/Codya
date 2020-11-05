@@ -1,7 +1,8 @@
 module.exports = {
   FileUtils: require('./FileUtils'),
+  TimeUtils: require('./TimeUtils'),
   Constants: require('./Constants'),
-  I18Next: require('./I18Next'),
-  CommandUtils: require('./command'),
-  CooldownManager: require('./CooldownManager')
+  CommandUtils: require('./CommandUtils'),
+  CooldownManager: require('./CooldownManager'),
+  PermissionUtils: require('./PermissionUtils')
 }
