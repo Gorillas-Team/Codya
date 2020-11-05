@@ -5,7 +5,7 @@ class TimeUtils {
    * @param {number} ms
    * @returns {object}
    */
-  parseTime (ms) {
+  static parseTime (ms) {
     const seconds = Math.floor(ms / 1000)
     const minutes = Math.floor(seconds / 60)
     const hours = Math.floor(minutes / 60)
@@ -17,7 +17,7 @@ class TimeUtils {
    * @param {number} time
    * @returns {string}
    */
-  formatTime (time) {
+  static formatTime (time) {
     const toString = n => String(n)
     const pad = n => n.padStart(2, 0)
     const parseNumber = CodeUtils.pipe(toString, pad)

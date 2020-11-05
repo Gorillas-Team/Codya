@@ -1,7 +1,7 @@
 class CodeUtils {
   static pipe (...functions) {
     return x => {
-      functions.reduce((arg, func) => func(arg), x)
+      return functions.reduce((arg, f) => f(arg), x)
     }
   }
 }

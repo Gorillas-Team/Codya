@@ -33,7 +33,7 @@
     "nodemon": "^2.0.4"
   },
   "_moduleAliases": {
-    "@Codya/assets": "./assets",
+    "@Codya/loaders": "./src/loaders",
     "@Codya/structures": "./src/structures",
     "@Codya/utils": "./src/utils",
     "@Codya/database": "./src/database"

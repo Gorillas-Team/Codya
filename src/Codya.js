@@ -1,8 +1,8 @@
 const { Client, Collection } = require('eris')
-const { Constants } = require('./utils')
-const { Command, Logger } = require('./structures')
+const { Constants } = require('@Codya/utils')
+const { Command, Logger } = require('@Codya/structures')
 
-const Loaders = require('./loader')
+const Loaders = require('@Codya/loaders')
 
 /**
  * @name Codya

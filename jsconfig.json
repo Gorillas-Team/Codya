@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@Codya/utils": ["utils/index.js"],
+      "@Codya/structures": ["structures/index.js"],
+      "@Codya/loaders": ["loaders/index.js"],
+      "@Codya/database": ["database/index.js"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

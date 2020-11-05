@@ -47,9 +47,7 @@ class Paginator {
     const first = (actual - 1) * size
     const second = actual * size
 
-    const result = this.elements.slice(first + removeFirst, second)
-
-    return result
+    return this.elements.slice(first + removeFirst, second)
   }
 }
 
