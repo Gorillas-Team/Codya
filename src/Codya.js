@@ -31,6 +31,9 @@ class Codya extends Client {
      * @type {Logger}
      */
     this.logger = new Logger(this)
+    /**
+     * @type {Eris.Collection<Command>}
+     */
     this.commands = new Collection(Command)
   }
 

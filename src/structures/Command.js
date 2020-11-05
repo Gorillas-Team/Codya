@@ -88,8 +88,9 @@ class Command {
 
   /**
    * @param {CommandContext | import('./command/CommandContext')} ctx
+   * @param {string[]} [args]
    */
-  run (ctx) {}
+  run (ctx, args) {}
 
   /**
    * @param {string} prefix

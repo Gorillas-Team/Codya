@@ -12,7 +12,7 @@ class Listener {
 
   listen () {
     try {
-      this.client[this.once ? 'once' : 'on'](this.name, (...param) => this.run(param))
+      this.client[this.once ? 'once' : 'on'](this.name, (...param) => this.run(...param))
 
       return true
     } catch (err) {
