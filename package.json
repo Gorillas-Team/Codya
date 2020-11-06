@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "nodemon",
+    "dev": "nodemon",
     "debug": "yarn lint && nodemon inspect",
     "lint": "eslint src/ index.js",
     "lint:fix": "eslint --fix src/ index.js"

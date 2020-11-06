@@ -54,21 +54,18 @@ class Codya extends Client {
     return this
   }
 
-  async getEmoji (emojiName) {
-    const emojis = await this.fetchEmojis()
-    const emoji = emojis.find(emoji => emoji.name === emojiName) || Constants.emotes[emojiName]
+  getEmoji (emojiName) {
+    const guild = this.guilds.get('534404798829821956')
+    let emoji = guild.emojis.find(emoji => emoji.name === emojiName)
 
     if (!emoji) throw new Error('Unknown emoji.')
 
-    return emoji || `<a:${emoji.name}:${emoji.id}>`
-  }
+    if (emojiName in Constants.emojis) emoji = Constants.emojis[emojiName]
+    else {
+      emoji = emoji.animated ? `<a:${emoji.name}:${emoji.id}>` : `<:${emoji.name}:${emoji.id}>`
+    }
 
-  async fetchEmojis () {
-    if (this.emojis) return this.emojis
-
-    const emojis = await this.getRESTGuildEmojis('534404798829821956')
-    this.emojis = emojis
-    return emojis
+    return emoji
   }
 }
 

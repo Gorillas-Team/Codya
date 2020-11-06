@@ -26,6 +26,13 @@ class CommandContext {
   sendMessage (message) {
     return this.client.createMessage(this.channel.id, message)
   }
+
+  /**
+   * @returns {Guild | import('eris').Guild}
+   */
+  getGuild () {
+    return this.client.guilds.get(this.message.guildID)
+  }
 }
 
 module.exports = CommandContext

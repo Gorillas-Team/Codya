@@ -1,4 +1,8 @@
 class CodeUtils {
+  /**
+   * @param {...Function} functions
+   * @returns {function(*=): *}
+   */
   static pipe (...functions) {
     return x => {
       return functions.reduce((arg, f) => f(arg), x)
