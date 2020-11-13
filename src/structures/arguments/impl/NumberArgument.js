@@ -8,8 +8,8 @@ class NumberArgument extends Argument {
   }
 
   parse (context, args) {
-    if (!args[0]) return this.missing = true
-    if (isNaN(args[0])) return this.invalid = true
+    if (!args[0]) this.missing = true
+    if (isNaN(args[0])) this.invalid = true
 
     const number = Number(args[0])
     if (number < this.minimum || number > this.maximum) {

@@ -12,6 +12,9 @@ module.exports = {
     ecmaVersion: 11
   },
   rules: {
+    'new-cap': 0,
+    'jsdoc/no-undefined-types': 0,
+    'jsdoc/require-returns': 0,
     'jsdoc/valid-types': 0,
     'jsdoc/require-param-description': 0,
     'jsdoc/check-tag-names': 0,

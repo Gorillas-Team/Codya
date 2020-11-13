@@ -1,4 +1,4 @@
-const { Command, Arguments: { StringArgument } } = require('@Codya/structures')
+const { Command } = require('@Codya/structures')
 const { CodeUtils } = require('@Codya/utils')
 const { inspect } = require('util')
 
@@ -18,7 +18,8 @@ class EvalCommand extends Command {
         options: {
           full: true,
           required: true
-        } }]
+        }
+      }]
     })
   }
 

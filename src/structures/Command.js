@@ -24,6 +24,9 @@ class Command {
     this.dev = options.dev || false
     this.hide = options.hide || false
 
+    /**
+     * @type {Argument | Argument[]}
+     */
     this.args = options.args || []
   }
 
@@ -97,21 +100,8 @@ class Command {
   }
 
   /**
-   * @param {TextableChannel | import('eris').TextableChannel} channel
-   * @param {CodyaError | import('./command/CodyaError')} error
-   * @returns {Promise<import('eris').Message<import('eris').TextableChannel>> | void}
-   */
-  async error (channel, error) {
-    if (error instanceof CodyaError) {
-      return channel.createMessage(error.message)
-    }
-
-    console.error(error)
-  }
-
-  /**
    * @param {import('./command/CommandContext')} ctx
-   * @param {string[]} [args]
+   * @param {...object[]} [args]
    */
   run (ctx, args) {}
 

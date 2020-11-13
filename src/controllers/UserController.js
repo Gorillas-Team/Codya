@@ -29,7 +29,7 @@ class UserController extends Controller {
 
       user.increment('level', 1)
     }
-      
+
     this.cooldown.add(id)
   }
 }

@@ -1,4 +1,4 @@
-const { Command, Arguments: { StringArgument } } = require('@Codya/structures')
+const { Command } = require('@Codya/structures')
 
 class PlayCommand extends Command {
   constructor (client) {

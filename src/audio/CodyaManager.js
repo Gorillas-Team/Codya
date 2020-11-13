@@ -43,7 +43,7 @@ class CodyaManager extends Manager {
 
   /**
    * @param {string} query
-   * @param {string} source?
+   * @param {string} [source]
    * @returns {Promise<SearchResponse>}
    */
   async fetchTracks (query, source) {
