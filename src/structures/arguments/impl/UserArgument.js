@@ -9,7 +9,7 @@ class UserArgument extends Argument {
   }
 
   findMember (context, args) {
-    return context.getGuild().members.get(args[0]) || context.getGuild().members.get(context.mentions[0].id)
+    return context.guild.members.get(args[0]) || context.guild.members.get(context.mentions[0].id)
   }
 
   async findUser (context, args) {

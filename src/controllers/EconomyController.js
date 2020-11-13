@@ -9,6 +9,20 @@ class EconomyController extends Controller {
     }, client)
   }
 
+  /**
+   * @param {import('eris').User} user
+   * @returns {import('../database/models/associations/Machine')[]}
+   */
+  async getUserMachines (user) {
+    const document = await this.repository.find(user.id)
+
+    return document.get().machines
+  }
+
+  /**
+   * @param {import('eris').User} user
+   * @returns {number}
+   */
   async work (user) {
     const document = await this.repository.find(user.id)
 
@@ -25,6 +39,11 @@ class EconomyController extends Controller {
     return amount
   }
 
+  /**
+   * @param {import('eris').User} user
+   * @param {string} workName
+   * @returns {object}
+   */
   async chooseWork (user, workName) {
     const document = await this.repository.find(user.id)
 
@@ -38,6 +57,10 @@ class EconomyController extends Controller {
     return work
   }
 
+  /**
+   * @param {import('eris').User} user
+   * @returns {boolean}
+   */
   async isInWorkCooldown (user) {
     const document = await this.repository.find(user.id)
 
@@ -46,6 +69,10 @@ class EconomyController extends Controller {
     return workCooldown >= Date.now()
   }
 
+  /**
+   * @param {import('eris').User} user
+   * @returns {boolean}
+   */
   async hasWork (user) {
     const document = await this.repository.find(user.id)
 

@@ -34,16 +34,33 @@ class CommandContext {
   }
 
   /**
+   *
+   * @param {string} message
+   * @param {string} emoji
+   * @param {number} timeout
+   */
+  sendTemporaryMessage (message, emoji, timeout = 10000) {
+    return this.sendMessage(message, emoji).then(msg => setTimeout(() => msg.delete(), timeout))
+  }
+
+  /**
    * @returns {Eris.Guild}
    */
-  getGuild () {
+  get guild () {
     return this.client.guilds.get(this.message.guildID)
+  }
+
+  /**
+   * @returns {import('eris').Member}
+   */
+  get selfMember () {
+    return this.guild.members.get(this.client.user.id)
   }
 
   /**
    * @returns {CodyaPlayer | Player}
    */
-  getPlayer () {
+  get player () {
     return this.client.lavalink.players.get(this.message.guildID)
   }
 }

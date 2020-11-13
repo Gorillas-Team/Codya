@@ -17,9 +17,9 @@ class CodyaPlayer extends Player {
     }
 
     /**
-     * @type {TextChannel}
+     * @type {import('../structures/command/CommandContext')}
      */
-    this.textChannel = null
+    this.context = null
 
     this.song = null
 
@@ -40,7 +40,7 @@ class CodyaPlayer extends Player {
       setTimeout(async () => {
         if (this.playing) return
 
-        await this.textChannel.createMessage('A fila acabou, saindo do canal.')
+        await this.context.sendMessage('A fila acabou, saindo do canal.', 'bye')
         await this.manager.leave(this.id)
       }, 60000)
     })
@@ -60,7 +60,7 @@ class CodyaPlayer extends Player {
     this.song = song
     this.playing = true
 
-    this.lastMessage = await this.textChannel.createMessage(`${this.manager.client.getEmoji('disco')} | Tocando agora: \`${song.title}\``)
+    this.lastMessage = await this.context.sendMessage(`Tocando agora: \`${song.title}\``, 'disco')
     return super.play(this.queue.empty ? song.track : this.queue.first().track, { volume: this.currentVolume })
   }
 
@@ -98,11 +98,11 @@ class CodyaPlayer extends Player {
   }
 
   /**
-   * @param {TextChannel | import('eris').TextChannel} channel
+   * @param {import('../structures/command/CommandContext')} context
    * @returns {void}
    */
-  setTextChannel (channel) {
-    this.textChannel = channel
+  setContext (context) {
+    this.context = context
   }
 }
 

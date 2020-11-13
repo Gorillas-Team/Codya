@@ -39,13 +39,13 @@ class CodyaManager extends Manager {
     }
 
     const params = new URLSearchParams({ identifier: query })
-    const result = await this.request(node, params)
+    const result = await this.request(node, 'loadtracks', params)
 
     return new SearchResponse(result)
   }
 
-  request (node, params) {
-    return fetch(`http://${node.host}:${node.port}/loadtracks?${params}`, {
+  request (node, endpoint, params) {
+    return fetch(`http://${node.host}:${node.port}/${endpoint}?${params}`, {
       headers: {
         Authorization: node.password
       }
