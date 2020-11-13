@@ -6,5 +6,7 @@ module.exports = {
   Listener: require('./Listener'),
   Logger: require('./Logger'),
   CommandUtils: require('./command/'),
-  Loader: require('./Loader')
+  Loader: require('./Loader'),
+  Controller: require('./Controller'),
+  Repository: require('./Repository')
 }

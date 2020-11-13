@@ -1,6 +1,7 @@
 const { Client, Collection } = require('eris')
 const { Constants } = require('@Codya/utils')
 const { Command, Logger } = require('@Codya/structures')
+const { Database } = require('@Codya/database')
 
 const Loaders = require('@Codya/loaders')
 
@@ -19,6 +20,16 @@ class Codya extends Client {
     this.emojis = null
     this.repositories = {}
 
+    /**
+     * @type {CodyaManager | import('./audio/CodyaManager')}
+     */
+    this.lavalink = null
+
+    /**
+     * @type {object}
+     */
+    this.controllers = {}
+
     this.config = {
       devs: options.devs,
       prefixes: options.prefixes,
@@ -26,13 +37,16 @@ class Codya extends Client {
       database: options.database
     }
 
-    // this.database = new Database(this.config.database, this)
     /**
      * @type {Logger}
      */
     this.logger = new Logger(this)
     /**
-     * @type {Eris.Collection<Command>}
+     * @type {Database}
+     */
+    this.database = new Database(this.config.database, this)
+    /**
+     * @type {Collection<Command>}
      */
     this.commands = new Collection(Command)
   }
@@ -41,9 +55,10 @@ class Codya extends Client {
     for (const Loader of Object.values(Loaders)) {
       const loader = new Loader(this)
       try {
-        if (loader.critical) await loader.load()
+        await loader.load()
       } catch (error) {
         this.logger.log(error.message, 'red')
+        if (loader.critical) process.exit(1)
       }
     }
   }
@@ -58,12 +73,12 @@ class Codya extends Client {
     const guild = this.guilds.get('534404798829821956')
     let emoji = guild.emojis.find(emoji => emoji.name === emojiName)
 
-    if (!emoji) throw new Error('Unknown emoji.')
-
     if (emojiName in Constants.emojis) emoji = Constants.emojis[emojiName]
     else {
       emoji = emoji.animated ? `<a:${emoji.name}:${emoji.id}>` : `<:${emoji.name}:${emoji.id}>`
     }
+
+    if (!emoji) throw new Error('Unknown emoji.')
 
     return emoji
   }

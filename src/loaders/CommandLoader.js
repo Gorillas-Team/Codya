@@ -5,6 +5,7 @@ class CommandLoader extends Loader {
   constructor (client) {
     super(client)
 
+    this.posLoad = []
     this.critical = true
   }
 
@@ -19,16 +20,47 @@ class CommandLoader extends Loader {
   }
 
   loadCommands (path = 'src/commands') {
-    return FileUtils.requireDir(path, (error, Command) => {
+    FileUtils.requireDir(path, (error, Command) => {
       if (error) {
         this.client.logger.log('  > Error: ' + error.message, 'red')
       }
 
-      const command = new Command(this.client)
+      const command = this.addCommand(new Command(this.client))
 
-      this.client.commands.set(command.name, command)
-      this.client.logger.log(`  > ${command.name} loaded.`, 'yellow')
+      if (command) this.client.logger.log(`  > (${command.category}) ${command.name} loaded.`, 'yellow')
     })
+
+    this.posLoad.forEach(subCommand => this.addSubCommand(subCommand))
+  }
+
+  /**
+   * @param {Command | import('../structures/Command.js)} command
+   * @returns {Command | import('../structures/Command.js') | boolean}
+   */
+  addCommand (command) {
+    if (command.parent) {
+      this.posLoad.push(command)
+      return false
+    } else {
+      this.client.commands.set(command.name, command)
+      return command
+    }
+  }
+
+  /**
+   * @param {import('../structures/Command')} subCommand
+   */
+  addSubCommand (subCommand) {
+    let parentCommand
+    if (subCommand.parent) {
+      parentCommand = this.client.commands.find(cmd => cmd.name === subCommand.parent)
+    }
+
+    if (!parentCommand) return
+
+    parentCommand.subCommands.push(subCommand)
+    subCommand.parent = parentCommand
+    subCommand.category = parentCommand.category
   }
 }
 

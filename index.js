@@ -3,6 +3,4 @@ const config = require('./config')
 
 const Codya = new Client(config.token, config)
 
-Codya.start().then(() => {
-  console.log('Bot initialized with success.')
-})
+Codya.start()

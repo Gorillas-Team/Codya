@@ -1,10 +1,10 @@
 const { CooldownManager, PermissionUtils } = require('@Codya/utils')
-const { CodyaError } = require('./command/')
+const ParameterTypes = require('./arguments/impl')
 
 class Command {
   /**
-   * @param {Codya | import('../Codya')} client
-   * @param {CommandOptions} options
+   * @param {import('../Codya')} client
+   * @param {import('./typings/typedef').CommandOptions} options
    */
   constructor (client, options) {
     this.client = client
@@ -13,6 +13,9 @@ class Command {
     this.aliases = options.aliases || []
     this.category = options.category || 'No category'
     this.usage = options.usage || 'No usage'
+
+    this.parent = options.parent || null
+    this.subCommands = [] || {}
 
     this.cooldownTime = options.cooldownTime || 3
     this.cooldown = new CooldownManager(this.cooldownTime * 1000, 'map')
@@ -25,10 +28,11 @@ class Command {
   }
 
   /**
-   * @param {CommandContext | import('./command/CommandContext')} ctx
+   * @param {import('./command/CommandContext')} ctx
+   * @param {any[]} args
    * @returns {void}
    */
-  async preLoad (ctx) {
+  async validate (ctx, args) {
     if (this.cooldown.has(ctx.author.id)) {
       const now = Date.now()
       const cooldown = this.cooldown.get(ctx.author.id)
@@ -44,7 +48,7 @@ class Command {
 
     if ((this.dev || this.hide) && !PermissionUtils.isDeveloper(ctx.member)) {
       return ctx.sendMessage(
-        `${await this.client.getEmoji(
+        `${this.client.getEmoji(
           'bye'
         )} | Apenas os desenvolvedores podem utilizar este comando.`
       )
@@ -54,40 +58,59 @@ class Command {
       this.cooldown.add(ctx.author.id, Date.now() + this.cooldownTime * 1000)
     }
 
-    const args = []
-    for (const argument of this.args) {
-      if (argument.missing) {
-        return ctx.channel.createMessage(argument.messages.missing)
-      }
-      if (argument.invalid) {
-        return ctx.channel.createMessage(argument.messages.invalid)
-      }
-      args.push(argument.parse(ctx.args))
+    const [subCmd] = args
+    const subCommand = this.subCommands.find(cmd => cmd.name.toLowerCase() === subCmd || cmd.aliases.includes(subCmd))
+    if (subCommand) {
+      return subCommand.validate(ctx, args.splice(1))
     }
 
+    const parsedArgs = await this.handleArguments(ctx, args)
+
     try {
-      this.run(ctx, args)
+      this.run(ctx, ...parsedArgs)
     } catch (err) {
       this.error(ctx.channel, err)
     }
   }
 
+  async handleArguments (ctx, args) {
+    const thisArguments = this.args.map(arg => new ParameterTypes[arg.type](arg.options))
+    const parsedArgs = []
+
+    for (const argument of thisArguments) {
+      const result = await argument.parse(ctx, args)
+
+      if (argument.required && argument.missing) {
+        ctx.channel.createMessage(argument.messages.missing)
+        break
+      }
+
+      if (argument.invalid) {
+        ctx.channel.createMessage(argument.messages.invalid)
+        break
+      }
+
+      parsedArgs.push(result)
+    }
+
+    return parsedArgs
+  }
+
   /**
    * @param {TextableChannel | import('eris').TextableChannel} channel
    * @param {CodyaError | import('./command/CodyaError')} error
-   * @returns {void}
+   * @returns {Promise<import('eris').Message<import('eris').TextableChannel>> | void}
    */
   async error (channel, error) {
     if (error instanceof CodyaError) {
-      await channel.createMessage(error.message)
-      return
+      return channel.createMessage(error.message)
     }
 
     console.error(error)
   }
 
   /**
-   * @param {CommandContext | import('./command/CommandContext')} ctx
+   * @param {import('./command/CommandContext')} ctx
    * @param {string[]} [args]
    */
   run (ctx, args) {}

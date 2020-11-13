@@ -1,6 +1,10 @@
+/**
+ * @name CommandContext
+ * @class
+ */
 class CommandContext {
   /**
-   * @param {Message | import('eris').Message} message
+   * @param {Message} message
    * @param {Codya | import('../../Codya')} client
    * @param {string[]} args
    * @param {string} cmd
@@ -8,8 +12,8 @@ class CommandContext {
    */
   constructor (message, client, args, cmd, prefix) {
     this.cmd = cmd
-    this.args = args
     this.client = client
+    this.args = args
     this.prefix = prefix
     this.message = message
 
@@ -28,10 +32,17 @@ class CommandContext {
   }
 
   /**
-   * @returns {Guild | import('eris').Guild}
+   * @returns {Eris.Guild}
    */
   getGuild () {
     return this.client.guilds.get(this.message.guildID)
+  }
+
+  /**
+   * @returns {CodyaPlayer | Player}
+   */
+  getPlayer () {
+    return this.client.lavalink.players.get(this.message.guildID)
   }
 }
 

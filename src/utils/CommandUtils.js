@@ -12,10 +12,13 @@ class CommandUtils {
    * @returns {string}
    */
   static getPrefix (message) {
-    const content = message.content.toLowerCase()
-    return prefixes.find(prefix =>
-      content.toLowerCase().startsWith(prefix)
-    )
+    const toLowerCase = str => str.toLowerCase()
+    const startsWith = str => prefix => str.startsWith(prefix)
+
+    const content = toLowerCase(message.content)
+    const pipe = CodeUtils.pipe(toLowerCase, startsWith(content))
+
+    return prefixes.find(pipe)
   }
 
   /**
@@ -26,9 +29,11 @@ class CommandUtils {
   static resolveArgs (content, prefix) {
     const slice = str => str.slice(prefix.length)
     const trim = str => str.trim()
-    const split = str => str.split(/ +/g)
 
-    return CodeUtils.pipe(slice, trim, split)(content)
+    const split = str => str.split(/ +/g)
+    const filter = str => str.filter(Boolean)
+
+    return CodeUtils.pipe(slice, trim, split, filter)(content)
   }
 }
 

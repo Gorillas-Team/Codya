@@ -11,8 +11,10 @@ class MessageListener extends Listener {
   /**
    * @param {Message | import('eris').Message} message
    */
-  run (message) {
+  async run (message) {
     if (message.author.bot) return
+
+    await this.client.controllers.users.addXpOnUser(message.author.id)
 
     const prefix = CommandUtils.getPrefix(message)
     if (!message.content.toLowerCase().startsWith(prefix)) return
@@ -23,7 +25,21 @@ class MessageListener extends Listener {
 
     const context = new CommandContext(message, this.client, args, cmd, prefix)
 
-    if (command) command.preLoad(context)
+    if (command) this.runCommand(command, context, args)
+  }
+
+  runCommand (command, context, args) {
+    const deepSubCommand = (cmd, a) => {
+      const [arg] = a
+      const subCommand = cmd.subCommands
+        ? cmd.subCommands.find(c => c.name.toLowerCase() === arg || c.aliases.includes(arg))
+        : null
+
+      // eslint-disable-next-line no-unused-vars
+      return subCommand ? deepSubCommand(subCommand, args.slice(1)) : cmd
+    }
+
+    return command.validate(context, args)
   }
 }
 

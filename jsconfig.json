@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
+      "@Codya/audio": ["audio/index.js"],
       "@Codya/utils": ["utils/index.js"],
       "@Codya/structures": ["structures/index.js"],
       "@Codya/loaders": ["loaders/index.js"],

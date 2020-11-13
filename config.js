@@ -1,5 +1,5 @@
 /**
- * @type {ClientOptions | import('eris').ClientOptions | object}
+ * @type {import('eris').ClientOptions | ClientOptions | object}
  */
 module.exports = {
   // Discord options
@@ -10,6 +10,12 @@ module.exports = {
    * @type {string}
    */
   token: process.env.TOKEN,
+
+  /**
+   * @type {import('lavacord/dist/lib/Types').LavalinkNodeOptions[] | LavalinkNodeOptions[]}
+   */
+  nodes: JSON.parse(process.env.LAVALINK_NODES || [{}]),
+
   /**
    * @type {string[]}
    */
@@ -21,15 +27,10 @@ module.exports = {
   prefixes: JSON.parse(process.env.PREFIXES || []),
 
   /**
-   * @type {Options | import('sequelize/types').Options}
+   * @type {object}
+   * @property {string} connectionUri
    */
   database: {
-    dialect: 'postgres',
-    host: process.env.DATABASE_HOST,
-    port: process.env.DATABASE_PORT,
-    username: process.env.DATABASE_USER,
-    database: process.env.DATABASE_NAME,
-    password: process.env.DATABASE_PASSWORD,
-    logging: false
+    connectionUri: process.env.DATABASE_URL
   }
 }

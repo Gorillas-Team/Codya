@@ -4,14 +4,14 @@ const Argument = require('../Argument')
  * @name StringArgument
  * @class
  * @augments Argument
- * @author Acnologla
+ * @author Acnologla (https://github.com/Acnologla)
  */
 class StringArgument extends Argument {
   /**
    * @param {StringArgumentOptions | ArgumentOptions | import('../typings/typedef').StringArgumentOptions | import('../typings/typedef).ArgumentOptions} options
    */
   constructor (options = {}) {
-    super()
+    super(options)
     this.full = options.full || true
     this.length = options.length || 1
     this.lengthRequired = options.lengthRequired || this.length
@@ -19,7 +19,12 @@ class StringArgument extends Argument {
     this.isNumber = options.isNumber || false
   }
 
-  parse (args) {
+  parse (ctx, args) {
+    if (args.length === 0) {
+      this.missing = true
+      return
+    }
+
     const string = []
 
     if (this.full) {

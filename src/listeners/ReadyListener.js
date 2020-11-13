@@ -1,4 +1,5 @@
 const { Listener } = require('@Codya/structures')
+const { CodyaManager, CodyaPlayer } = require('@Codya/audio')
 
 class ReadyListener extends Listener {
   constructor (client) {
@@ -9,6 +10,17 @@ class ReadyListener extends Listener {
   }
 
   run () {
+    this.client.lavalink = new CodyaManager(this.client, this.client.config.nodes, {
+      player: CodyaPlayer
+    })
+
+    this.client.lavalink.connect().then(() => {
+      this.client.logger.createGroup('[LAVALINK]')
+      this.client.logger.log(' > Started with successfully!')
+      this.client.logger.closeGroup()
+    })
+
+    this.client.logger.log('[CODYA] Codya started with success.')
   }
 }
 
