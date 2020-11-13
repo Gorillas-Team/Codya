@@ -1,4 +1,4 @@
-const { Command } = require('@Codya/structures')
+const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
 const { CodeUtils } = require('@Codya/utils')
 const { inspect } = require('util')
 
@@ -51,7 +51,7 @@ class EvalCommand extends Command {
 
       await ctx.channel.createMessage(this.client.getEmoji('code') + ' | Resultado:```js\n' + CodeUtils.clean(code.replace(new RegExp(this.client.token), 'ss')) + '\n```')
     } catch (e) {
-      return ctx.channel.createMessage('```js\n' + e.message + '\n```')
+      throw new CodyaError('```js\n' + e.message + '\n```')
     }
   }
 }

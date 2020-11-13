@@ -25,10 +25,12 @@ class CommandContext {
 
   /**
    * @param {string} message
+   * @param {string} emoji
    * @returns {Promise<Message<TextableChannel>> | Promise<import('eris').Message<import('eris').TextableChannel>>}
    */
-  sendMessage (message) {
-    return this.client.createMessage(this.channel.id, message)
+  sendMessage (message, emoji) {
+    const baseMessage = `${this.client.getEmoji(emoji)} | ${message}`
+    return this.client.createMessage(this.channel.id, baseMessage)
   }
 
   /**

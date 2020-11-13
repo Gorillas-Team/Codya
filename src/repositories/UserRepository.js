@@ -1,5 +1,7 @@
 const { Repository } = require('@Codya/structures')
-const Machine = require('@Codya/database/models/associations/Machine')
+const { machines } = require('../../assets')
+
+const Machine = require('../database/models/associations/Machine')
 
 class UserRepository extends Repository {
   constructor (client) {
@@ -16,10 +18,12 @@ class UserRepository extends Repository {
     const user = new this.model({
       id,
       xp: 0,
+      work: null,
       level: 1,
       blacklist: false,
+      workCooldown: 0,
       dailyCooldown: 0,
-      machines: [new Machine({ id: 0, amount: 0, moneyGenerated: 0, name: 'Máquina de Cash', enabled: false })]
+      machines: machines.map(data => new Machine(data))
     })
 
     await user.save()
@@ -42,7 +46,6 @@ class UserRepository extends Repository {
     user.set(data)
     await user.save()
 
-    console.log(user.get())
     return user.get()
   }
 

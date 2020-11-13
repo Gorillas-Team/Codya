@@ -7,7 +7,7 @@ const Loaders = require('@Codya/loaders')
 
 /**
  * @name Codya
- * @class
+ * @class-
  */
 class Codya extends Client {
   /**
@@ -17,7 +17,6 @@ class Codya extends Client {
   constructor (token, options) {
     super(token, options)
 
-    this.emojis = null
     this.repositories = {}
 
     /**

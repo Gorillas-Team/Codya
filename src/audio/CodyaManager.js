@@ -23,22 +23,7 @@ class CodyaManager extends Manager {
       .once('ready', () => {
         this.shards = client.shards.size || 1
       })
-      .on('rawWS', async packet => {
-        switch (packet.t) {
-          case 'VOICE_SERVER_UPDATE': {
-            await this.voiceServerUpdate(packet.d)
-            break
-          }
-          case 'VOICE_STATE_UPDATE': {
-            await this.voiceStateUpdate(packet.d)
-            break
-          }
-          case 'GUILD_CREATE': {
-            for (const state of packet.d.voice_states) await this.voiceStateUpdate({ ...state, guild_id: packet.d.id })
-            break
-          }
-        }
-      })
+      .on('rawWS', this.sendPackets.bind(this))
   }
 
   /**
@@ -54,8 +39,13 @@ class CodyaManager extends Manager {
     }
 
     const params = new URLSearchParams({ identifier: query })
+    const result = await this.request(node, params)
 
-    const result = await fetch(`http://${node.host}:${node.port}/loadtracks?${params}`, {
+    return new SearchResponse(result)
+  }
+
+  request (node, params) {
+    return fetch(`http://${node.host}:${node.port}/loadtracks?${params}`, {
       headers: {
         Authorization: node.password
       }
@@ -63,8 +53,23 @@ class CodyaManager extends Manager {
       .catch(error => {
         throw new Error('Fail to fetch tracks' + error)
       })
+  }
 
-    return new SearchResponse(result)
+  async sendPackets (packet) {
+    switch (packet.t) {
+      case 'VOICE_SERVER_UPDATE': {
+        await this.voiceServerUpdate(packet.d)
+        break
+      }
+      case 'VOICE_STATE_UPDATE': {
+        await this.voiceStateUpdate(packet.d)
+        break
+      }
+      case 'GUILD_CREATE': {
+        for (const state of packet.d.voice_states) await this.voiceStateUpdate({ ...state, guild_id: packet.d.id })
+        break
+      }
+    }
   }
 }
 

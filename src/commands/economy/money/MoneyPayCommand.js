@@ -1,4 +1,4 @@
-const { Command } = require('@Codya/structures')
+const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
 
 class MoneyPayCommand extends Command {
   constructor (client) {
@@ -16,11 +16,14 @@ class MoneyPayCommand extends Command {
     const { economy } = this.client.controllers
 
     if (!(await economy.canPay(ctx.author, amount))) {
-      return ctx.sendMessage('Você não possui dinheiro suficiente para enviar essa quantia.')
+      throw new CodyaError('Você não possui dinheiro suficiente para enviar essa quantia.')
     }
 
     await economy.pay(ctx.author, user, amount)
-    return ctx.sendMessage(`Foi pago com sucesso o valor de \`${amount}\` fodases para ${user.username}`)
+    return ctx.sendMessage(
+      `Foi pago com sucesso o valor de \`${amount}\` CodyaCoins para ${user.username}`,
+      'handshake'
+    )
   }
 }
 

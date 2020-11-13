@@ -24,8 +24,7 @@ class UserController extends Controller {
     user.increment('xp', xp)
 
     if ((data.xp + xp) >= data.level * 60) {
-      user.set('xp', 0)
-      await user.save()
+      await this.repository.update(id, { xp: 0 })
 
       user.increment('level', 1)
     }

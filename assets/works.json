@@ -1,0 +1,8 @@
+{
+  "psykabobao": {
+    "name": "Psyka bobão",
+    "workCooldown": 300000,
+    "minimumBudget": 500,
+    "maximumBudget": 1250
+  }
+}

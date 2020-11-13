@@ -15,7 +15,8 @@ module.exports.emojis = {
   dvd: '📀',
   lamp: '💡',
   cop: '👮',
-  star: '⭐'
+  star: '⭐',
+  handshake: '🤝'
 }
 
 module.exports.permissions = {
@@ -42,20 +43,4 @@ module.exports.permissions = {
   MANAGE_ROLES: 'Gerenciar Roles',
   MANAGE_WEBHOOKS: 'Gerenciar Webhook',
   MANAGE_EMOJIS: 'Gerenciar Emojis'
-}
-
-module.exports.regions = {
-  brazil: 'Brasil',
-  southafrica: 'África do Sul',
-  russia: 'Rússia',
-  japan: 'Japão',
-  'us-south': 'Sul dos Estados Unidos',
-  singapore: 'Singapura',
-  europe: 'Europa',
-  sydney: 'Sydney',
-  'us-east': 'Leste dos Estados Unidos',
-  'hong-kong': 'Hong Kong',
-  'us-west': 'Oeste dos Estados Unidos',
-  'us-central': 'Central dos Estados Unidos',
-  india: 'India'
 }

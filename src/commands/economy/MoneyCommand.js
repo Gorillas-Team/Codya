@@ -11,7 +11,7 @@ class MoneyCommand extends Command {
   async run (ctx, user) {
     const document = await this.client.repositories.users.find(user.id)
 
-    return ctx.sendMessage(`fodases de ${user.username}: ${document.get('money')}`)
+    return ctx.sendMessage(`CodyaCoins de ${user.username}: ${document.get('money')}`, 'gear')
   }
 }
 

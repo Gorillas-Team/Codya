@@ -1,4 +1,5 @@
 const { Controller } = require('@Codya/structures')
+const { works } = require('../../assets/')
 
 class EconomyController extends Controller {
   constructor (client) {
@@ -6,6 +7,51 @@ class EconomyController extends Controller {
       name: 'economy',
       repositoryName: 'users'
     }, client)
+  }
+
+  async work (user) {
+    const document = await this.repository.find(user.id)
+
+    const { work } = document.get()
+    const { minimumBudget, maximumBudget, workCooldown } = work
+
+    const amount = minimumBudget + (Math.floor(Math.random() * (maximumBudget - minimumBudget)))
+
+    document.set('workCooldown', Date.now() + workCooldown)
+    await document.save()
+
+    document.increment('money', amount)
+
+    return amount
+  }
+
+  async chooseWork (user, workName) {
+    const document = await this.repository.find(user.id)
+
+    if (!(workName in works)) return
+
+    const work = works[workName]
+
+    document.set('work', work)
+    await document.save()
+
+    return work
+  }
+
+  async isInWorkCooldown (user) {
+    const document = await this.repository.find(user.id)
+
+    const { workCooldown } = document.get()
+
+    return workCooldown >= Date.now()
+  }
+
+  async hasWork (user) {
+    const document = await this.repository.find(user.id)
+
+    const { work } = document.get()
+
+    return work != null
   }
 
   /**
@@ -47,7 +93,7 @@ class EconomyController extends Controller {
    */
   async claimDaily (user) {
     const document = await this.repository.find(user.id)
-    const amount = Math.floor(Math.random() * 500)
+    const amount = Math.floor(Math.random() * 5000)
 
     document.set('dailyCooldown', Date.now() + 86400000)
     await document.save()
@@ -64,7 +110,7 @@ class EconomyController extends Controller {
   async isInDailyCooldown (user) {
     const document = await this.repository.find(user.id)
 
-    const dailyCooldown = document.get().dailyCooldown
+    const { dailyCooldown } = document.get()
 
     return dailyCooldown >= Date.now()
   }

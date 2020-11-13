@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
+    "maxNodeModuleJsDepth": 5,
     "paths": {
       "@Codya/audio": ["audio/index.js"],
       "@Codya/utils": ["utils/index.js"],
       "@Codya/structures": ["structures/index.js"],
       "@Codya/loaders": ["loaders/index.js"],
-      "@Codya/database": ["database/index.js"]
+      "@Codya/database": ["database/index.js", "database/*"]
     }
   },
   "exclude": ["node_modules"]

@@ -1,4 +1,4 @@
-const { Command } = require('@Codya/structures')
+const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
 const { TimeUtils } = require('@Codya/utils')
 
 class DailyCommand extends Command {
@@ -14,12 +14,12 @@ class DailyCommand extends Command {
 
     if (await economy.isInDailyCooldown(ctx.author)) {
       const parsedTime = TimeUtils.formatTime(user.get().dailyCooldown - Date.now())
-      return ctx.sendMessage(`Faltam \`${parsedTime}\` para coletar seu daily novamente.`)
+      throw new CodyaError(`Faltam \`${parsedTime}\` para coletar seu daily novamente.`)
     }
 
     const amount = await economy.claimDaily(ctx.author)
 
-    return ctx.sendMessage(`Você conseguiu ${amount} fodase`)
+    return ctx.sendMessage(`Você conseguiu ${amount} CodyaCoins`, 'gear')
   }
 }
 

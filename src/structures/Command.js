@@ -1,10 +1,11 @@
 const { CooldownManager, PermissionUtils } = require('@Codya/utils')
+const { CodyaError } = require('./command/')
 const ParameterTypes = require('./arguments/impl')
 
 class Command {
   /**
-   * @param {import('../Codya')} client
-   * @param {import('./typings/typedef').CommandOptions} options
+   * @param {Codya | import('../Codya')} client
+   * @param {CommandOptions | import('./typings/typedef').CommandOptions} options
    */
   constructor (client, options) {
     this.client = client
@@ -31,8 +32,8 @@ class Command {
   }
 
   /**
-   * @param {import('./command/CommandContext')} ctx
-   * @param {any[]} args
+   * @param {CommandContext} ctx
+   * @param {string[]} args
    * @returns {void}
    */
   async validate (ctx, args) {
@@ -43,17 +44,17 @@ class Command {
       const time = Math.round((cooldown - now) / 1000)
 
       return ctx.sendMessage(
-        `${this.client.getEmoji('error')} | Espere ${
+        `Espere ${
           time === 0 ? 'alguns milissegundos' : time + ' segundo(s)'
-        } para usar este comando novamente`
+        } para usar este comando novamente`,
+        'error'
       )
     }
 
     if ((this.dev || this.hide) && !PermissionUtils.isDeveloper(ctx.member)) {
       return ctx.sendMessage(
-        `${this.client.getEmoji(
-          'bye'
-        )} | Apenas os desenvolvedores podem utilizar este comando.`
+        'Apenas os desenvolvedores podem utilizar este comando.',
+        'bye'
       )
     }
 
@@ -70,13 +71,21 @@ class Command {
     const parsedArgs = await this.handleArguments(ctx, args)
 
     try {
-      this.run(ctx, ...parsedArgs)
+      await this.run(ctx, ...parsedArgs)
     } catch (err) {
-      this.error(ctx.channel, err)
+      this.error(ctx, err)
     }
   }
 
+  /**
+   * @param {CommandContext} ctx
+   * @param {string[]} args
+   * @returns {Promise<Message<TextableChannel>|import('eris').Message<import('eris').TextableChannel>|string[]>}
+   */
   async handleArguments (ctx, args) {
+    /**
+     * @type {Argument[]}
+     */
     const thisArguments = this.args.map(arg => new ParameterTypes[arg.type](arg.options))
     const parsedArgs = []
 
@@ -84,13 +93,11 @@ class Command {
       const result = await argument.parse(ctx, args)
 
       if (argument.required && argument.missing) {
-        ctx.channel.createMessage(argument.messages.missing)
-        break
+        return ctx.sendMessage(argument.messages.missing, 'error')
       }
 
       if (argument.invalid) {
-        ctx.channel.createMessage(argument.messages.invalid)
-        break
+        return ctx.sendMessage(argument.messages.invalid, 'error')
       }
 
       parsedArgs.push(result)
@@ -100,10 +107,18 @@ class Command {
   }
 
   /**
-   * @param {import('./command/CommandContext')} ctx
-   * @param {...object[]} [args]
+   * @param {CommandContext} ctx
+   * @param {string[]} [args]
    */
   run (ctx, args) {}
+
+  error (context, error) {
+    if (error instanceof CodyaError) {
+      return context.sendMessage(error.message, 'error')
+    }
+
+    this.client.logger.error(error.stack)
+  }
 
   /**
    * @param {string} prefix

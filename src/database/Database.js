@@ -21,10 +21,7 @@ class Database {
 
   start () {
     this.mongorito = new MongoritoDatabase(this.options.connectionUri, {
-      autoReconnect: true,
-      logger: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+      autoReconnect: true
     })
 
     this.mongorito.connect()
