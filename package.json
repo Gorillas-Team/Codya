@@ -39,5 +39,5 @@
     "@Codya/utils": "./src/utils",
     "@Codya/database": "./src/database"
   },
-  "license": "ISC"
+  "license": "BSD"
 }
