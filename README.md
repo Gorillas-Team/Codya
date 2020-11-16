@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/znbq7zn.png" />
+  <img src="https://i.imgur.com/znbq7zn.png" width="200"/>
 </p>
 
 # Selfhosting and use of the code
