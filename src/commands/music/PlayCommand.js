@@ -46,13 +46,12 @@ class PlayCommand extends Command {
 
     player.setContext(ctx)
 
-    const { loadType, tracks, playlistInfo: { name } } = await this.client.lavalink.fetchTracks(song)
+    const { loadType, tracks, playlistInfo: { name } } = await this.client.lavalink.fetchTracks(song, ctx.author)
 
     if (loadType === 'PLAYLIST_LOADED') {
       for (const track of tracks.slice(0, 250)) {
         if (player.queue.length >= 250) {
-          return ctx.channel
-            .createMessage('A fila está cheia!')
+          throw new CodyaError('A fila está cheia.')
         }
         await player.play(track)
       }
@@ -70,6 +69,8 @@ class PlayCommand extends Command {
 
     if (loadType === 'SEARCH_RESULT' || loadType === 'TRACK_LOADED') {
       await player.play(tracks[0])
+
+      console.log(tracks[0])
 
       if (!player.queue.empty) {
         return ctx

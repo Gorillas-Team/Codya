@@ -1,10 +1,12 @@
 class Track {
   /**
    * @param {TrackData} data
+   * @param {import('eris').User} requester
    */
-  constructor (data) {
+  constructor (data, requester) {
     this.uri = data.info.uri
 
+    this.requester = requester
     this.title = data.info.title
     this.author = data.info.author
 

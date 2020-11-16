@@ -23,6 +23,7 @@ class UserRepository extends Repository {
       blacklist: false,
       workCooldown: 0,
       dailyCooldown: 0,
+      playlist: [],
       machines: machines.map(data => new Machine(data))
     })
 

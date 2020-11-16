@@ -28,10 +28,11 @@ class CodyaManager extends Manager {
 
   /**
    * @param {string} query
+   * @param {import('eris').User} requester
    * @param {string} [source]
    * @returns {Promise<SearchResponse>}
    */
-  async fetchTracks (query, source) {
+  async fetchTracks (query, requester, source) {
     const node = this.idealNodes[0]
 
     if (!/^https?:\/\//.test(query)) {
@@ -41,7 +42,7 @@ class CodyaManager extends Manager {
     const params = new URLSearchParams({ identifier: query })
     const result = await this.request(node, 'loadtracks', params)
 
-    return new SearchResponse(result)
+    return new SearchResponse(result, requester)
   }
 
   request (node, endpoint, params) {

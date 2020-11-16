@@ -1,8 +1,10 @@
 const { Model } = require('mongorito')
-const { Machine } = require('./associations/Machine')
+const Playlist = require('./associations/Playlist')
+const Machine = require('./associations/Machine')
 
 class User extends Model { }
 
-User.embeds('mechines', Machine)
+User.embeds('playlist', Playlist)
+User.embeds('machines', Machine)
 
 module.exports = User

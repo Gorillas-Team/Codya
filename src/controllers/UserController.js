@@ -10,7 +10,7 @@ class UserController extends Controller {
       repositoryName: 'users'
     }, client)
 
-    this.cooldown = new CooldownManager(5000)
+    this.cooldown = new CooldownManager(60000)
   }
 
   async addXpOnUser (id) {
