@@ -7,7 +7,7 @@ class PingCommand extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run (ctx) {
     const ping = ctx.guild.shard.latency
     await ctx.channel.createMessage(
       `${this.client.getEmoji('satellite')} | Pong! \`${ping}ms\`!`

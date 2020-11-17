@@ -1,11 +1,11 @@
 /**
  * @name CommandContext
- * @class
+ * @constructor
  */
 class CommandContext {
   /**
-   * @param {Message} message
-   * @param {Codya | import('../../Codya')} client
+   * @param {import('eris').Message} message
+   * @param {import('../../Codya')} client
    * @param {string[]} args
    * @param {string} cmd
    * @param {string} prefix
@@ -26,11 +26,15 @@ class CommandContext {
   /**
    * @param {string} message
    * @param {string} emoji
-   * @returns {Promise<Message<TextableChannel>> | Promise<import('eris').Message<import('eris').TextableChannel>>}
+   * @returns {Promise<import('eris').Message<import('eris').TextableChannel>>}
    */
-  sendMessage (message, emoji) {
+  sendMessage (message, emoji = 'star') {
     const baseMessage = `${this.client.getEmoji(emoji)} | ${message}`
     return this.client.createMessage(this.channel.id, baseMessage)
+  }
+
+  sendEmbed (embed = {}) {
+    return this.client.createMessage(this.channel.id, embed)
   }
 
   /**
@@ -44,7 +48,7 @@ class CommandContext {
   }
 
   /**
-   * @returns {Eris.Guild}
+   * @returns {import('eris').Guild}
    */
   get guild () {
     return this.client.guilds.get(this.message.guildID)
@@ -58,7 +62,7 @@ class CommandContext {
   }
 
   /**
-   * @returns {CodyaPlayer | Player}
+   * @returns {import('../../audio/CodyaPlayer')}
    */
   get player () {
     return this.client.lavalink.players.get(this.message.guildID)

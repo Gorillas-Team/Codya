@@ -1,5 +1,5 @@
 /**
- * @type {import('eris').ClientOptions | ClientOptions | object}
+ * @type {import('eris').ClientOptions}
  */
 module.exports = {
   // Discord options
@@ -12,7 +12,7 @@ module.exports = {
   token: process.env.TOKEN,
 
   /**
-   * @type {import('lavacord/dist/lib/Types').LavalinkNodeOptions[] | LavalinkNodeOptions[]}
+   * @type {import('lavacord/dist/lib/Types').LavalinkNodeOptions[]}
    */
   nodes: JSON.parse(process.env.LAVALINK_NODES || [{}]),
 

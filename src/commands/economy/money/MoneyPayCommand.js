@@ -6,13 +6,32 @@ class MoneyPayCommand extends Command {
       name: 'pay',
       parent: 'money',
       args: [
-        { type: 'number', options: { required: true, minimum: 1 } },
-        { type: 'user', options: { required: true } }
+        {
+          type: 'number',
+          options: {
+            required: true,
+            minimum: 1,
+            messages: {
+              missing: 'Você precisa informar a quantia',
+              invalid: 'A quantia precisa ser um número.'
+            }
+          }
+        },
+        {
+          type: 'user',
+          options: {
+            required: true,
+            messages: {
+              invalid: 'Usuário inválido.',
+              missing: 'Você precisa informar um usuário.'
+            }
+          }
+        }
       ]
     })
   }
 
-  async run (ctx, amount, user) {
+  async run (ctx, [amount, user]) {
     const { economy } = this.client.controllers
 
     if (!(await economy.canPay(ctx.author, amount))) {

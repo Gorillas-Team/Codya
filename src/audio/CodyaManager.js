@@ -10,7 +10,8 @@ class CodyaManager extends Manager {
    * @param {ManagerOptions | import('lavacord').ManagerOptions} options
    */
   constructor (client, nodes, options) {
-    super(nodes, options)
+    const nodesResumable = nodes.map(n => Object.assign({ resumeKey: Math.random().toString(36).slice(2) }, n))
+    super(nodesResumable, options)
 
     this.client = client
     this.user = client.user.id

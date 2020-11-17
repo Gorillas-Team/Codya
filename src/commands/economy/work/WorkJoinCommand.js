@@ -24,7 +24,7 @@ class WorkJoinCommand extends Command {
     })
   }
 
-  async run (ctx, workName) {
+  async run (ctx, [workName]) {
     const { economy } = this.client.controllers
 
     if (await economy.hasWork(ctx.author)) {

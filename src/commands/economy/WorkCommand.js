@@ -1,21 +1,20 @@
 const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
-const { TimeUtils } = require('@Codya/utils')
+const { TimeUtils, CodeUtils } = require('@Codya/utils')
 
 class WorkCommand extends Command {
   constructor (client) {
     super(client, {
       name: 'work',
-      aliases: ['w'],
-      args: [{ type: 'string', options: { required: false } }]
+      aliases: ['w']
     })
   }
 
-  async run (ctx, workName) {
+  async run (ctx) {
     const { economy } = this.client.controllers
 
     if (!(await economy.hasWork(ctx.author))) {
       const { prefix, cmd } = ctx
-      throw new CodyaError(`Vocẽ não possui um trabalho, utilize o comando \`${this.resolvePrefix(prefix)}${cmd} join\` para entrar em um.`)
+      throw new CodyaError(`Você não possui um trabalho, utilize o comando \`${CodeUtils.resolvePrefix(prefix)}${cmd} join\` para entrar em um.`)
     }
 
     if (await economy.isInWorkCooldown(ctx.author)) {

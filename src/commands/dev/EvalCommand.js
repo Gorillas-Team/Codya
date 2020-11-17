@@ -27,7 +27,7 @@ class EvalCommand extends Command {
    * @param {import('../../structures/command/CommandContext')} ctx
    * @param {string} input
    */
-  async run ({ member, guild, author, channel, mentions, message, player, sendMessage }, input) {
+  async run ({ client, member, guild, author, channel, mentions, message, player }, [input]) {
     if (typeof input !== 'string') return
     if (input.includes('token')) return
 
@@ -44,14 +44,14 @@ class EvalCommand extends Command {
           .then(res => res.json())
           .then(({ key }) => key)
 
-        await sendMessage('Olha a dm...', 'sleeping')
+        await channel.createMessage('Olha a dm...')
         const dmChannel = await author.getDMChannel()
         return dmChannel.createMessage(`https://speedbin.xyz/${key}`)
       }
 
-      await sendMessage('Resultado:```js\n' + CodeUtils.clean(code.replace(new RegExp(this.client.token), 'ss')) + '\n```', 'code')
+      await channel.createMessage(client.getEmoji('code') + ' | Resultado:```js\n' + CodeUtils.clean(code.replace(new RegExp(client.token), 'ss')) + '\n```')
     } catch (e) {
-      throw new CodyaError('```js\n' + e.message + '\n```')
+      throw new CodyaError('Erro:```js\n' + e.message + '\n```')
     }
   }
 }

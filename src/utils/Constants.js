@@ -16,6 +16,7 @@ module.exports.emojis = {
   lamp: '💡',
   cop: '👮',
   star: '⭐',
+  balance: '💰',
   handshake: '🤝'
 }
 

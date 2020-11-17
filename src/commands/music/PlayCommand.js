@@ -24,7 +24,7 @@ class PlayCommand extends Command {
    * @param {string} song
    * @returns {void}
    */
-  async run (ctx, song) {
+  async run (ctx, [song]) {
     const memberState = ctx.member.voiceState
     if (!memberState.channelID) {
       throw new CodyaError('Você precisa estar em um canal de voz para executar este comando.')
@@ -38,10 +38,17 @@ class PlayCommand extends Command {
 
     const bestNode = await this.client.lavalink.idealNodes[0]
 
+    if (!bestNode) {
+      throw new CodyaError('Não há nodes disponíveis.')
+    }
+
     const player = await this.client.lavalink.join({
       node: bestNode.id,
       channel: memberState.channelID,
       guild: ctx.message.guildID
+    }).catch(err => {
+      this.client.logger.error(err)
+      throw new CodyaError('Um erro ocorreu ao criar o player.')
     })
 
     player.setContext(ctx)
@@ -69,8 +76,6 @@ class PlayCommand extends Command {
 
     if (loadType === 'SEARCH_RESULT' || loadType === 'TRACK_LOADED') {
       await player.play(tracks[0])
-
-      console.log(tracks[0])
 
       if (!player.queue.empty) {
         return ctx

@@ -20,6 +20,27 @@ class CodeUtils {
         .replace(/@/g, '@' + String.fromCharCode(8203))
       : text
   }
+
+  /**
+   * @param {string} prefix
+   * @returns {string}
+   */
+  static resolvePrefix (prefix) {
+    const isEqualsCodya = p => p === 'codya'
+    const isMention = p => /<@!?\d+>/.test(p)
+
+    return isEqualsCodya(prefix) ? (prefix + ' ') : isMention(prefix) ? ('@Codya ') : prefix
+  }
+
+  /**
+   * @param {string} prefix
+   * @param {string} cmd
+   * @returns {string}
+   */
+  static getUsage (prefix, cmd) {
+    prefix = this.resolvePrefix(prefix)
+    return this.usage.replace(/<prefix>/g, prefix).replace(/<cmd>/g, cmd)
+  }
 }
 
 module.exports = CodeUtils

@@ -19,7 +19,7 @@ class DailyCommand extends Command {
 
     const amount = await economy.claimDaily(ctx.author)
 
-    return ctx.sendMessage(`Você conseguiu ${amount} CodyaCoins`, 'gear')
+    return ctx.sendMessage(`Você conseguiu ${amount} CodyaCoins`, 'balance')
   }
 }
 

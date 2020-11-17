@@ -2,7 +2,7 @@ const { devs } = require('../../config')
 
 class PermissionUtils {
   /**
-   * @param {Member | import('eris').Member} member
+   * @param {import('eris').Member} member
    * @returns {boolean}
    */
   static isDeveloper (member) {

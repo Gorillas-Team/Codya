@@ -1,6 +1,8 @@
 const { Controller } = require('@Codya/structures')
 const { CooldownManager } = require('@Codya/utils')
 
+const Playlist = require('@Codya/database/models/associations/Playlist')
+
 const generateXp = () => Math.floor(Math.random() * 3) + 2
 
 class UserController extends Controller {
@@ -11,6 +13,39 @@ class UserController extends Controller {
     }, client)
 
     this.cooldown = new CooldownManager(60000)
+  }
+
+  async createPlaylist (user, name) {
+    const document = await this.repository.find(user.id)
+    const playlist = new Playlist({ name, tracks: [] })
+
+    document.get().playlists.push(playlist)
+    await document.save()
+
+    return playlist
+  }
+
+  async addTrackOnPlaylist (user, name, track) {
+    const document = await this.repository.find(user.id)
+    const playlist = await this.findPlaylist(user, name)
+
+    playlist.tracks.push(track)
+    await document.save()
+
+    return playlist.tracks
+  }
+
+  async findPlaylist (user, name) {
+    const document = await this.repository.find(user.id)
+
+    return document.get().playlists.find(playlist => playlist.name === name)
+  }
+
+  async hasPlaylistWithSameName (user, name) {
+    const document = await this.repository.find(user.id)
+    const playlist = document.get().playlists.find(playlist => playlist.name === name)
+
+    return playlist != null
   }
 
   async addXpOnUser (id) {
