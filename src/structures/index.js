@@ -8,5 +8,6 @@ module.exports = {
   CommandUtils: require('./command/'),
   Loader: require('./Loader'),
   Controller: require('./Controller'),
-  Repository: require('./Repository')
+  Repository: require('./Repository'),
+  CodyaError: require('./command/CodyaError')
 }

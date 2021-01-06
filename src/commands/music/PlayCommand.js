@@ -1,4 +1,4 @@
-const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
+const { Command, CodyaError } = require('@Codya/structures')
 
 class PlayCommand extends Command {
   constructor (client) {
@@ -52,8 +52,11 @@ class PlayCommand extends Command {
     })
 
     player.setContext(ctx)
+    ctx.guild.music = player
 
     const { loadType, tracks, playlistInfo: { name } } = await this.client.lavalink.fetchTracks(song, ctx.author)
+
+    if (loadType === 'NO_MATCHES') throw new CodyaError('Nenhum resultado encontrado.')
 
     if (loadType === 'PLAYLIST_LOADED') {
       for (const track of tracks.slice(0, 250)) {

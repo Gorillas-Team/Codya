@@ -1,7 +1,6 @@
 const { CooldownManager, PermissionUtils } = require('@Codya/utils')
 const { CodyaError } = require('./command/')
 const ParameterTypes = require('./arguments/impl')
-
 class Command {
   /**
    * @param {import('../Codya')} client
@@ -68,12 +67,12 @@ class Command {
       return subCommand.validate(ctx, args.splice(1))
     }
 
-    let parsedArgs
+    let parsedArgs = []
 
     try {
       parsedArgs = await this.handleArguments(ctx, args)
     } catch (err) {
-      this.error(ctx, err)
+      return this.error(ctx, err)
     }
 
     try {
@@ -98,14 +97,12 @@ class Command {
       const result = await argument.parse(ctx, args)
 
       if (argument.required && argument.missing) {
-        return ctx.sendMessage(argument.messages.missing, 'error')
+        throw new CodyaError(argument.messages.missing)
       }
 
       if (argument.invalid) {
-        return ctx.sendMessage(argument.messages.invalid, 'error')
+        throw new CodyaError(argument.messages.invalid)
       }
-
-      console.log(argument)
 
       parsedArgs.push(result)
     }

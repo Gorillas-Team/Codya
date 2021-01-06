@@ -1,4 +1,4 @@
-const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
+const { Command, CodyaError } = require('@Codya/structures')
 
 class PlaylistCreateCommand extends Command {
   constructor (client) {

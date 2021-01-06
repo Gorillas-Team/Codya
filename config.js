@@ -31,6 +31,6 @@ module.exports = {
    * @property {string} connectionUri
    */
   database: {
-    connectionUri: process.env.DATABASE_URL
+    connectionUri: process.env.DATABASE_URI
   }
 }

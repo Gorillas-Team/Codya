@@ -1,4 +1,4 @@
-const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
+const { Command, CodyaError } = require('@Codya/structures')
 const { TimeUtils, CodeUtils } = require('@Codya/utils')
 
 class WorkCommand extends Command {

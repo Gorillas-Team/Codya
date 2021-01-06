@@ -1,4 +1,4 @@
-const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
+const { Command, CodyaError } = require('@Codya/structures')
 const { CodeUtils } = require('@Codya/utils')
 const { inspect } = require('util')
 
@@ -27,7 +27,7 @@ class EvalCommand extends Command {
    * @param {import('../../structures/command/CommandContext')} ctx
    * @param {string} input
    */
-  async run ({ client, member, guild, author, channel, mentions, message, player }, [input]) {
+  async run ({ client, member, guild, author, channel, mentions, message }, [input]) {
     if (typeof input !== 'string') return
     if (input.includes('token')) return
 

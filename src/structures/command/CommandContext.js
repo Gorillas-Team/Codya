@@ -33,8 +33,14 @@ class CommandContext {
     return this.client.createMessage(this.channel.id, baseMessage)
   }
 
-  sendEmbed (embed = {}) {
-    return this.client.createMessage(this.channel.id, embed)
+  /**
+   *
+   * @param {import('eris').Embed} embed
+   * @returns {Promise<import('eris').Message<import('eris').TextableChannel>}
+   */
+
+  sendEmbed (embed) {
+    return this.client.createMessage(this.channel.id, { embed })
   }
 
   /**
@@ -59,13 +65,6 @@ class CommandContext {
    */
   get selfMember () {
     return this.guild.members.get(this.client.user.id)
-  }
-
-  /**
-   * @returns {import('../../audio/CodyaPlayer')}
-   */
-  get player () {
-    return this.client.lavalink.players.get(this.message.guildID)
   }
 }
 

@@ -1,4 +1,4 @@
-const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
+const { Command, CodyaError } = require('@Codya/structures')
 // const { TimeUtils } = require('@Codya/utils')
 /* timeutils só tá aí pra depois pegar o tempo de cooldown de trabalho */
 

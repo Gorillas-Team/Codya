@@ -16,7 +16,7 @@ class MessageListener extends Listener {
 
     await this.client.controllers.users.addXpOnUser(message.author.id)
 
-    const prefix = CommandUtils.getPrefix(message)
+    const prefix = await CommandUtils.getPrefix(this.client, message)
     if (!message.content.toLowerCase().startsWith(prefix)) return
 
     const args = CommandUtils.resolveArgs(message.content, prefix)

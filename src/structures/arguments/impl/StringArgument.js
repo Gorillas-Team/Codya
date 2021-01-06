@@ -12,7 +12,7 @@ class StringArgument extends Argument {
    */
   constructor (options = {}) {
     super(options)
-    this.full = options.full || true
+    this.full = 'full' in options ? options.full : true
     this.length = options.length || 1
     this.lengthRequired = options.lengthRequired || this.length
     this.maxLength = options.maxLength || 100
@@ -48,7 +48,10 @@ class StringArgument extends Argument {
 
     args = args.slice(this.length)
 
-    if (string.join(' ').length > this.maxLength) this.invalid = true
+    if (string.join(' ').length > this.maxLength) {
+      this.invalid = true
+      return
+    }
 
     return string.join(' ').trim()
   }
