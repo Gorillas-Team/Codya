@@ -1,4 +1,5 @@
 module.exports = {
+  BitField: require('./Bitfield'),
   FileUtils: require('./FileUtils'),
   TimeUtils: require('./TimeUtils'),
   CodeUtils: require('./CodeUtils'),

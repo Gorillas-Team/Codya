@@ -31,7 +31,7 @@ class MoneyPayCommand extends Command {
     })
   }
 
-  async run (ctx, [amount, user]) {
+  async run (ctx, amount, user) {
     const { economy } = this.client.controllers
 
     if (!(await economy.canPay(ctx.author, amount))) {

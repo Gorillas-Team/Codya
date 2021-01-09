@@ -76,7 +76,7 @@ class Command {
     }
 
     try {
-      await this.run(ctx, parsedArgs)
+      await this.run(ctx, ...parsedArgs)
     } catch (err) {
       this.error(ctx, err)
     }
@@ -84,17 +84,17 @@ class Command {
 
   /**
    * @param {import('./command/CommandContext')} ctx
-   * @param {string[]} args
+   * @param {string[]} commandArgs
    * @returns {Promise<string[]>}
    */
-  async handleArguments (ctx, args) {
+  async handleArguments (ctx, commandArgs) {
     const thisArguments = this.args.map(arg => {
       return new ParameterTypes[arg.type](arg.options)
     })
     const parsedArgs = []
 
     for (const argument of thisArguments) {
-      const result = await argument.parse(ctx, args)
+      const parsed = await argument.parse(ctx, commandArgs)
 
       if (argument.required && argument.missing) {
         throw new CodyaError(argument.messages.missing)
@@ -104,7 +104,8 @@ class Command {
         throw new CodyaError(argument.messages.invalid)
       }
 
-      parsedArgs.push(result)
+      commandArgs = parsed.args
+      parsedArgs.push(parsed.value)
     }
 
     return parsedArgs

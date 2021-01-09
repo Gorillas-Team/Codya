@@ -45,3 +45,24 @@ module.exports.permissions = {
   MANAGE_WEBHOOKS: 'Gerenciar Webhook',
   MANAGE_EMOJIS: 'Gerenciar Emojis'
 }
+
+exports.bitfields = {
+  modules: {
+    logs: (1 << 0),
+    autoRole: (1 << 1),
+    autoMod: (1 << 2)
+  },
+  settings: {
+    logs: {
+      punishment: (1 << 0),
+      messages: (1 << 1),
+      users: (1 << 2)
+    },
+    autoMod: {
+      spam: (1 << 0),
+      flood: (1 << 1),
+      accountAge: (1 << 2),
+      caps: (1 << 3)
+    }
+  }
+}

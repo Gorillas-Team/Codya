@@ -14,7 +14,7 @@ class GuildRepository extends Repository {
   async create (id) {
     const guild = new this.model({
       id,
-      prefix: null,
+      channels: {},
       modules: 0
     })
 
@@ -42,7 +42,7 @@ class GuildRepository extends Repository {
   }
 
   async delete (id) {
-    return this.model.deleteOne({ id })
+    return this.model.remove({ id })
   }
 }
 

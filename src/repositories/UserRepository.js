@@ -21,8 +21,10 @@ class UserRepository extends Repository {
       work: null,
       level: 1,
       blacklist: false,
-      workCooldown: 0,
-      dailyCooldown: 0,
+      cooldown: {
+        work: null,
+        daily: null
+      },
       playlists: [],
       machines: machines.map(data => new Machine(data))
     })
@@ -51,7 +53,7 @@ class UserRepository extends Repository {
   }
 
   delete (id) {
-    return this.model.deleteOne({ id })
+    return this.model.remove({ id })
   }
 }
 

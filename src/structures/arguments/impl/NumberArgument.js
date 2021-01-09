@@ -18,7 +18,10 @@ class NumberArgument extends Argument {
     }
 
     args = args.slice(1)
-    return number
+    return {
+      args,
+      value: number
+    }
   }
 }
 

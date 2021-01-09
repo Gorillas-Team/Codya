@@ -32,28 +32,31 @@ class StringArgument extends Argument {
       this.maxLength = args.join(' ').length
     }
 
-    for (const arg of args) {
-      if (!arg) {
+    for (let i = 0; i < this.length; i++) {
+      if (!args[i]) {
         this.missing = true
         continue
       }
 
-      if ((!isNaN(arg) && this.isNumber) || (arg.length < this.lengthRequired)) {
+      if ((!isNaN(args[i]) && this.isNumber) || (args[i].length < this.lengthRequired)) {
         this.invalid = true
         continue
       }
 
-      string.push(arg)
+      string.push(args[i])
     }
-
-    args = args.slice(this.length)
 
     if (string.join(' ').length > this.maxLength) {
       this.invalid = true
       return
     }
 
-    return string.join(' ').trim()
+    args = args.slice(this.length)
+
+    return {
+      args,
+      value: string.join(' ').trim()
+    }
   }
 }
 

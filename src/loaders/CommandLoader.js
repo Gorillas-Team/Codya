@@ -53,7 +53,8 @@ class CommandLoader extends Loader {
   addSubCommand (subCommand) {
     let parentCommand
     if (subCommand.parent) {
-      parentCommand = this.client.commands.find(cmd => cmd.name === subCommand.parent)
+      const find = (cmd) => cmd.name === subCommand.parent
+      parentCommand = this.client.commands.find(find)
     }
 
     if (!parentCommand) return

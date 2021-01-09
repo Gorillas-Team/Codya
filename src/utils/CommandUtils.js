@@ -8,23 +8,17 @@ const CodeUtils = require('./CodeUtils')
  */
 class CommandUtils {
   /**
-   * @param {import('../Codya')} client
    * @param {import('eris').Message} message
    * @returns {string}
    */
-  static async getPrefix (client, message) {
-    const guildData = await client.repositories.guilds.find(message.guildID)
-    const { prefix: guildPrefix } = guildData.get()
-
+  static getPrefix (message) {
     const toLowerCase = str => str.toLowerCase()
-    const startsWith = str => prefix => str.startsWith(prefix) && prefix
+    const startsWith = str => prefix => str.startsWith(prefix)
 
     const content = toLowerCase(message.content)
     const pipe = CodeUtils.pipe(toLowerCase, startsWith(content))
 
-    const prefix = (guildPrefix ? pipe(guildPrefix) : prefixes.find(pipe))
-
-    return prefix
+    return prefixes.find(pipe)
   }
 
   /**

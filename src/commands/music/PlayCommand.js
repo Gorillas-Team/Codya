@@ -1,4 +1,5 @@
 const { Command, CodyaError } = require('@Codya/structures')
+const { LoadType } = require('lavacord')
 
 class PlayCommand extends Command {
   constructor (client) {
@@ -24,7 +25,7 @@ class PlayCommand extends Command {
    * @param {string} song
    * @returns {void}
    */
-  async run (ctx, [song]) {
+  async run (ctx, song) {
     const memberState = ctx.member.voiceState
     if (!memberState.channelID) {
       throw new CodyaError('Você precisa estar em um canal de voz para executar este comando.')
@@ -54,15 +55,16 @@ class PlayCommand extends Command {
     player.setContext(ctx)
     ctx.guild.music = player
 
+    if (player.queue.length >= 250) {
+      throw new CodyaError('A fila está cheia.')
+    }
+
     const { loadType, tracks, playlistInfo: { name } } = await this.client.lavalink.fetchTracks(song, ctx.author)
 
-    if (loadType === 'NO_MATCHES') throw new CodyaError('Nenhum resultado encontrado.')
+    if (loadType === LoadType.NO_MATCHES) throw new CodyaError('Nenhum resultado encontrado.')
 
-    if (loadType === 'PLAYLIST_LOADED') {
+    if (loadType === LoadType.PLAYLIST_LOADED) {
       for (const track of tracks.slice(0, 250)) {
-        if (player.queue.length >= 250) {
-          throw new CodyaError('A fila está cheia.')
-        }
         await player.play(track)
       }
 
@@ -77,7 +79,7 @@ class PlayCommand extends Command {
       )
     }
 
-    if (loadType === 'SEARCH_RESULT' || loadType === 'TRACK_LOADED') {
+    if ([LoadType.SEARCH_RESULT, LoadType.TRACK_LOADED].some(type => loadType === type)) {
       await player.play(tracks[0])
 
       if (!player.queue.empty) {

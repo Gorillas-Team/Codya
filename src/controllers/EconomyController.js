@@ -27,11 +27,11 @@ class EconomyController extends Controller {
     const document = await this.repository.find(user.id)
 
     const { work } = document.get()
-    const { minimumBudget, maximumBudget, workCooldown } = work
+    const { cooldown, budget: { min, max } } = work
 
-    const amount = minimumBudget + (Math.floor(Math.random() * (maximumBudget - minimumBudget)))
+    const amount = min + (Math.floor(Math.random() * (max - min)))
 
-    document.set('workCooldown', Date.now() + workCooldown)
+    document.set('cooldown.work', Date.now() + cooldown)
     await document.save()
 
     document.increment('money', amount)
@@ -64,9 +64,9 @@ class EconomyController extends Controller {
   async isInWorkCooldown (user) {
     const document = await this.repository.find(user.id)
 
-    const { workCooldown } = document.get()
+    const { cooldown: { work } } = document.get()
 
-    return workCooldown >= Date.now()
+    return work >= Date.now()
   }
 
   /**
@@ -122,7 +122,7 @@ class EconomyController extends Controller {
     const document = await this.repository.find(user.id)
     const amount = Math.floor(Math.random() * 5000)
 
-    document.set('dailyCooldown', Date.now() + 86400000)
+    document.set('cooldown.daily', Date.now() + 86400000)
     await document.save()
 
     document.increment('money', amount)
@@ -137,9 +137,9 @@ class EconomyController extends Controller {
   async isInDailyCooldown (user) {
     const document = await this.repository.find(user.id)
 
-    const { dailyCooldown } = document.get()
+    const { cooldown: { daily } } = document.get()
 
-    return dailyCooldown >= Date.now()
+    return daily >= Date.now()
   }
 }
 

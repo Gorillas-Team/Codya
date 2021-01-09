@@ -9,14 +9,18 @@ class MessageListener extends Listener {
   }
 
   /**
-   * @param {Message | import('eris').Message} message
+   * @param {import('eris').Message} message
    */
   async run (message) {
     if (message.author.bot) return
 
+    if (message.content.includes('salve')) {
+      this.client.createMessage(message.channel.id, 'salve :call_me:')
+    }
+
     await this.client.controllers.users.addXpOnUser(message.author.id)
 
-    const prefix = await CommandUtils.getPrefix(this.client, message)
+    const prefix = CommandUtils.getPrefix(message)
     if (!message.content.toLowerCase().startsWith(prefix)) return
 
     const args = CommandUtils.resolveArgs(message.content, prefix)

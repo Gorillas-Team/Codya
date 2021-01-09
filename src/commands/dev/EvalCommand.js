@@ -27,13 +27,13 @@ class EvalCommand extends Command {
    * @param {import('../../structures/command/CommandContext')} ctx
    * @param {string} input
    */
-  async run ({ client, member, guild, author, channel, mentions, message }, [input]) {
+  async run ({ client, member, guild, author, channel, mentions, message }, input) {
     if (typeof input !== 'string') return
     if (input.includes('token')) return
 
     try {
       // eslint-disable-next-line no-eval
-      let code = await eval(input)
+      let code = await eval(`(async () => {${input}})()`)
       code = typeof code !== 'string' ? inspect(code, { depth: 0 }) : code
 
       if (code.length > 1700) {

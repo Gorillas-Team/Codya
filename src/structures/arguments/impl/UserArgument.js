@@ -29,7 +29,10 @@ class UserArgument extends Argument {
       user = this.canBeAuthor ? this.isMember ? context.member : context.author : this.missing = true
     }
 
-    return user
+    return {
+      args,
+      value: user
+    }
   }
 }
 

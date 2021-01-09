@@ -1,3 +1,5 @@
+const CodyaEmbed = require('./CodyaEmbed')
+
 /**
  * @name CommandContext
  * @constructor
@@ -24,13 +26,17 @@ class CommandContext {
   }
 
   /**
-   * @param {string} message
+   * @param {string | import('./CodyaEmbed')} message
    * @param {string} emoji
    * @returns {Promise<import('eris').Message<import('eris').TextableChannel>>}
    */
   sendMessage (message, emoji = 'star') {
-    const baseMessage = `${this.client.getEmoji(emoji)} | ${message}`
-    return this.client.createMessage(this.channel.id, baseMessage)
+    if (!(message instanceof CodyaEmbed)) {
+      const baseMessage = `${this.client.getEmoji(emoji)} | ${message}`
+      return this.client.createMessage(this.channel.id, baseMessage)
+    }
+
+    return this.sendEmbed(message)
   }
 
   /**
@@ -40,7 +46,7 @@ class CommandContext {
    */
 
   sendEmbed (embed) {
-    return this.client.createMessage(this.channel.id, { embed })
+    return this.client.createMessage(this.channel.id, { embed: embed.toJSON() })
   }
 
   /**

@@ -17,7 +17,7 @@ class PlaylistCreateCommand extends Command {
     })
   }
 
-  async run (ctx, [name]) {
+  async run (ctx, name) {
     const { users } = this.client.controllers
 
     if (await users.hasPlaylistWithSameName(ctx.author, name)) {

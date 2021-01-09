@@ -13,11 +13,7 @@ class PlaylistCommand extends Command {
    * @param {import('../../structures/command/CommandContext')} ctx
    */
   async run (ctx) {
-    ctx.sendEmbed({
-      embed: {
-        title: 'fodase'
-      }
-    })
+    ctx.sendMessage('fodase')
   }
 }
 

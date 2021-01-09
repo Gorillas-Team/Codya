@@ -26,8 +26,7 @@ class UserController extends Controller {
   }
 
   async addTrackOnPlaylist (user, name, track) {
-    const document = await this.repository.find(user.id)
-    const playlist = await this.findPlaylist(user, name)
+    const { document, playlist } = await this.findPlaylist(user, name)
 
     playlist.tracks.push(track)
     await document.save()
@@ -37,8 +36,12 @@ class UserController extends Controller {
 
   async findPlaylist (user, name) {
     const document = await this.repository.find(user.id)
+    const playlist = document.get().playlists.find(playlist => playlist.name === name)
 
-    return document.get().playlists.find(playlist => playlist.name === name)
+    return {
+      document,
+      playlist
+    }
   }
 
   async hasPlaylistWithSameName (user, name) {

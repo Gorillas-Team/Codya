@@ -9,5 +9,6 @@ module.exports = {
   Loader: require('./Loader'),
   Controller: require('./Controller'),
   Repository: require('./Repository'),
+  CodyaEmbed: require('./command/CodyaEmbed'),
   CodyaError: require('./command/CodyaError')
 }
