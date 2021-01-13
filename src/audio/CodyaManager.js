@@ -1,8 +1,8 @@
 const { Manager } = require('lavacord')
 
-const fetch = require('node-fetch')
 const Track = require('./model/Track')
 const SearchResponse = require('./model/SearchResponse')
+const LavalinkRest = require('./LavalinkRest')
 
 class CodyaManager extends Manager {
   /**
@@ -42,33 +42,17 @@ class CodyaManager extends Manager {
     }
 
     const params = new URLSearchParams({ identifier: query })
-    const result = await this.request(node, 'loadtracks', params, {
-      Authorization: node.password
-    })
+    const result = await LavalinkRest.requestTracks(node, params)
 
     return new SearchResponse(result, requester)
   }
 
-  async decodeTracks (track, requester) {
+  async decodeTracks (tracks, requester) {
     const node = this.idealNodes[0]
 
-    const results = await this.request(node, 'decodetracks', track, {
-      user_id: this.user,
-      Authorization: node.password
-    }, 'POST')
+    const results = await LavalinkRest.decodeTracks(node, tracks)
 
     return results.map(track => new Track(track, requester))
-  }
-
-  request (node, endpoint, params, headers, method = 'GET') {
-    return fetch(`http://${node.host}:${node.port}/${endpoint}${method === 'POST' ? `?${params}` : ''}`, {
-      method,
-      headers,
-      body: (method === 'POST') && JSON.stringify(params)
-    }).then(res => res.json())
-      .catch(error => {
-        throw new Error('Fail to fetch tracks' + error)
-      })
   }
 
   async sendPackets (packet) {

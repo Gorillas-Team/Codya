@@ -10,7 +10,7 @@ class CommandLoader extends Loader {
   }
 
   load () {
-    this.client.logger.createGroup('[COMMANDS]')
+    this.client.logger.createGroup('[Commands]')
     this.client.logger.log('| Loading commands...')
     this.loadCommands()
     this.client.logger.log('| All loaded with successfully!')

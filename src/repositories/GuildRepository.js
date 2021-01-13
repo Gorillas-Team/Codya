@@ -15,7 +15,11 @@ class GuildRepository extends Repository {
     const guild = new this.model({
       id,
       channels: {},
-      modules: 0
+      modules: 0,
+      settings: {
+        autoMod: 0,
+        logs: 0
+      }
     })
 
     await guild.save()

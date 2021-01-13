@@ -100,10 +100,10 @@ class Command {
         throw new CodyaError(argument.messages.missing)
       }
 
-      if (argument.invalid) {
+      if (argument.required && argument.invalid) {
         throw new CodyaError(argument.messages.invalid)
       }
-
+      // console.log(thisArguments, parsed)
       commandArgs = parsed.args
       parsedArgs.push(parsed.value)
     }

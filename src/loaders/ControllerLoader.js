@@ -9,7 +9,7 @@ class ControllerLoader extends Loader {
   }
 
   load () {
-    this.client.logger.createGroup('[CONTROLLERS]')
+    this.client.logger.createGroup('[Controllers]')
     this.client.logger.log('| Loading controllers...')
     this.loadControllers()
     this.client.logger.log('| All loaded with successfully!')

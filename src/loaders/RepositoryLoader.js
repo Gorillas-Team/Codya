@@ -9,7 +9,7 @@ class RepositoryLoader extends Loader {
   }
 
   load () {
-    this.client.logger.createGroup('[REPOSITORIES]')
+    this.client.logger.createGroup('[Repositories]')
     this.client.logger.log('| Loading repositories...')
     this.loadRepositories()
     this.client.logger.log('| All loaded with successfully!')

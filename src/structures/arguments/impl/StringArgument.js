@@ -20,6 +20,7 @@ class StringArgument extends Argument {
   }
 
   parse (ctx, args) {
+    console.log(args)
     if (args.length === 0) {
       this.missing = true
       return
