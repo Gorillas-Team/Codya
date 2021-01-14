@@ -33,7 +33,7 @@ class EvalCommand extends Command {
 
     try {
       // eslint-disable-next-line no-eval
-      let code = await eval(`(async () => {${input}})()`)
+      let code = await eval(input.includes('--async') ? `(async () => { ${input.replace('--async', '')} })()` : input)
       code = typeof code !== 'string' ? inspect(code, { depth: 0 }) : code
 
       if (code.length > 1700) {

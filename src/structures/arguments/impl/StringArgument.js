@@ -20,10 +20,9 @@ class StringArgument extends Argument {
   }
 
   parse (ctx, args) {
-    console.log(args)
     if (args.length === 0) {
       this.missing = true
-      return
+      return [false, args]
     }
 
     const string = []
@@ -49,15 +48,12 @@ class StringArgument extends Argument {
 
     if (string.join(' ').length > this.maxLength) {
       this.invalid = true
-      return
+      return [false, args]
     }
 
     args = args.slice(this.length)
 
-    return {
-      args,
-      value: string.join(' ').trim()
-    }
+    return [string.join(' ').trim(), args]
   }
 }
 

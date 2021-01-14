@@ -64,7 +64,7 @@ class CodyaPlayer extends Player {
     return super.play(this.queue.empty ? song.track : this.queue.first().track, { volume: this.currentVolume })
   }
 
-  volume (volume) {
+  setVolume (volume) {
     this.currentVolume = volume
     return super.volume(volume)
   }

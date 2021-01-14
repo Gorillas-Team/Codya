@@ -70,7 +70,7 @@ class Command {
     let parsedArgs = []
 
     try {
-      parsedArgs = await this.handleArguments(ctx, args)
+      if (this.args.length > 0) parsedArgs = await this.handleArguments(ctx, args)
     } catch (err) {
       return this.error(ctx, err)
     }
@@ -93,8 +93,10 @@ class Command {
     })
     const parsedArgs = []
 
-    for (const argument of thisArguments) {
-      const parsed = await argument.parse(ctx, commandArgs)
+    const parseArgument = async (args, rawArgs) => {
+      const [argument] = args
+
+      const parsed = await argument.parse(ctx, rawArgs)
 
       if (argument.required && argument.missing) {
         throw new CodyaError(argument.messages.missing)
@@ -103,10 +105,14 @@ class Command {
       if (argument.required && argument.invalid) {
         throw new CodyaError(argument.messages.invalid)
       }
-      // console.log(thisArguments, parsed)
-      commandArgs = parsed.args
-      parsedArgs.push(parsed.value)
+
+      parsedArgs.push(parsed[0])
+
+      if (args.length > 1) return parseArgument(args.slice(1), parsed[1])
+      return thisArguments
     }
+
+    await parseArgument(thisArguments, commandArgs)
 
     return parsedArgs
   }
