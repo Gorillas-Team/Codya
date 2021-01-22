@@ -1,9 +1,10 @@
 [
-    {
-        "id": 0, 
-        "amount": 0, 
-        "moneyGenerated": 0, 
-        "name": "Máquina de Cash", 
-        "enabled": false
-    }
+  {
+    "id": 0,
+    "amount": 0,
+    "moneyGenerated": 0,
+    "name": "Máquina de Cash",
+    "enabled": false,
+    "price": 250000
+  }
 ]

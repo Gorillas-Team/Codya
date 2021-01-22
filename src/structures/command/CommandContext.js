@@ -1,11 +1,13 @@
+const CodyaEmbed = require('./CodyaEmbed')
+
 /**
  * @name CommandContext
- * @class
+ * @constructor
  */
 class CommandContext {
   /**
-   * @param {Message} message
-   * @param {Codya | import('../../Codya')} client
+   * @param {import('eris').Message} message
+   * @param {import('../../Codya')} client
    * @param {string[]} args
    * @param {string} cmd
    * @param {string} prefix
@@ -24,27 +26,51 @@ class CommandContext {
   }
 
   /**
-   * @param {string} message
+   * @param {string | import('./CodyaEmbed')} message
    * @param {string} emoji
-   * @returns {Promise<Message<TextableChannel>> | Promise<import('eris').Message<import('eris').TextableChannel>>}
+   * @returns {Promise<import('eris').Message<import('eris').TextableChannel>>}
    */
-  sendMessage (message, emoji) {
-    const baseMessage = `${this.client.getEmoji(emoji)} | ${message}`
-    return this.client.createMessage(this.channel.id, baseMessage)
+  sendMessage (message, emoji = 'star') {
+    if (!(message instanceof CodyaEmbed)) {
+      const baseMessage = `${this.client.getEmoji(emoji)} | ${message}`
+      return this.client.createMessage(this.channel.id, baseMessage)
+    }
+
+    return this.sendEmbed(message)
   }
 
   /**
-   * @returns {Eris.Guild}
+   *
+   * @param {import('eris').Embed} embed
+   * @returns {Promise<import('eris').Message<import('eris').TextableChannel>}
    */
-  getGuild () {
+
+  sendEmbed (embed) {
+    return this.client.createMessage(this.channel.id, { embed: embed.toJSON() })
+  }
+
+  /**
+   *
+   * @param {string} message
+   * @param {string} emoji
+   * @param {number} timeout
+   */
+  sendTemporaryMessage (message, emoji, timeout = 10000) {
+    return this.sendMessage(message, emoji).then(msg => setTimeout(() => msg.delete(), timeout))
+  }
+
+  /**
+   * @returns {import('eris').Guild}
+   */
+  get guild () {
     return this.client.guilds.get(this.message.guildID)
   }
 
   /**
-   * @returns {CodyaPlayer | Player}
+   * @returns {import('eris').Member}
    */
-  getPlayer () {
-    return this.client.lavalink.players.get(this.message.guildID)
+  get selfMember () {
+    return this.guild.members.get(this.client.user.id)
   }
 }
 

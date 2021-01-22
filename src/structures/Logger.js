@@ -5,7 +5,7 @@ const groups = []
 
 class Logger extends Console {
   /**
-   * @param {Codya | import('../Codya')} client
+   * @param {import('../Codya')} client
    */
   constructor (client) {
     super({

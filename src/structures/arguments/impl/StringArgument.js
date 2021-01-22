@@ -12,17 +12,18 @@ class StringArgument extends Argument {
    */
   constructor (options = {}) {
     super(options)
-    this.full = options.full || true
+    this.full = 'full' in options ? options.full : true
     this.length = options.length || 1
     this.lengthRequired = options.lengthRequired || this.length
     this.maxLength = options.maxLength || 100
     this.isNumber = options.isNumber || false
+    this.lowerCase = options.lowerCase || false
   }
 
   parse (ctx, args) {
     if (args.length === 0) {
       this.missing = true
-      return
+      return [false, args]
     }
 
     const string = []
@@ -32,25 +33,30 @@ class StringArgument extends Argument {
       this.maxLength = args.join(' ').length
     }
 
-    for (const arg of args) {
-      if (!arg) {
+    for (let i = 0; i < this.length; i++) {
+      if (!args[i]) {
         this.missing = true
         continue
       }
 
-      if ((!isNaN(arg) && this.isNumber) || (arg.length < this.lengthRequired)) {
+      if ((!isNaN(args[i]) && this.isNumber) || (args[i].length < this.lengthRequired)) {
         this.invalid = true
         continue
       }
 
-      string.push(arg)
+      string.push(args[i])
+    }
+
+    if (string.join(' ').length > this.maxLength) {
+      this.invalid = true
+      return [false, args]
     }
 
     args = args.slice(this.length)
 
-    if (string.join(' ').length > this.maxLength) this.invalid = true
+    const finalResult = this.lowerCase ? string.join(' ').trim().toLowerCase() : string.join(' ').trim()
 
-    return string.join(' ').trim()
+    return [finalResult, args]
   }
 }
 

@@ -10,7 +10,7 @@ class CommandLoader extends Loader {
   }
 
   load () {
-    this.client.logger.createGroup('[COMMANDS]')
+    this.client.logger.createGroup('[Commands]')
     this.client.logger.log('| Loading commands...')
     this.loadCommands()
     this.client.logger.log('| All loaded with successfully!')
@@ -53,7 +53,8 @@ class CommandLoader extends Loader {
   addSubCommand (subCommand) {
     let parentCommand
     if (subCommand.parent) {
-      parentCommand = this.client.commands.find(cmd => cmd.name === subCommand.parent)
+      const find = (cmd) => cmd.name === subCommand.parent
+      parentCommand = this.client.commands.find(find)
     }
 
     if (!parentCommand) return

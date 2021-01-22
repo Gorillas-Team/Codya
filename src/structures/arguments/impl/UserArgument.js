@@ -1,3 +1,4 @@
+const { CodyaError } = require('../../command/')
 const Argument = require('../Argument')
 
 class UserArgument extends Argument {
@@ -9,7 +10,7 @@ class UserArgument extends Argument {
   }
 
   findMember (context, args) {
-    return context.getGuild().members.get(args[0]) || context.getGuild().members.get(context.mentions[0].id)
+    return context.guild.members.get(args[0]) || context.guild.members.get(context.mentions[0].id)
   }
 
   async findUser (context, args) {
@@ -21,11 +22,14 @@ class UserArgument extends Argument {
 
     if (args[0]) {
       user = this.isMember ? this.findMember(context, args) : await this.findUser(context, args)
+
+      if (!user) this.missing = true
+      if (!this.canBeAuthor && user === context.author) throw new CodyaError('O usuário não pode ser você mesmo.')
     } else {
       user = this.canBeAuthor ? this.isMember ? context.member : context.author : this.missing = true
     }
 
-    return user
+    return [user, args]
   }
 }
 

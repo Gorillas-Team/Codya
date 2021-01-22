@@ -1,9 +1,6 @@
-const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
-// const { TimeUtils } = require('@Codya/utils')
-/* timeutils só tá aí pra depois pegar o tempo de cooldown de trabalho */
-
-const works = ['psykabobao']
-const joinedWorks = works.map(work => `\`${work}\``).join(', ')
+const { Command, CodyaError } = require('@Codya/structures')
+const { works } = require('../../../../assets')
+const joinedWorks = Object.keys(works).map(work => `\`${work}\``).join(', ')
 
 class WorkJoinCommand extends Command {
   constructor (client) {
@@ -31,7 +28,7 @@ class WorkJoinCommand extends Command {
       throw new CodyaError('Você já foi possui um trabalho.')
     }
 
-    if (!works.includes(workName.toLowerCase())) {
+    if (!Object.keys(works).includes(workName.toLowerCase())) {
       throw new CodyaError(`Esse trabalho não existe, opções válidas: \`${joinedWorks}\`.`)
     }
 

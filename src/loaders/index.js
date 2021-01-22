@@ -3,5 +3,6 @@ module.exports = {
   ListenerLoader: require('./ListenerLoader'),
   ControllerLoader: require('./ControllerLoader'),
   ModelLoader: require('./ModelLoader'),
-  RepositoryLoader: require('./RepositoryLoader')
+  RepositoryLoader: require('./RepositoryLoader'),
+  PrototypeLoader: require('./PrototypeLoader')
 }

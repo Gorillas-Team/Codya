@@ -9,7 +9,7 @@ class ModelLoader extends Loader {
   }
 
   load () {
-    this.client.logger.createGroup('[MODELS]')
+    this.client.logger.createGroup('[Models]')
     this.client.logger.log('| Loading database models...')
     this.loadModels()
     this.client.logger.log('| All loaded with successfully!')

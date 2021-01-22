@@ -5,7 +5,7 @@
  */
 class Argument {
   /**
-   * @param {ArgumentOptions | import('./typings/typedef').ArgumentOptions} options
+   * @param {import('./typings/typedef').ArgumentOptions} options
    */
   constructor (options = {}) {
     this.required = options.required || false

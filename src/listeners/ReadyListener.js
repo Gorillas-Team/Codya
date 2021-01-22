@@ -18,7 +18,7 @@ class ReadyListener extends Listener {
       this.client.logger.createGroup('[LAVALINK]')
       this.client.logger.log(' > Started with successfully!')
       this.client.logger.closeGroup()
-    })
+    }).catch()
 
     this.client.logger.log('[CODYA] Codya started with success.')
   }

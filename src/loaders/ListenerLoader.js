@@ -9,7 +9,7 @@ class ListenerLoader extends Loader {
   }
 
   load () {
-    this.client.logger.createGroup('[LISTENERS]')
+    this.client.logger.createGroup('[Listeners]')
     this.client.logger.log('| Loading listeners...')
     this.loadListeners()
     this.client.logger.log('| All loaded with successfully!')

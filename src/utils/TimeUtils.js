@@ -1,6 +1,10 @@
 const CodeUtils = require('./CodeUtils')
 
 class TimeUtils {
+  static compareTime (time) {
+    return this.formatTime(time - Date.now())
+  }
+
   /**
    * @param {number} ms
    * @returns {object}

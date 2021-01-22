@@ -1,4 +1,4 @@
-const { Command, CommandUtils: { CodyaError } } = require('@Codya/structures')
+const { Command, CodyaError } = require('@Codya/structures')
 const { CodeUtils } = require('@Codya/utils')
 const { inspect } = require('util')
 
@@ -27,13 +27,13 @@ class EvalCommand extends Command {
    * @param {import('../../structures/command/CommandContext')} ctx
    * @param {string} input
    */
-  async run (ctx, input) {
+  async run ({ client, member, guild, author, channel, mentions, message }, input) {
     if (typeof input !== 'string') return
     if (input.includes('token')) return
 
     try {
       // eslint-disable-next-line no-eval
-      let code = await eval(input)
+      let code = await eval(input.includes('--async') ? `(async () => { ${input.replace('--async', '')} })()` : input)
       code = typeof code !== 'string' ? inspect(code, { depth: 0 }) : code
 
       if (code.length > 1700) {
@@ -44,14 +44,14 @@ class EvalCommand extends Command {
           .then(res => res.json())
           .then(({ key }) => key)
 
-        await ctx.channel.createMessage('Olha a dm...')
-        const dmChannel = await ctx.author.getDMChannel()
+        await channel.createMessage('Olha a dm...')
+        const dmChannel = await author.getDMChannel()
         return dmChannel.createMessage(`https://speedbin.xyz/${key}`)
       }
 
-      await ctx.channel.createMessage(this.client.getEmoji('code') + ' | Resultado:```js\n' + CodeUtils.clean(code.replace(new RegExp(this.client.token), 'ss')) + '\n```')
+      await channel.createMessage(client.getEmoji('code') + ' | Resultado:```js\n' + CodeUtils.clean(code.replace(new RegExp(client.token), 'ss')) + '\n```')
     } catch (e) {
-      throw new CodyaError('```js\n' + e.message + '\n```')
+      throw new CodyaError('Erro:```js\n' + e.message + '\n```')
     }
   }
 }

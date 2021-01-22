@@ -1,11 +1,10 @@
 const { CooldownManager, PermissionUtils } = require('@Codya/utils')
 const { CodyaError } = require('./command/')
 const ParameterTypes = require('./arguments/impl')
-
 class Command {
   /**
-   * @param {Codya | import('../Codya')} client
-   * @param {CommandOptions | import('./typings/typedef').CommandOptions} options
+   * @param {import('../Codya')} client
+   * @param {import('./typings/typedef').CommandOptions} options
    */
   constructor (client, options) {
     this.client = client
@@ -26,13 +25,13 @@ class Command {
     this.hide = options.hide || false
 
     /**
-     * @type {Argument | Argument[]}
+     * @type {import('./arguments/Argument')[]}
      */
     this.args = options.args || []
   }
 
   /**
-   * @param {CommandContext} ctx
+   * @param {import('./command/CommandContext')} ctx
    * @param {string[]} args
    * @returns {void}
    */
@@ -68,7 +67,13 @@ class Command {
       return subCommand.validate(ctx, args.splice(1))
     }
 
-    const parsedArgs = await this.handleArguments(ctx, args)
+    let parsedArgs = []
+
+    try {
+      if (this.args.length > 0) parsedArgs = await this.handleArguments(ctx, args)
+    } catch (err) {
+      return this.error(ctx, err)
+    }
 
     try {
       await this.run(ctx, ...parsedArgs)
@@ -78,36 +83,42 @@ class Command {
   }
 
   /**
-   * @param {CommandContext} ctx
-   * @param {string[]} args
-   * @returns {Promise<Message<TextableChannel>|import('eris').Message<import('eris').TextableChannel>|string[]>}
+   * @param {import('./command/CommandContext')} ctx
+   * @param {string[]} commandArgs
+   * @returns {Promise<string[]>}
    */
-  async handleArguments (ctx, args) {
-    /**
-     * @type {Argument[]}
-     */
-    const thisArguments = this.args.map(arg => new ParameterTypes[arg.type](arg.options))
+  async handleArguments (ctx, commandArgs) {
+    const thisArguments = this.args.map(arg => {
+      return new ParameterTypes[arg.type](arg.options)
+    })
     const parsedArgs = []
 
-    for (const argument of thisArguments) {
-      const result = await argument.parse(ctx, args)
+    const parseArgument = async (args, rawArgs) => {
+      const [argument] = args
+
+      const parsed = await argument.parse(ctx, rawArgs)
 
       if (argument.required && argument.missing) {
-        return ctx.sendMessage(argument.messages.missing, 'error')
+        throw new CodyaError(argument.messages.missing)
       }
 
-      if (argument.invalid) {
-        return ctx.sendMessage(argument.messages.invalid, 'error')
+      if (argument.required && argument.invalid) {
+        throw new CodyaError(argument.messages.invalid)
       }
 
-      parsedArgs.push(result)
+      parsedArgs.push(parsed[0])
+
+      if (args.length > 1) return parseArgument(args.slice(1), parsed[1])
+      return thisArguments
     }
+
+    await parseArgument(thisArguments, commandArgs)
 
     return parsedArgs
   }
 
   /**
-   * @param {CommandContext} ctx
+   * @param {import('./command/CommandContext')} ctx
    * @param {string[]} [args]
    */
   run (ctx, args) {}
@@ -118,27 +129,6 @@ class Command {
     }
 
     this.client.logger.error(error.stack)
-  }
-
-  /**
-   * @param {string} prefix
-   * @returns {string}
-   */
-  resolvePrefix (prefix) {
-    const isEqualsCodya = p => p === 'codya'
-    const isMention = p => /<@!?\d+>/.test(p)
-
-    return isEqualsCodya(prefix) ? (prefix + ' ') : isMention(prefix) ? ('@Codya ') : prefix
-  }
-
-  /**
-   * @param {string} prefix
-   * @param {string} cmd
-   * @returns {string}
-   */
-  getUsage (prefix, cmd) {
-    prefix = this.resolvePrefix(prefix)
-    return this.usage.replace(/<prefix>/g, prefix).replace(/<cmd>/g, cmd)
   }
 }
 

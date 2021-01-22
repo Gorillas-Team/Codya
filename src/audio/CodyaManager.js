@@ -1,7 +1,8 @@
 const { Manager } = require('lavacord')
 
-const fetch = require('node-fetch')
+const Track = require('./model/Track')
 const SearchResponse = require('./model/SearchResponse')
+const LavalinkRest = require('./LavalinkRest')
 
 class CodyaManager extends Manager {
   /**
@@ -10,7 +11,8 @@ class CodyaManager extends Manager {
    * @param {ManagerOptions | import('lavacord').ManagerOptions} options
    */
   constructor (client, nodes, options) {
-    super(nodes, options)
+    const nodesResumable = nodes.map(n => Object.assign({ resumeKey: Math.random().toString(36).slice(2) }, n))
+    super(nodesResumable, options)
 
     this.client = client
     this.user = client.user.id
@@ -28,10 +30,11 @@ class CodyaManager extends Manager {
 
   /**
    * @param {string} query
+   * @param {import('eris').User} requester
    * @param {string} [source]
    * @returns {Promise<SearchResponse>}
    */
-  async fetchTracks (query, source) {
+  async fetchTracks (query, requester, source) {
     const node = this.idealNodes[0]
 
     if (!/^https?:\/\//.test(query)) {
@@ -39,37 +42,30 @@ class CodyaManager extends Manager {
     }
 
     const params = new URLSearchParams({ identifier: query })
-    const result = await this.request(node, params)
+    const result = await LavalinkRest.requestTracks(node, params)
 
-    return new SearchResponse(result)
+    return new SearchResponse(result, requester)
   }
 
-  request (node, params) {
-    return fetch(`http://${node.host}:${node.port}/loadtracks?${params}`, {
-      headers: {
-        Authorization: node.password
-      }
-    }).then(res => res.json())
-      .catch(error => {
-        throw new Error('Fail to fetch tracks' + error)
-      })
+  async decodeTracks (tracks, requester) {
+    const node = this.idealNodes[0]
+
+    const results = await LavalinkRest.decodeTracks(node, tracks)
+
+    return results.map(track => new Track(track, requester))
   }
 
   async sendPackets (packet) {
-    switch (packet.t) {
-      case 'VOICE_SERVER_UPDATE': {
-        await this.voiceServerUpdate(packet.d)
-        break
-      }
-      case 'VOICE_STATE_UPDATE': {
-        await this.voiceStateUpdate(packet.d)
-        break
-      }
-      case 'GUILD_CREATE': {
-        for (const state of packet.d.voice_states) await this.voiceStateUpdate({ ...state, guild_id: packet.d.id })
-        break
-      }
+    const typePackets = {
+      GUILD_CREATE: async (data) => {
+        for (const state of packet.d.voice_states) {
+          await this.voiceStateUpdate({ ...state, guild_id: packet.d.id })
+        }
+      },
+      VOICE_STATE_UPDATE: async (data) => (await this.voiceStateUpdate(packet.d)),
+      VOICE_SERVER_UPDATE: async (data) => (await this.voiceServerUpdate(packet.d))
     }
+    return (typePackets[packet.t]) && (typePackets[packet.t])(packet.d)
   }
 }
 

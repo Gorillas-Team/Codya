@@ -1,16 +1,21 @@
 /**
  * @name Paginator
- * @class
+ * @constructor
  */
-
 class Paginator {
-  constructor ({ elements, size }) {
-    this.elements = elements
+  /**
+   *
+   * @param {object} options
+   * @param {any[]} options.elements
+   * @param {number} options.size
+   */
+  constructor (options = {}) {
+    this.elements = options.elements
 
     this.pages = {
       actual: 1,
-      total: Math.ceil(elements.length / size),
-      size
+      total: Math.ceil(options.elements.length / options.size),
+      size: options.size
     }
   }
 

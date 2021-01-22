@@ -1,6 +1,6 @@
 class Controller {
   /**
-   * @param {ControllerOptions} options
+   * @param {import('./typings/typedef').ControllerOptions} options
    * @param {Codya} client
    */
   constructor (options, client) {

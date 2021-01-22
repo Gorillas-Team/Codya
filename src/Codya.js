@@ -12,7 +12,7 @@ const Loaders = require('@Codya/loaders')
 class Codya extends Client {
   /**
    * @param {string} token
-   * @param {ClientOptions | import('eris').ClientOptions} options
+   * @param {import('eris').ClientOptions} options
    */
   constructor (token, options) {
     super(token, options)
@@ -20,7 +20,7 @@ class Codya extends Client {
     this.repositories = {}
 
     /**
-     * @type {CodyaManager | import('./audio/CodyaManager')}
+     * @type {import('./audio/CodyaManager')}
      */
     this.lavalink = null
 

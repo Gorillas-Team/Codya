@@ -1,8 +1,10 @@
 {
-  "psykabobao": {
-    "name": "Psyka bobão",
-    "workCooldown": 300000,
-    "minimumBudget": 500,
-    "maximumBudget": 1250
+  "carpenter": {
+    "name": "Carpinteiro",
+    "cooldown": 300000,
+    "budget": {
+      "min": 500,
+      "max": 1250
+    }
   }
 }
