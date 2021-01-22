@@ -1,4 +1,4 @@
-module.exports.emojis = {
+exports.emojis = {
   bye: '👋',
   picture: '🖼️',
   satellite: '📡',
@@ -20,7 +20,7 @@ module.exports.emojis = {
   handshake: '🤝'
 }
 
-module.exports.permissions = {
+exports.permissions = {
   ADMINISTRATOR: 'Administrador',
   CREATE_INSTANT_INVITE: 'Criar convite instantâneo',
   BAN_MEMBERS: 'Banir Membros',
@@ -49,8 +49,8 @@ module.exports.permissions = {
 exports.bitfields = {
   modules: {
     logs: (1 << 0),
-    autoRole: (1 << 1),
-    autoMod: (1 << 2)
+    autorole: (1 << 1),
+    automod: (1 << 2)
   },
   settings: {
     logs: {
@@ -58,11 +58,25 @@ exports.bitfields = {
       messages: (1 << 1),
       users: (1 << 2)
     },
-    autoMod: {
+    automod: {
       spam: (1 << 0),
       flood: (1 << 1),
-      accountAge: (1 << 2),
+      accountage: (1 << 2),
       caps: (1 << 3)
     }
   }
+}
+
+exports.fishChances = {
+  common: 80,
+  uncommon: 16,
+  rare: 3.9,
+  legendary: 0.1
+}
+
+exports.fishPrices = {
+  common: 50,
+  uncommon: 250,
+  rare: 1000,
+  legendary: 100000
 }

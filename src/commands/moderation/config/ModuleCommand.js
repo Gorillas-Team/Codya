@@ -12,10 +12,11 @@ class ModuleCommand extends Command {
       args: [
         {
           type: 'string',
-          options: { length: 1, full: false }
+          options: { length: 1, full: false, lowerCase: true }
         },
         {
-          type: 'string'
+          type: 'string',
+          options: { lowerCase: true }
         }
       ]
     })
@@ -24,9 +25,9 @@ class ModuleCommand extends Command {
   async run (ctx, moduleName, setting) {
     const embed = new CodyaEmbed()
     if (!moduleName) {
-      embed.setAuthor('FODA SE!!!')
+      embed.setAuthor('Configurações dos módulos')
         .setColor(0xED4DA)
-        .addField('Auto Mod', mapSettings(settings.autoMod))
+        .addField('Auto Mod', mapSettings(settings.automod))
         .addField('Logs', mapSettings(settings.logs))
         .setFooter(`Uso: ${ctx.prefix}${ctx.cmd} module autoMod accountAge`)
 
@@ -36,7 +37,7 @@ class ModuleCommand extends Command {
     const data = await this.client.repositories.guilds.find(ctx.guild.id)
     const moduleSetting = this.findModuleAndSetting(moduleName, setting)
 
-    if (!moduleSetting) throw new CodyaError('acho q vc tá maluco')
+    if (!moduleSetting) throw new CodyaError('Essa configuração ou módulo não existe.')
 
     const dataSetting = data.get().settings[moduleName]
 
@@ -49,19 +50,13 @@ class ModuleCommand extends Command {
 
     await data.save()
 
-    console.log(data.get())
-
     return ctx.sendMessage('fodase n perguntei :call_me:', settingStatus ? 'off' : 'on')
   }
 
   findModuleAndSetting (moduleName, setting) {
-    if (!(moduleName in settings)) return null
-
     const moduleSettings = settings[moduleName]
 
-    if (!(setting in moduleSettings)) return null
-
-    return moduleSettings[setting]
+    return moduleSettings && moduleSettings[setting]
   }
 }
 

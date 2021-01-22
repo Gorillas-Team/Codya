@@ -13,7 +13,7 @@ class DailyCommand extends Command {
     const user = await this.client.repositories.users.find(ctx.author.id)
 
     if (await economy.isInDailyCooldown(ctx.author)) {
-      const parsedTime = TimeUtils.formatTime(user.get().dailyCooldown - Date.now())
+      const parsedTime = TimeUtils.compareTime(user.get('cooldown.daily'))
       throw new CodyaError(`Faltam \`${parsedTime}\` para coletar seu daily novamente.`)
     }
 

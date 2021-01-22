@@ -25,6 +25,15 @@ class UserRepository extends Repository {
         work: null,
         daily: null
       },
+      fish: {
+        stats: {
+          common: 0,
+          uncommon: 0,
+          rare: 0,
+          legendary: 0
+        }
+      },
+      money: 0,
       playlists: [],
       machines: machines.map(data => new Machine(data))
     })

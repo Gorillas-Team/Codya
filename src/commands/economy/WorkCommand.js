@@ -19,7 +19,7 @@ class WorkCommand extends Command {
 
     if (await economy.isInWorkCooldown(ctx.author)) {
       const document = await this.client.repositories.users.find(ctx.author.id)
-      const parsedTime = TimeUtils.formatTime(document.get().workCooldown - Date.now())
+      const parsedTime = TimeUtils.compareTime(document.get('cooldown.work'))
       throw new CodyaError(`Faltam \`${parsedTime}\` para trabalhar novamente.`)
     }
 

@@ -76,6 +76,17 @@ class CodyaEmbed {
   }
 
   /**
+   * @param {string[]} array
+   * @returns {CodyaEmbed}
+   */
+  setDescriptionFromArray (array) {
+    const string = array.join('\n')
+
+    this.setDescription(string)
+    return this
+  }
+
+  /**
    * @param {string} text
    * @param {string} [iconURL]
    * @returns {CodyaEmbed}

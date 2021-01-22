@@ -14,7 +14,7 @@ class MessageListener extends Listener {
   async run (message) {
     if (message.author.bot) return
 
-    if (message.content.includes('salve')) {
+    if (message.content === 'salve') {
       this.client.createMessage(message.channel.id, 'salve :call_me:')
     }
 
@@ -29,21 +29,7 @@ class MessageListener extends Listener {
 
     const context = new CommandContext(message, this.client, args, cmd, prefix)
 
-    if (command) this.runCommand(command, context, args)
-  }
-
-  runCommand (command, context, args) {
-    const deepSubCommand = (cmd, a) => {
-      const [arg] = a
-      const subCommand = cmd.subCommands
-        ? cmd.subCommands.find(c => c.name.toLowerCase() === arg || c.aliases.includes(arg))
-        : null
-
-      // eslint-disable-next-line no-unused-vars
-      return subCommand ? deepSubCommand(subCommand, args.slice(1)) : cmd
-    }
-
-    return command.validate(context, args)
+    if (command) command.validate(context, args)
   }
 }
 

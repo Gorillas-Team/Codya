@@ -17,6 +17,7 @@ class StringArgument extends Argument {
     this.lengthRequired = options.lengthRequired || this.length
     this.maxLength = options.maxLength || 100
     this.isNumber = options.isNumber || false
+    this.lowerCase = options.lowerCase || false
   }
 
   parse (ctx, args) {
@@ -53,7 +54,9 @@ class StringArgument extends Argument {
 
     args = args.slice(this.length)
 
-    return [string.join(' ').trim(), args]
+    const finalResult = this.lowerCase ? string.join(' ').trim().toLowerCase() : string.join(' ').trim()
+
+    return [finalResult, args]
   }
 }
 
