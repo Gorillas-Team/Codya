@@ -17,7 +17,7 @@ class FishController extends Controller {
     const data = await this.repository.find(user.id)
     const price = fishPrices[fish.rarity]
 
-    data.set('cooldown.fish', Date.now() + 60000)
+    data.set('cooldown.fish', Date.now() + 20)
     data.set(`fish.stats.${fish.rarity}`, data.get(`fish.stats.${fish.rarity}`) + 1)
     await data.save()
 
