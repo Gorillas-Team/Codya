@@ -1,122 +1,122 @@
 [
-    {
-        "name": "Jerkfish",
-        "rarity": "common",
-        "image": "https://starbounder.org/mediawiki/images/5/51/Jerkfish.png"
-    },
-    {
-        "name": "Sandy Dirtwhisker",
-        "rarity": "common",
-        "image": "https://starbounder.org/mediawiki/images/6/68/Sandy_Dirtwhisker.png"
-    },
-    {
-        "name": "Toothy Mudchomp",
-        "rarity": "common",
-        "image": "https://starbounder.org/mediawiki/images/8/8a/Toothy_Mudchomp.png"
-    },
-    {
-        "name": "Funnyfish",
-        "rarity": "uncommon",
-        "image": "https://starbounder.org/mediawiki/images/b/bf/Funnyfish.png"
-    },
-    {
-        "name": "Squareboy",
-        "rarity": "uncommon",
-        "image": "https://starbounder.org/mediawiki/images/3/3b/Squareboy.png"
-    },
-    {
-        "name": "Frilled Tadguppy",
-        "rarity": "uncommon",
-        "image": "https://starbounder.org/mediawiki/images/5/56/Frilled_Tadguppy.png"
-    },
-    {
-        "name": "Copper Bonejaw",
-        "rarity": "uncommon",
-        "image": "https://starbounder.org/mediawiki/images/2/28/Copper_Bonejaw.png"
-    },
-    {
-        "name": "Pink Sunbeam",
-        "rarity": "rare",
-        "image": "https://starbounder.org/mediawiki/images/e/ed/Pink_Sunbeam.png"
-    },
-    {
-        "name": "Crescent Hoopfish",
-        "rarity": "rare",
-        "image": "https://starbounder.org/mediawiki/images/7/7c/Crescent_Hoopfish.png"
-    },
-    {
-        "name": "Hermit Tonguile",
-        "rarity": "rare",
-        "image": "https://starbounder.org/mediawiki/images/0/02/Hermit_Tonguile.png"
-    },
-    {
-        "name": "Banded Wormeel",
-        "rarity": "rare",
-        "image": "https://starbounder.org/mediawiki/images/5/58/Banded_Wormeel.png"
-    },
-    {
-        "name": "Chucklefish",
-        "rarity": "legendary",
-        "image": "https://starbounder.org/mediawiki/images/4/45/Chucklefish.png"
-    },
-    {
-        "name": "Barbed Redeye",
-        "rarity": "common",
-        "image": "https://starbounder.org/mediawiki/images/4/45/Barbed_Redeye.png"
-    },
-    {
-        "name": "Spotted Gulptredder",
-        "rarity": "common",
-        "image": "https://starbounder.org/mediawiki/images/d/d8/Spotted_Gulptredder.png"
-    },
-    {
-        "name": "Irradiated Globfish",
-        "rarity": "common",
-        "image": "https://starbounder.org/mediawiki/images/2/2a/Irradiated_Globfish.png"
-    },
-    {
-        "name": "Silkpig",
-        "rarity": "uncommon",
-        "image": "https://starbounder.org/mediawiki/images/5/5e/Silkpig.png"
-    },
-    {
-        "name": "Mortilus",
-        "rarity": "uncommon",
-        "image": "https://starbounder.org/mediawiki/images/3/33/Mortilus.png"
-    },
-    {
-        "name": "Nosy Scoutier",
-        "rarity": "uncommon",
-        "image": "https://starbounder.org/mediawiki/images/e/e6/Nosy_Scoutier.png"
-    },
-    {
-        "name": "Night Clawnacle",
-        "rarity": "uncommon",
-        "image": "https://starbounder.org/mediawiki/images/1/10/Night_Clawnacle.png"
-    },
-    {
-        "name": "Silver Curloach",
-        "rarity": "rare",
-        "image": "https://starbounder.org/mediawiki/images/a/a6/Silver_Curloach.png"
-    },
-    {
-        "name": "Blighteel",
-        "rarity": "rare",
-        "image": "https://starbounder.org/mediawiki/images/c/c9/Blighteel.png"
-    },
-    {
-        "name": "Crimson Fantail",
-        "rarity": "rare",
-        "image": "https://starbounder.org/mediawiki/images/7/70/Crimson_Fantail.png"
-    },
-    {
-        "name": "Brown Chordopod",
-        "rarity": "rare",
-        "image": "https://starbounder.org/mediawiki/images/e/ea/Brown_Chordopod.png"
-    },
-    {
-        "name": "Dark Gembrane",
-        "rarity": "legendary",
-        "image": "https://starbounder.org/mediawiki/images/7/7e/Dark_Gembrane.png"
-    }
+  {
+    "name": "Jerkfish",
+    "rarity": "common",
+    "image": "https://starbounder.org/mediawiki/images/5/51/Jerkfish.png"
+  },
+  {
+    "name": "Sandy Dirtwhisker",
+    "rarity": "common",
+    "image": "https://starbounder.org/mediawiki/images/6/68/Sandy_Dirtwhisker.png"
+  },
+  {
+    "name": "Toothy Mudchomp",
+    "rarity": "common",
+    "image": "https://starbounder.org/mediawiki/images/8/8a/Toothy_Mudchomp.png"
+  },
+  {
+    "name": "Funnyfish",
+    "rarity": "uncommon",
+    "image": "https://starbounder.org/mediawiki/images/b/bf/Funnyfish.png"
+  },
+  {
+    "name": "Squareboy",
+    "rarity": "uncommon",
+    "image": "https://starbounder.org/mediawiki/images/3/3b/Squareboy.png"
+  },
+  {
+    "name": "Frilled Tadguppy",
+    "rarity": "uncommon",
+    "image": "https://starbounder.org/mediawiki/images/5/56/Frilled_Tadguppy.png"
+  },
+  {
+    "name": "Copper Bonejaw",
+    "rarity": "uncommon",
+    "image": "https://starbounder.org/mediawiki/images/2/28/Copper_Bonejaw.png"
+  },
+  {
+    "name": "Pink Sunbeam",
+    "rarity": "rare",
+    "image": "https://starbounder.org/mediawiki/images/e/ed/Pink_Sunbeam.png"
+  },
+  {
+    "name": "Crescent Hoopfish",
+    "rarity": "rare",
+    "image": "https://starbounder.org/mediawiki/images/7/7c/Crescent_Hoopfish.png"
+  },
+  {
+    "name": "Hermit Tonguile",
+    "rarity": "rare",
+    "image": "https://starbounder.org/mediawiki/images/0/02/Hermit_Tonguile.png"
+  },
+  {
+    "name": "Banded Wormeel",
+    "rarity": "rare",
+    "image": "https://starbounder.org/mediawiki/images/5/58/Banded_Wormeel.png"
+  },
+  {
+    "name": "Chucklefish",
+    "rarity": "legendary",
+    "image": "https://starbounder.org/mediawiki/images/4/45/Chucklefish.png"
+  },
+  {
+    "name": "Barbed Redeye",
+    "rarity": "common",
+    "image": "https://starbounder.org/mediawiki/images/4/45/Barbed_Redeye.png"
+  },
+  {
+    "name": "Spotted Gulptredder",
+    "rarity": "common",
+    "image": "https://starbounder.org/mediawiki/images/d/d8/Spotted_Gulptredder.png"
+  },
+  {
+    "name": "Irradiated Globfish",
+    "rarity": "common",
+    "image": "https://starbounder.org/mediawiki/images/2/2a/Irradiated_Globfish.png"
+  },
+  {
+    "name": "Silkpig",
+    "rarity": "uncommon",
+    "image": "https://starbounder.org/mediawiki/images/5/5e/Silkpig.png"
+  },
+  {
+    "name": "Mortilus",
+    "rarity": "uncommon",
+    "image": "https://starbounder.org/mediawiki/images/3/33/Mortilus.png"
+  },
+  {
+    "name": "Nosy Scoutier",
+    "rarity": "uncommon",
+    "image": "https://starbounder.org/mediawiki/images/e/e6/Nosy_Scoutier.png"
+  },
+  {
+    "name": "Night Clawnacle",
+    "rarity": "uncommon",
+    "image": "https://starbounder.org/mediawiki/images/1/10/Night_Clawnacle.png"
+  },
+  {
+    "name": "Silver Curloach",
+    "rarity": "rare",
+    "image": "https://starbounder.org/mediawiki/images/a/a6/Silver_Curloach.png"
+  },
+  {
+    "name": "Blighteel",
+    "rarity": "rare",
+    "image": "https://starbounder.org/mediawiki/images/c/c9/Blighteel.png"
+  },
+  {
+    "name": "Crimson Fantail",
+    "rarity": "rare",
+    "image": "https://starbounder.org/mediawiki/images/7/70/Crimson_Fantail.png"
+  },
+  {
+    "name": "Brown Chordopod",
+    "rarity": "rare",
+    "image": "https://starbounder.org/mediawiki/images/e/ea/Brown_Chordopod.png"
+  },
+  {
+    "name": "Dark Gembrane",
+    "rarity": "legendary",
+    "image": "https://starbounder.org/mediawiki/images/7/7e/Dark_Gembrane.png"
+  }
 ]
