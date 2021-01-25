@@ -1,6 +1,8 @@
 const { Loader } = require('@Codya/structures')
 const { FileUtils } = require('@Codya/utils')
 
+const { model: registerModel } = require('mongoose')
+
 class ModelLoader extends Loader {
   constructor (client) {
     super(client)
@@ -22,18 +24,9 @@ class ModelLoader extends Loader {
         this.client.logger.log(' > Error: ' + error.message, 'red')
       }
 
-      this.addModelOnDatabase(model)
+      this.client.database.register(model.name, registerModel(model.name, model.schema))
       this.client.logger.log(`  > ${model.name} loaded.`, 'yellow')
     })
-  }
-
-  addModelOnDatabase (model) {
-    if (model in this.client.database) return
-
-    const modelName = model.name.toLowerCase() + 's'
-
-    this.client.database.register(model)
-    this.client.database.models[modelName] = model
   }
 }
 

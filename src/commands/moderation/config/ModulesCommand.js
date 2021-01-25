@@ -30,7 +30,7 @@ class ModulesCommand extends Command {
    */
   async run (ctx, moduleName) {
     const data = await this.client.repositories.guilds.find(ctx.guild.id)
-    const bitField = new BitField(data.get().modules)
+    const bitField = new BitField(data.modules)
 
     if (!moduleName) {
       const enabledModules = this.getModules(bitField) || 'Nenhum'

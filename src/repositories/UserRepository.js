@@ -1,7 +1,4 @@
 const { Repository } = require('@Codya/structures')
-const { machines } = require('../../assets')
-
-const Machine = require('../database/models/associations/Machine')
 
 class UserRepository extends Repository {
   constructor (client) {
@@ -15,30 +12,8 @@ class UserRepository extends Repository {
    * @param {string} id
    */
   async create (id) {
-    const user = new this.model({
-      id,
-      xp: 0,
-      work: null,
-      level: 1,
-      blacklist: false,
-      cooldown: {
-        work: null,
-        daily: null
-      },
-      fish: {
-        stats: {
-          common: 0,
-          uncommon: 0,
-          rare: 0,
-          legendary: 0
-        }
-      },
-      money: 0,
-      playlists: [],
-      machines: machines.map(data => new Machine(data))
-    })
+    const user = await this.model.create({ id })
 
-    await user.save()
     return user
   }
 

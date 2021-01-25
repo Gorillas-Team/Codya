@@ -1,12 +1,14 @@
-const { Database: MongoritoDatabase } = require('mongorito')
+const Mongoose = require('mongoose')
 
 class Database {
   constructor (options, client) {
     this.options = options
     this.client = client
 
-    this.mongorito = null
+    this.connection = null
     this.models = {}
+
+    this.enabled = false
     this.start()
   }
 
@@ -14,25 +16,26 @@ class Database {
    * @private
    */
   onConnect () {
+    this.enabled = true
     this.client.logger.createGroup('[DATABASE]')
     this.client.logger.log('> Connection started with success.', 'green')
     this.client.logger.closeGroup()
   }
 
   start () {
-    this.mongorito = new MongoritoDatabase(this.options.connectionUri, {
-      autoReconnect: true
-    })
-
-    this.mongorito.connect()
-      .then(this.onConnect.bind(this))
-      .catch(err => this.client.logger.error(err))
+    this.connection = Mongoose.connect(this.options.connectionUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }).then(this.onConnect.bind(this))
 
     return this
   }
 
-  register (model) {
-    return this.mongorito.register(model)
+  register (name, model) {
+    if (model in this.models) return
+
+    this.models[name] = model
+    return model
   }
 }
 

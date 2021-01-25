@@ -1,8 +1,6 @@
 const { Controller } = require('@Codya/structures')
 const { CooldownManager } = require('@Codya/utils')
 
-const Playlist = require('@Codya/database/models/associations/Playlist')
-
 const generateXp = () => Math.floor(Math.random() * 3) + 2
 
 class UserController extends Controller {
@@ -17,10 +15,9 @@ class UserController extends Controller {
 
   async createPlaylist (user, name) {
     const document = await this.repository.find(user.id)
-    const playlist = new Playlist({ name, tracks: [] })
+    const playlist = { name, tracks: [] }
 
-    document.get().playlists.push(playlist)
-    await document.save()
+    await document.updateOne({ $push: { playlists: { playlist } } })
 
     return playlist
   }
@@ -36,7 +33,7 @@ class UserController extends Controller {
 
   async findPlaylist (user, name) {
     const document = await this.repository.find(user.id)
-    const playlist = document.get().playlists.find(playlist => playlist.name === name)
+    const playlist = document.playlists.find(playlist => playlist.name === name)
 
     return {
       document,
@@ -46,7 +43,7 @@ class UserController extends Controller {
 
   async hasPlaylistWithSameName (user, name) {
     const document = await this.repository.find(user.id)
-    const playlist = document.get().playlists.find(playlist => playlist.name === name)
+    const playlist = document.playlists.find(playlist => playlist.name === name)
 
     return playlist != null
   }
@@ -55,16 +52,12 @@ class UserController extends Controller {
     const user = await this.repository.find(id)
 
     if (this.cooldown.has(id)) return
-
-    const data = user.get()
     const xp = generateXp()
 
-    user.increment('xp', xp)
+    await user.updateOne({ $inc: { xp } })
 
-    if ((data.xp + xp) >= data.level * 60) {
-      await this.repository.update(id, { xp: 0 })
-
-      user.increment('level', 1)
+    if ((user.xp + xp) >= user.level * 60) {
+      await user.updateOne({ xp: 0, $inc: { level: 1 } })
     }
 
     this.cooldown.add(id)
