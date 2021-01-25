@@ -68,8 +68,8 @@ exports.bitfields = {
 }
 
 exports.fishChances = {
-  common: 60,
-  uncommon: 26,
+  common: 70,
+  uncommon: 36,
   rare: 3.9,
   legendary: 0.1
 }
