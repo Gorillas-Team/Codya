@@ -18,6 +18,7 @@
     "eris": "^0.14.0",
     "lavacord": "^1.1.9",
     "module-alias": "^2.2.2",
+    "mongoose": "^5.11.13",
     "mongorito": "^3.0.4",
     "node-fetch": "^2.6.1"
   },

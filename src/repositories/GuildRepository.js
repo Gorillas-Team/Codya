@@ -12,17 +12,8 @@ class GuildRepository extends Repository {
    * @param {string} id
    */
   async create (id) {
-    const guild = new this.model({
-      id,
-      channels: {},
-      modules: 0,
-      settings: {
-        autoMod: 0,
-        logs: 0
-      }
-    })
+    const guild = await this.model.create({ id })
 
-    await guild.save()
     return guild
   }
 
@@ -37,16 +28,11 @@ class GuildRepository extends Repository {
   }
 
   async update (id, data) {
-    const guild = await this.find(id)
-
-    guild.set(data)
-    await guild.save()
-
-    return guild.get()
+    return this.model.updateOne({ id }, data)
   }
 
   async delete (id) {
-    return this.model.remove({ id })
+    return this.model.deleteOne({ id })
   }
 }
 

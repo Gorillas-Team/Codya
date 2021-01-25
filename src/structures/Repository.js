@@ -9,7 +9,7 @@ class Repository {
   }
 
   /**
-   * @returns {new import('mongorito').Model}
+   * @returns {import('mongoose').Model}
    */
   get model () {
     return this.client.database.models[this.modelName]

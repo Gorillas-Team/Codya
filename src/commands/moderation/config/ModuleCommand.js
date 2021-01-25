@@ -39,7 +39,7 @@ class ModuleCommand extends Command {
 
     if (!moduleSetting) throw new CodyaError('Essa configuração ou módulo não existe.')
 
-    const dataSetting = data.get().settings[moduleName]
+    const dataSetting = data.settings[moduleName]
 
     const bitField = new BitField(dataSetting)
 

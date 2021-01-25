@@ -15,7 +15,7 @@ class FishCommand extends Command {
 
     if (await fish.isInCooldown(ctx.author)) {
       const user = await this.client.repositories.users.find(ctx.author.id)
-      const parsedTime = TimeUtils.compareTime(user.get('cooldown.fish'))
+      const parsedTime = TimeUtils.compareTime(user.cooldown.fish)
 
       throw new CodyaError(`Faltam \`${parsedTime}\` para pescar novamente.`)
     }

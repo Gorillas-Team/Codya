@@ -17,11 +17,19 @@ class FishController extends Controller {
     const data = await this.repository.find(user.id)
     const price = fishPrices[fish.rarity]
 
-    data.set('cooldown.fish', Date.now() + 20000)
-    data.set(`fish.stats.${fish.rarity}`, data.get(`fish.stats.${fish.rarity}`) + 1)
-    await data.save()
-
-    data.increment('money', price)
+    await data.updateOne({
+      fish: {
+        stats: {
+          [fish.rarity]: data.fish.stats[fish.rarity] + 1
+        }
+      },
+      cooldown: {
+        fish: Date.now() + 20000
+      },
+      $inc: {
+        money: price
+      }
+    })
 
     return {
       price,
@@ -30,11 +38,9 @@ class FishController extends Controller {
   }
 
   async isInCooldown (user) {
-    const data = await this.repository.find(user.id)
+    const { cooldown: { fish } } = await this.repository.find(user.id)
 
-    const cooldown = data.get('cooldown.fish')
-
-    return cooldown >= Date.now()
+    return fish >= Date.now()
   }
 
   getFish () {

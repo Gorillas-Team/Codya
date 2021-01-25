@@ -17,7 +17,7 @@ class EconomyController extends Controller {
   async getUserMachines (user) {
     const document = await this.repository.find(user.id)
 
-    return document.get().machines
+    return document.machines
   }
 
   /**
@@ -27,15 +27,15 @@ class EconomyController extends Controller {
   async work (user) {
     const document = await this.repository.find(user.id)
 
-    const { work } = document.get()
+    const { work } = document
     const { cooldown, budget: { min, max } } = work
 
     const amount = CodeUtils.random(min, max)
 
-    document.set('cooldown.work', Date.now() + cooldown)
-    await document.save()
-
-    document.increment('money', amount)
+    await document.updateOne({
+      cooldown: { work: Date.now() + cooldown },
+      $inc: { money: amount }
+    })
 
     return amount
   }
@@ -51,8 +51,7 @@ class EconomyController extends Controller {
 
     if (!work) return
 
-    document.set('work', work)
-    await document.save()
+    await document.updateOne({ work })
 
     return work
   }
@@ -62,11 +61,9 @@ class EconomyController extends Controller {
    * @returns {boolean}
    */
   async isInWorkCooldown (user) {
-    const document = await this.repository.find(user.id)
+    const { cooldown } = await this.repository.find(user.id)
 
-    const { cooldown: { work } } = document.get()
-
-    return work >= Date.now()
+    return cooldown.work >= Date.now()
   }
 
   /**
@@ -76,7 +73,7 @@ class EconomyController extends Controller {
   async hasWork (user) {
     const document = await this.repository.find(user.id)
 
-    return document.get().work !== null
+    return document.work !== null
   }
 
   /**
@@ -89,12 +86,11 @@ class EconomyController extends Controller {
     const document = await this.repository.find(user.id)
     const targetDocument = await this.repository.find(target.id)
 
-    document.increment('money', -(amount))
-    targetDocument.increment('money', amount)
+    await document.updateOne({ $inc: { money: -amount } })
+    await targetDocument.updateOne({ $inc: { money: amount } })
 
-    if (document.get().money < 0) {
-      document.set('money', 0)
-      await document.save()
+    if (document.money < 0) {
+      await document.updateOne({ money: 0 })
     }
   }
 
@@ -105,9 +101,7 @@ class EconomyController extends Controller {
    * @returns {boolean}
    */
   async canPay (user, amount) {
-    const document = await this.repository.find(user.id)
-
-    const money = document.get().money
+    const { money } = await this.repository.find(user.id)
 
     return money >= amount
   }
@@ -120,10 +114,12 @@ class EconomyController extends Controller {
     const document = await this.repository.find(user.id)
     const amount = CodeUtils.random(1, 5000)
 
-    document.set('cooldown.daily', Date.now() + 86400000)
-    await document.save()
-
-    document.increment('money', amount)
+    await document.updateOne({
+      money: amount,
+      cooldown: {
+        daily: Date.now() + 86400000
+      }
+    })
 
     return amount
   }
@@ -133,9 +129,7 @@ class EconomyController extends Controller {
    * @returns {boolean}
    */
   async isInDailyCooldown (user) {
-    const document = await this.repository.find(user.id)
-
-    const { cooldown: { daily } } = document.get()
+    const { cooldown: { daily } } = await this.repository.find(user.id)
 
     return daily >= Date.now()
   }

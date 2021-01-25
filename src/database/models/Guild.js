@@ -1,5 +1,14 @@
-const { Model } = require('mongorito')
+const { Schema } = require('mongoose')
 
-class Guild extends Model { }
-
-module.exports = Guild
+module.exports = {
+  name: 'guilds',
+  schema: new Schema({
+    id: String,
+    modules: { type: Number, default: 0 },
+    settings: {
+      automod: { type: Number, default: 0 },
+      logs: { type: Number, default: 0 }
+    },
+    channels: Object
+  }, { versionKey: false })
+}
