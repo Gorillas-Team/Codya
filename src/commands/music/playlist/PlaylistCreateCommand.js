@@ -27,7 +27,7 @@ class PlaylistCreateCommand extends Command {
     const playlist = await users.createPlaylist(ctx.author, name)
 
     return ctx.sendMessage(
-      `A playlist \`${playlist.get().name}\` foi criada com sucesso!`,
+      `A playlist \`${playlist.name}\` foi criada com sucesso!`,
       'dancing'
     )
   }
