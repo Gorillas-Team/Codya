@@ -7,7 +7,7 @@ class TimeUtils {
 
   /**
    * @param {number} ms
-   * @returns {object}
+   * @returns {{ seconds: number, minutes: number, hours: number, days: number }}
    */
   static parseTime (ms) {
     const mod = remainder => quotient => quotient % remainder

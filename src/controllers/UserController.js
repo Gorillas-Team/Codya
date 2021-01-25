@@ -1,4 +1,5 @@
 const { Controller } = require('@Codya/structures')
+const { Playlist } = require('@Codya/audio')
 const { CooldownManager } = require('@Codya/utils')
 
 const generateXp = () => Math.floor(Math.random() * 3) + 2
@@ -15,9 +16,9 @@ class UserController extends Controller {
 
   async createPlaylist (user, name) {
     const document = await this.repository.find(user.id)
-    const playlist = { name, tracks: [] }
+    const playlist = new Playlist(name)
 
-    await document.updateOne({ $push: { playlists: { playlist } } })
+    await document.updateOne({ $push: { playlists: playlist } })
 
     return playlist
   }
