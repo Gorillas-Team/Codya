@@ -12,9 +12,9 @@ class ConfigCommand extends Command {
    * @param {import('../../structures/command/CommandContext')} ctx
    */
   async run (ctx) {
-    const { channels } = await this.client.repositories.guilds.find(ctx.guild.id).then(d => d.get())
+    const data = await this.client.repositories.guilds.find(ctx.guild.id)
 
-    const logsChannel = channels.logs ? this.client.getChannel(channels.logs).mention : 'Nenhum'
+    const logsChannel = data.channels.logs ? this.client.getChannel(data.channels.logs).mention : 'Nenhum'
 
     const embed = new CodyaEmbed()
       .setColor(0x0ED4DA)

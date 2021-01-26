@@ -24,6 +24,7 @@ class FishController extends Controller {
         }
       },
       cooldown: {
+        ...data.cooldown,
         fish: Date.now() + 20000
       },
       $inc: {
@@ -38,9 +39,9 @@ class FishController extends Controller {
   }
 
   async isInCooldown (user) {
-    const { cooldown: { fish } } = await this.repository.find(user.id)
+    const data = await this.repository.find(user.id)
 
-    return fish >= Date.now()
+    return data.cooldown.fish >= Date.now()
   }
 
   getFish () {

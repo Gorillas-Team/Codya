@@ -10,6 +10,9 @@ class Controller {
     this.repositoryName = options.repositoryName
   }
 
+  /**
+   * @returns {import('./Repository')}
+   */
   get repository () {
     return this.client.repositories[this.repositoryName]
   }

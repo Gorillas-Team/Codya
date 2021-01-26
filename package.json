@@ -20,7 +20,8 @@
     "module-alias": "^2.2.2",
     "mongoose": "^5.11.13",
     "mongorito": "^3.0.4",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "pg": "^8.5.1"
   },
   "devDependencies": {
     "eslint": "^7.7.0",
