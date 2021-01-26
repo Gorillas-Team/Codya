@@ -12,28 +12,23 @@ class UserRepository extends Repository {
    * @param {string} id
    */
   async create (id) {
-    const user = await this.model.create({ id })
-
-    return user
+    return this.model.create({ id })
   }
 
   /**
    * @param {string} id
-   * @returns {import('mongorito').Model}
+   * @returns {import('mongoose').Model}
    */
   async find (id) {
     const user = await this.model.findOne({ id })
+
+    console.log(user)
 
     return user || await this.create(id)
   }
 
   async update (id, data) {
-    const user = await this.find(id)
-
-    user.set(data)
-    await user.save()
-
-    return user.get()
+    return this.model.updateOne({ id }, data)
   }
 
   delete (id) {

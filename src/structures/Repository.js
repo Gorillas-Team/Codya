@@ -9,6 +9,31 @@ class Repository {
   }
 
   /**
+   * @param {string} id
+   * @returns {import('mongoose').Model}
+   */
+  async create (id) {}
+
+  /**
+   * @param {string} id
+   * @returns {import('mongoose').Model}
+   */
+  async find (id) {}
+
+  /**
+   * @param {string} id
+   * @param {object} data
+   * @returns {import('mongoose').Model}
+   */
+  async update (id, data) {}
+
+  /**
+   * @param {string} id
+   * @returns {import('mongoose').Model}
+   */
+  async delete (id) {}
+
+  /**
    * @returns {import('mongoose').Model}
    */
   get model () {

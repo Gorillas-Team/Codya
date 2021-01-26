@@ -17,6 +17,9 @@ class Codya extends Client {
   constructor (token, options) {
     super(token, options)
 
+    /**
+     * @type {{ users: import('./repositories/UserRepository'), guilds: import('./repositories/GuildRepository') }}
+     */
     this.repositories = {}
 
     /**
@@ -25,7 +28,7 @@ class Codya extends Client {
     this.lavalink = null
 
     /**
-     * @type {object}
+     * @type {{ users: import('./controllers/UserController'), fish: import('./controllers/economy/FishController'), economy: import('./controllers/economy/EconomyController') }}
      */
     this.controllers = {}
 
