@@ -1,5 +1,5 @@
-const { Controller } = require('@Codya/structures')
-const { CodeUtils } = require('@Codya/utils')
+const { Controller } = require('@Kong/structures')
+const { CodeUtils } = require('@Kong/utils')
 const { works } = require('../../../assets')
 
 class EconomyController extends Controller {

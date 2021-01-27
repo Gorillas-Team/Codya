@@ -1,5 +1,5 @@
-const { Command, CodyaError, CodyaEmbed } = require('@Codya/structures')
-const { TimeUtils, CodeUtils } = require('@Codya/utils')
+const { Command, KongError, KongEmbed } = require('@Kong/structures')
+const { TimeUtils, CodeUtils } = require('@Kong/utils')
 
 class FishCommand extends Command {
   constructor (client) {
@@ -17,13 +17,13 @@ class FishCommand extends Command {
       const user = await this.client.repositories.users.find(ctx.author.id)
       const parsedTime = TimeUtils.compareTime(user.cooldown.fish)
 
-      throw new CodyaError(`Faltam \`${parsedTime}\` para pescar novamente.`)
+      throw new KongError(`Faltam \`${parsedTime}\` para pescar novamente.`)
     }
 
     const { price, claimedFish } = await fish.claimFish(ctx.author)
 
-    const embed = new CodyaEmbed()
-      .setTitle('CODYA PESCAS')
+    const embed = new KongEmbed()
+      .setTitle(`${this.client.getEmoji('fish')} | Pescaria`)
       .setDescriptionFromArray([
         `Peixe: \`${claimedFish.name}\``,
         `Raridade: \`${CodeUtils.capitalize(claimedFish.rarity)}\``,

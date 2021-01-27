@@ -1,4 +1,4 @@
-const { Command, CodyaError } = require('@Codya/structures')
+const { Command, KongError } = require('@Kong/structures')
 
 class PlaylistCreateCommand extends Command {
   constructor (client) {
@@ -21,7 +21,7 @@ class PlaylistCreateCommand extends Command {
     const { users } = this.client.controllers
 
     if (await users.hasPlaylistWithSameName(ctx.author, name)) {
-      throw new CodyaError('Você já possui uma playlist com este nome.')
+      throw new KongError('Você já possui uma playlist com este nome.')
     }
 
     const playlist = await users.createPlaylist(ctx.author, name)

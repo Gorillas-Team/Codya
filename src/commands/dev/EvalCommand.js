@@ -1,5 +1,5 @@
-const { Command, CodyaError } = require('@Codya/structures')
-const { CodeUtils } = require('@Codya/utils')
+const { Command, KongError } = require('@Kong/structures')
+const { CodeUtils } = require('@Kong/utils')
 const { inspect } = require('util')
 
 const fetch = require('node-fetch')
@@ -51,7 +51,7 @@ class EvalCommand extends Command {
 
       await channel.createMessage(client.getEmoji('code') + ' | Resultado:```js\n' + CodeUtils.clean(code.replace(new RegExp(client.token), 'ss')) + '\n```')
     } catch (e) {
-      throw new CodyaError('Erro:```js\n' + e.message + '\n```')
+      throw new KongError('Erro:```js\n' + e.message + '\n```')
     }
   }
 }

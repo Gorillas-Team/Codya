@@ -34,11 +34,11 @@
     "nodemon": "^2.0.4"
   },
   "_moduleAliases": {
-    "@Codya/audio": "./src/audio",
-    "@Codya/loaders": "./src/loaders",
-    "@Codya/structures": "./src/structures",
-    "@Codya/utils": "./src/utils",
-    "@Codya/database": "./src/database"
+    "@Kong/audio": "./src/audio",
+    "@Kong/loaders": "./src/loaders",
+    "@Kong/structures": "./src/structures",
+    "@Kong/utils": "./src/utils",
+    "@Kong/database": "./src/database"
   },
   "license": "BSD"
 }

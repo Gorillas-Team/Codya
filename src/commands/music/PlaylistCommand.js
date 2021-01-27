@@ -1,4 +1,4 @@
-const { Command } = require('@Codya/structures')
+const { Command } = require('@Kong/structures')
 
 class PlaylistCommand extends Command {
   constructor (client) {

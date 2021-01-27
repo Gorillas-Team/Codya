@@ -1,4 +1,4 @@
-const { Command } = require('@Codya/structures')
+const { Command } = require('@Kong/structures')
 
 class MoneyCommand extends Command {
   constructor (client) {
@@ -11,7 +11,7 @@ class MoneyCommand extends Command {
   async run (ctx, user) {
     const document = await this.client.repositories.users.find(user.id)
 
-    return ctx.sendMessage(`CodyaCoins de ${user.username}: ${document.money}`, 'balance')
+    return ctx.sendMessage(`KongCoins de ${user.username}: ${document.money}`, 'balance')
   }
 }
 

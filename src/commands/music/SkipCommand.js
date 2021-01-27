@@ -1,5 +1,5 @@
-const { Command } = require('@Codya/structures')
-const { CodyaError } = require('@Codya/structures/command')
+const { Command } = require('@Kong/structures')
+const { KongError } = require('@Kong/structures/command')
 
 class SkipCommand extends Command {
   constructor (client) {
@@ -9,7 +9,7 @@ class SkipCommand extends Command {
   }
 
   async run (ctx) {
-    if (!ctx.guild.music) throw new CodyaError('n tem player')
+    if (!ctx.guild.music) throw new KongError('n tem player')
 
     await ctx.guild.music.stop()
     ctx.sendMessage('skip?')

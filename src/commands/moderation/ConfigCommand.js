@@ -1,4 +1,4 @@
-const { Command, CodyaEmbed } = require('@Codya/structures')
+const { Command, KongEmbed } = require('@Kong/structures')
 
 class ConfigCommand extends Command {
   constructor (client) {
@@ -16,7 +16,7 @@ class ConfigCommand extends Command {
 
     const logsChannel = data.channels.logs ? this.client.getChannel(data.channels.logs).mention : 'Nenhum'
 
-    const embed = new CodyaEmbed()
+    const embed = new KongEmbed()
       .setColor(0x0ED4DA)
       .setAuthor(`Central de configurações - ${ctx.guild.name}`, ctx.guild.iconURL)
       .addFields([

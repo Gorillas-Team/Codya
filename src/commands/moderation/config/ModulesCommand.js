@@ -1,5 +1,5 @@
-const { Command, CodyaEmbed, CodyaError } = require('@Codya/structures')
-const { Constants: { bitfields }, BitField } = require('@Codya/utils')
+const { Command, KongEmbed, KongError } = require('@Kong/structures')
+const { Constants: { bitfields }, BitField } = require('@Kong/utils')
 
 const capitalize = (text) => text && (text[0].toUpperCase() + text.slice(1))
 const toLowerCase = (text) => text.toLowerCase()
@@ -36,7 +36,7 @@ class ModulesCommand extends Command {
       const enabledModules = this.getModules(bitField) || 'Nenhum'
       const disabledModules = this.getModules(bitField, false) || 'Nenhum'
 
-      const embed = new CodyaEmbed()
+      const embed = new KongEmbed()
         .setAuthor(`Módulos - ${ctx.guild.name}`, ctx.guild.iconURL)
         .addField(`${this.client.getEmoji('on')} | Habilitados:`, enabledModules)
         .addField(`${this.client.getEmoji('off')} | Desabilitados:`, disabledModules)
@@ -46,7 +46,7 @@ class ModulesCommand extends Command {
     }
 
     const mod = this.findModule(moduleName)
-    if (!mod.fetchedModule) throw new CodyaError(`Módulo inexistente: \`${MODULES.map(capitalize).join('`, `')}\`.`)
+    if (!mod.fetchedModule) throw new KongError(`Módulo inexistente: \`${MODULES.map(capitalize).join('`, `')}\`.`)
 
     const modStatus = bitField.has(mod.fetchedModule)
     modStatus ? bitField.remove(mod.fetchedModule) : bitField.add(mod.fetchedModule)

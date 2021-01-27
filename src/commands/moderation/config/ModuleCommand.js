@@ -1,5 +1,5 @@
-const { Command, CodyaEmbed, CodyaError } = require('@Codya/structures')
-const { BitField, Constants: { bitfields: { settings } } } = require('@Codya/utils')
+const { Command, KongEmbed, KongError } = require('@Kong/structures')
+const { BitField, Constants: { bitfields: { settings } } } = require('@Kong/utils')
 
 const capitalize = (text) => text && (text[0].toUpperCase() + text.slice(1))
 const mapSettings = (setting) => Object.keys(setting).map(capitalize).join('\n')
@@ -23,7 +23,7 @@ class ModuleCommand extends Command {
   }
 
   async run (ctx, moduleName, setting) {
-    const embed = new CodyaEmbed()
+    const embed = new KongEmbed()
     if (!moduleName) {
       embed.setAuthor('Configurações dos módulos')
         .setColor(0xED4DA)
@@ -37,7 +37,7 @@ class ModuleCommand extends Command {
     const data = await this.client.repositories.guilds.find(ctx.guild.id)
     const moduleSetting = this.findModuleAndSetting(moduleName, setting)
 
-    if (!moduleSetting) throw new CodyaError('Essa configuração ou módulo não existe.')
+    if (!moduleSetting) throw new KongError('Essa configuração ou módulo não existe.')
 
     const dataSetting = data.settings[moduleName]
 

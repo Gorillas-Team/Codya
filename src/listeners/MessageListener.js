@@ -1,5 +1,5 @@
-const { CommandContext, Listener } = require('@Codya/structures')
-const { CommandUtils } = require('@Codya/utils')
+const { CommandContext, Listener } = require('@Kong/structures')
+const { CommandUtils } = require('@Kong/utils')
 
 class MessageListener extends Listener {
   constructor (client) {

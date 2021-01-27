@@ -1,4 +1,4 @@
-const { CodyaError } = require('../../command/')
+const { KongError } = require('../../command/')
 const Argument = require('../Argument')
 
 class UserArgument extends Argument {
@@ -24,7 +24,7 @@ class UserArgument extends Argument {
       user = this.isMember ? this.findMember(context, args) : await this.findUser(context, args)
 
       if (!user) this.missing = true
-      if (!this.canBeAuthor && user === context.author) throw new CodyaError('O usuário não pode ser você mesmo.')
+      if (!this.canBeAuthor && user === context.author) throw new KongError('O usuário não pode ser você mesmo.')
     } else {
       user = this.canBeAuthor ? this.isMember ? context.member : context.author : this.missing = true
     }

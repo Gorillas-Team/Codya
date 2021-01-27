@@ -1,5 +1,5 @@
-const { Command, CodyaError } = require('@Codya/structures')
-const { TimeUtils } = require('@Codya/utils')
+const { Command, KongError } = require('@Kong/structures')
+const { TimeUtils } = require('@Kong/utils')
 
 class DailyCommand extends Command {
   constructor (client) {
@@ -14,12 +14,12 @@ class DailyCommand extends Command {
 
     if (await economy.isInDailyCooldown(ctx.author)) {
       const parsedTime = TimeUtils.compareTime(user.cooldown.daily)
-      throw new CodyaError(`Faltam \`${parsedTime}\` para coletar seu daily novamente.`)
+      throw new KongError(`Faltam \`${parsedTime}\` para coletar seu daily novamente.`)
     }
 
     const amount = await economy.claimDaily(ctx.author)
 
-    return ctx.sendMessage(`Você conseguiu ${amount} CodyaCoins`, 'balance')
+    return ctx.sendMessage(`Você conseguiu ${amount} KongCoins`, 'balance')
   }
 }
 

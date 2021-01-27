@@ -1,5 +1,5 @@
-const { Loader } = require('@Codya/structures')
-const { FileUtils } = require('@Codya/utils')
+const { Loader } = require('@Kong/structures')
+const { FileUtils } = require('@Kong/utils')
 
 const { model: registerModel } = require('mongoose')
 

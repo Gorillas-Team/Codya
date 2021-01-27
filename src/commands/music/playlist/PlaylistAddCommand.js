@@ -1,4 +1,4 @@
-const { Command, CodyaError } = require('@Codya/structures')
+const { Command, KongError } = require('@Kong/structures')
 const { LoadType } = require('lavacord')
 
 class PlaylistAddCommand extends Command {
@@ -34,13 +34,13 @@ class PlaylistAddCommand extends Command {
 
   async run (ctx, name, song) {
     const { playlist } = await this.client.controllers.users.findPlaylist(ctx.author, name)
-    if (!playlist) throw new CodyaError('Essa playlist não existe.')
+    if (!playlist) throw new KongError('Essa playlist não existe.')
 
-    if (playlist.tracks.length >= 250) throw new CodyaError('Sua playlist está cheia.')
+    if (playlist.tracks.length >= 250) throw new KongError('Sua playlist está cheia.')
 
     const { loadType, tracks, playlistInfo } = await this.client.lavalink.fetchTracks(song, ctx.author)
 
-    if (loadType === LoadType.NO_MATCHES) throw new CodyaError('Nenhum resultado encontrado.')
+    if (loadType === LoadType.NO_MATCHES) throw new KongError('Nenhum resultado encontrado.')
 
     if (loadType === LoadType.PLAYLIST_LOADED) {
       const sliceTracks = tracks.slice(0, 250)

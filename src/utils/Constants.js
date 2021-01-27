@@ -1,5 +1,6 @@
 exports.emojis = {
   bye: '👋',
+  fish: '🎣',
   picture: '🖼️',
   satellite: '📡',
   right: '✅',

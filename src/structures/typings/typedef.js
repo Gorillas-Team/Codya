@@ -2,7 +2,7 @@
  * @typedef ListenerOptions
  * @property {string} name
  * @property {boolean} [once=false]
- * @property {Codya | import('../../Codya')} [client]
+ * @property {Kong | import('../../Kong')} [client]
  */
 
 /**

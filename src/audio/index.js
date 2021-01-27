@@ -1,5 +1,5 @@
 module.exports = {
-  CodyaPlayer: require('./CodyaPlayer'),
-  CodyaManager: require('./CodyaManager'),
+  KongPlayer: require('./KongPlayer'),
+  KongManager: require('./KongManager'),
   Playlist: require('./model/Playlist')
 }
