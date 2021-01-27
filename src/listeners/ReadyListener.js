@@ -1,5 +1,5 @@
-const { Listener } = require('@Codya/structures')
-const { CodyaManager, CodyaPlayer } = require('@Codya/audio')
+const { Listener } = require('@Kong/structures')
+const { KongManager, KongPlayer } = require('@Kong/audio')
 
 class ReadyListener extends Listener {
   constructor (client) {
@@ -10,8 +10,8 @@ class ReadyListener extends Listener {
   }
 
   run () {
-    this.client.lavalink = new CodyaManager(this.client, this.client.config.nodes, {
-      player: CodyaPlayer
+    this.client.lavalink = new KongManager(this.client, this.client.config.nodes, {
+      player: KongPlayer
     })
 
     this.client.lavalink.connect().then(() => {
@@ -20,7 +20,7 @@ class ReadyListener extends Listener {
       this.client.logger.closeGroup()
     }).catch()
 
-    this.client.logger.log('[CODYA] Codya started with success.')
+    this.client.logger.log('[Kong] Kong started with success.')
   }
 }
 

@@ -1,9 +1,9 @@
 /**
- * @name CodyaEmbed
+ * @name KongEmbed
  * @constructor
  */
 
-class CodyaEmbed {
+class KongEmbed {
   /**
    * @param {import('eris').User} user
    * @returns {string}
@@ -28,7 +28,7 @@ class CodyaEmbed {
    * @param {string} name
    * @param {string} value
    * @param {boolean} [inline=false]
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   addField (name, value, inline = false) {
     this.fields.push({ name, value, inline })
@@ -37,7 +37,7 @@ class CodyaEmbed {
 
   /**
    * @param {...({ name:string|number, value:string|number, inline:boolean = false})} fields
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   addFields (...fields) {
     const resolve = ({ name, value, inline }) => (this.addField(name, value, inline))
@@ -50,7 +50,7 @@ class CodyaEmbed {
    * @param {string} name
    * @param {string} [iconURL]
    * @param {string} [url]
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   setAuthor (name, iconURL, url) {
     this.author = { name, icon_url: iconURL, url }
@@ -59,7 +59,7 @@ class CodyaEmbed {
 
   /**
    * @param {number} color
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   setColor (color) {
     this.color = color
@@ -67,29 +67,18 @@ class CodyaEmbed {
   }
 
   /**
-   * @param {string} description
-   * @returns {CodyaEmbed}
+   * @param {string[]} description
+   * @returns {KongEmbed}
    */
-  setDescription (description) {
-    this.description = description
-    return this
-  }
-
-  /**
-   * @param {string[]} array
-   * @returns {CodyaEmbed}
-   */
-  setDescriptionFromArray (array) {
-    const string = array.join('\n')
-
-    this.setDescription(string)
+  setDescription (...description) {
+    this.description = description.join('\n')
     return this
   }
 
   /**
    * @param {string} text
    * @param {string} [iconURL]
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   setFooter (text, iconURL) {
     this.footer = { text, iconURL }
@@ -98,7 +87,7 @@ class CodyaEmbed {
 
   /**
    * @param {string} url
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   setImage (url) {
     this.image = { url }
@@ -107,7 +96,7 @@ class CodyaEmbed {
 
   /**
    * @param {string} url
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   setThumbnail (url) {
     this.thumbnail = { url }
@@ -116,7 +105,7 @@ class CodyaEmbed {
 
   /**
    * @param {Date|number} [timestamp]
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   setTimestamp (timestamp = Date.now()) {
     this.timestamp = new Date(timestamp)
@@ -125,7 +114,7 @@ class CodyaEmbed {
 
   /**
    * @param {string} title
-   * @returns {CodyaEmbed}
+   * @returns {KongEmbed}
    */
   setTitle (title) {
     this.title = title
@@ -137,4 +126,4 @@ class CodyaEmbed {
   }
 }
 
-module.exports = CodyaEmbed
+module.exports = KongEmbed

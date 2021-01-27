@@ -1,4 +1,4 @@
-const { Listener } = require('@Codya/structures')
+const { Listener } = require('@Kong/structures')
 
 class MessageUpdateListener extends Listener {
   constructor (client) {

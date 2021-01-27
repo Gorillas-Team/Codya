@@ -5,7 +5,7 @@
  */
 class Loader {
   /**
-   * @param {import('../Codya')} client
+   * @param {import('../Kong')} client
    */
   constructor (client) {
     this.client = client

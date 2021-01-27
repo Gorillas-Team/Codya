@@ -32,7 +32,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: zmigueel/codya
+        repository: zmigueel/kong
         tag_with_ref: true
 
   deploy:
@@ -49,9 +49,9 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          docker stop codya
-          docker rm codya
-          docker pull zmigueel/codya:latest
-          docker run --name codya --env-file ~/codya.env --restart unless-stopped -d zmigueel/codya:latest
+          docker stop kong
+          docker rm kong
+          docker pull zmigueel/kong:latest
+          docker run --name kong --env-file ~/kong.env --restart unless-stopped -d zmigueel/kong:latest
           docker system prune -a -f
 

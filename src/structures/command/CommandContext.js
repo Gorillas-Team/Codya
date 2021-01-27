@@ -1,4 +1,4 @@
-const CodyaEmbed = require('./CodyaEmbed')
+const KongEmbed = require('./KongEmbed')
 
 /**
  * @name CommandContext
@@ -7,7 +7,7 @@ const CodyaEmbed = require('./CodyaEmbed')
 class CommandContext {
   /**
    * @param {import('eris').Message} message
-   * @param {import('../../Codya')} client
+   * @param {import('../../Kong')} client
    * @param {string[]} args
    * @param {string} cmd
    * @param {string} prefix
@@ -26,12 +26,12 @@ class CommandContext {
   }
 
   /**
-   * @param {string | import('./CodyaEmbed')} message
+   * @param {string | import('./KongEmbed')} message
    * @param {string} emoji
    * @returns {Promise<import('eris').Message<import('eris').TextableChannel>>}
    */
   sendMessage (message, emoji = 'star') {
-    if (!(message instanceof CodyaEmbed)) {
+    if (!(message instanceof KongEmbed)) {
       const baseMessage = `${this.client.getEmoji(emoji)} | ${message}`
       return this.client.createMessage(this.channel.id, baseMessage)
     }

@@ -1,7 +1,7 @@
 class Repository {
   constructor (options, client) {
     /**
-     * @type {import('../Codya') | Codya}
+     * @type {import('../Kong')}
      */
     this.client = client
     this.name = options.name

@@ -1,4 +1,4 @@
-const { Command, CodyaError } = require('@Codya/structures')
+const { Command, KongError } = require('@Kong/structures')
 
 class PlaylistPlayCommand extends Command {
   constructor (client) {
@@ -20,24 +20,24 @@ class PlaylistPlayCommand extends Command {
   async run (ctx, name) {
     const memberState = ctx.member.voiceState
     if (!memberState.channelID) {
-      throw new CodyaError('Você precisa estar em um canal de voz para executar este comando.')
+      throw new KongError('Você precisa estar em um canal de voz para executar este comando.')
     }
 
     const selfState = ctx.selfMember.voiceState
 
     if (selfState.channelID && memberState.channelID !== selfState.channelID) {
-      throw new CodyaError('Você precisa estar no mesmo canal que eu.')
+      throw new KongError('Você precisa estar no mesmo canal que eu.')
     }
 
     const { playlist } = await this.client.controllers.users.findPlaylist(ctx.author, name)
-    if (!playlist) throw new CodyaError('Essa playlist não existe.')
+    if (!playlist) throw new KongError('Essa playlist não existe.')
 
-    if (playlist.tracks.length <= 0) throw new CodyaError(`Sua playlist não tem músicas, utilize o comando \`${ctx.prefix}playlist add\` para adicionar.`)
+    if (playlist.tracks.length <= 0) throw new KongError(`Sua playlist não tem músicas, utilize o comando \`${ctx.prefix}playlist add\` para adicionar.`)
 
     const bestNode = await this.client.lavalink.idealNodes[0]
 
     if (!bestNode) {
-      throw new CodyaError('Não há nodes disponíveis.')
+      throw new KongError('Não há nodes disponíveis.')
     }
 
     const player = await this.client.lavalink.join({
@@ -46,11 +46,11 @@ class PlaylistPlayCommand extends Command {
       guild: ctx.message.guildID
     }).catch(err => {
       this.client.logger.error(err)
-      throw new CodyaError('Um erro ocorreu ao criar o player.')
+      throw new KongError('Um erro ocorreu ao criar o player.')
     })
 
     if (player.queue.length >= 250) {
-      throw new CodyaError('A fila está cheia.')
+      throw new KongError('A fila está cheia.')
     }
 
     player.setContext(ctx)

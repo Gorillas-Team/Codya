@@ -1,6 +1,6 @@
-const { Controller } = require('@Codya/structures')
-const { Playlist } = require('@Codya/audio')
-const { CooldownManager } = require('@Codya/utils')
+const { Controller } = require('@Kong/structures')
+const { Playlist } = require('@Kong/audio')
+const { CooldownManager } = require('@Kong/utils')
 
 const generateXp = () => Math.floor(Math.random() * 3) + 2
 

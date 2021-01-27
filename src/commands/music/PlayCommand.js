@@ -1,4 +1,4 @@
-const { Command, CodyaError } = require('@Codya/structures')
+const { Command, KongError } = require('@Kong/structures')
 const { LoadType } = require('lavacord')
 
 class PlayCommand extends Command {
@@ -28,19 +28,19 @@ class PlayCommand extends Command {
   async run (ctx, song) {
     const memberState = ctx.member.voiceState
     if (!memberState.channelID) {
-      throw new CodyaError('Você precisa estar em um canal de voz para executar este comando.')
+      throw new KongError('Você precisa estar em um canal de voz para executar este comando.')
     }
 
     const selfState = ctx.selfMember.voiceState
 
     if (selfState.channelID && memberState.channelID !== selfState.channelID) {
-      throw new CodyaError('Você precisa estar no mesmo canal que eu.')
+      throw new KongError('Você precisa estar no mesmo canal que eu.')
     }
 
     const bestNode = await this.client.lavalink.idealNodes[0]
 
     if (!bestNode) {
-      throw new CodyaError('Não há nodes disponíveis.')
+      throw new KongError('Não há nodes disponíveis.')
     }
 
     const player = await this.client.lavalink.join({
@@ -49,19 +49,19 @@ class PlayCommand extends Command {
       guild: ctx.message.guildID
     }).catch(err => {
       this.client.logger.error(err)
-      throw new CodyaError('Um erro ocorreu ao criar o player.')
+      throw new KongError('Um erro ocorreu ao criar o player.')
     })
 
     player.setContext(ctx)
     ctx.guild.music = player
 
     if (player.queue.length >= 250) {
-      throw new CodyaError('A fila está cheia.')
+      throw new KongError('A fila está cheia.')
     }
 
     const { loadType, tracks, playlistInfo: { name } } = await this.client.lavalink.fetchTracks(song, ctx.author)
 
-    if (loadType === LoadType.NO_MATCHES) throw new CodyaError('Nenhum resultado encontrado.')
+    if (loadType === LoadType.NO_MATCHES) throw new KongError('Nenhum resultado encontrado.')
 
     if (loadType === LoadType.PLAYLIST_LOADED) {
       for (const track of tracks.slice(0, 250)) {

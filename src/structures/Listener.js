@@ -1,7 +1,7 @@
 class Listener {
   /**
    * @param {import('./typings/typedef').ListenerOptions} options
-   * @param {import('../Codya')} client
+   * @param {import('../Kong')} client
    */
   constructor (options, client) {
     this.name = options.name

@@ -1,4 +1,4 @@
-const { Repository } = require('@Codya/structures')
+const { Repository } = require('@Kong/structures')
 
 class GuildRepository extends Repository {
   constructor (client) {

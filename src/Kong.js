@@ -1,15 +1,15 @@
 const { Client, Collection } = require('eris')
-const { Constants } = require('@Codya/utils')
-const { Command, Logger } = require('@Codya/structures')
-const { Database } = require('@Codya/database')
+const { Constants } = require('@Kong/utils')
+const { Command, Logger } = require('@Kong/structures')
+const { Database } = require('@Kong/database')
 
-const Loaders = require('@Codya/loaders')
+const Loaders = require('@Kong/loaders')
 
 /**
- * @name Codya
+ * @name Kong
  * @class-
  */
-class Codya extends Client {
+class Kong extends Client {
   /**
    * @param {string} token
    * @param {import('eris').ClientOptions} options
@@ -23,7 +23,7 @@ class Codya extends Client {
     this.repositories = {}
 
     /**
-     * @type {import('./audio/CodyaManager')}
+     * @type {import('./audio/KongManager')}
      */
     this.lavalink = null
 
@@ -86,4 +86,4 @@ class Codya extends Client {
   }
 }
 
-module.exports = Codya
+module.exports = Kong

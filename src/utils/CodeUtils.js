@@ -26,10 +26,10 @@ class CodeUtils {
    * @returns {string}
    */
   static resolvePrefix (prefix) {
-    const isEqualsCodya = p => p === 'codya'
+    const isEqualsKong = p => p === 'Kong'
     const isMention = p => /<@!?\d+>/.test(p)
 
-    return isEqualsCodya(prefix) ? (prefix + ' ') : isMention(prefix) ? ('@Codya ') : prefix
+    return isEqualsKong(prefix) ? (prefix + ' ') : isMention(prefix) ? ('@Kong ') : prefix
   }
 
   /**

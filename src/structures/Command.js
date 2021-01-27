@@ -1,9 +1,9 @@
-const { CooldownManager, PermissionUtils } = require('@Codya/utils')
-const { CodyaError } = require('./command/')
+const { CooldownManager, PermissionUtils } = require('@Kong/utils')
+const { KongError } = require('./command/')
 const ParameterTypes = require('./arguments/impl')
 class Command {
   /**
-   * @param {import('../Codya')} client
+   * @param {import('../Kong')} client
    * @param {import('./typings/typedef').CommandOptions} options
    */
   constructor (client, options) {
@@ -99,11 +99,11 @@ class Command {
       const parsed = await argument.parse(ctx, rawArgs)
 
       if (argument.required && argument.missing) {
-        throw new CodyaError(argument.messages.missing)
+        throw new KongError(argument.messages.missing)
       }
 
       if (argument.required && argument.invalid) {
-        throw new CodyaError(argument.messages.invalid)
+        throw new KongError(argument.messages.invalid)
       }
 
       parsedArgs.push(parsed[0])
@@ -124,7 +124,7 @@ class Command {
   run (ctx, args) {}
 
   error (context, error) {
-    if (error instanceof CodyaError) {
+    if (error instanceof KongError) {
       return context.sendMessage(error.message, 'error')
     }
 

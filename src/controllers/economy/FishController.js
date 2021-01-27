@@ -1,6 +1,6 @@
 const { fishs } = require('../../../assets')
-const { Constants: { fishChances, fishPrices } } = require('@Codya/utils')
-const { Controller, CodyaError } = require('@Codya/structures')
+const { Constants: { fishChances, fishPrices } } = require('@Kong/utils')
+const { Controller, KongError } = require('@Kong/structures')
 
 class FishController extends Controller {
   constructor (client) {
@@ -12,7 +12,7 @@ class FishController extends Controller {
 
   async claimFish (user) {
     const fish = this.getFish()
-    if (!fish) throw new CodyaError('Infelizmente nenhum peixe foi encontrado, tente novamente.')
+    if (!fish) throw new KongError('Infelizmente nenhum peixe foi encontrado, tente novamente.')
 
     const data = await this.repository.find(user.id)
     const price = fishPrices[fish.rarity]

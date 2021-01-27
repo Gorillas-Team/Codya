@@ -1,4 +1,4 @@
-class CodyaError extends Error {
+class KongError extends Error {
   /**
    * @param {string} message
    * @param {boolean} embed
@@ -10,4 +10,4 @@ class CodyaError extends Error {
   }
 }
 
-module.exports = CodyaError
+module.exports = KongError

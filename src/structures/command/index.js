@@ -1,4 +1,4 @@
 module.exports = {
-  CodyaError: require('./CodyaError'),
+  KongError: require('./KongError'),
   CommandContext: require('./CommandContext')
 }
