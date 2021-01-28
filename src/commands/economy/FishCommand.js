@@ -24,11 +24,11 @@ class FishCommand extends Command {
 
     const embed = new KongEmbed()
       .setTitle(`${this.client.getEmoji('fish')} | Pescaria`)
-      .setDescriptionFromArray([
+      .setDescription(
         `Peixe: \`${claimedFish.name}\``,
         `Raridade: \`${CodeUtils.capitalize(claimedFish.rarity)}\``,
         `Preço: \`${price}\``
-      ])
+      )
       .setColor(0xff7700)
       .setThumbnail(claimedFish.image)
 
